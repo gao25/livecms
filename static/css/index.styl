@@ -41,9 +41,9 @@ body
           top 55px
           left 50%
           margin-left -15px
-          border-bottom 15px solid #fff
-          border-left 15px solid transparent
-          border-right 15px solid transparent
+          border solid 15px #fff
+          border-color transparent transparent #fff
+          border-top none
     em
       display inline-block
       font-size 16px
@@ -77,17 +77,21 @@ body
   width 270px
   background-color #323a4d
   color #f3f3f3
+  overflow auto
   .user
-    width 265px
-    height 190px
-    margin-left 5px
-    border-bottom 1px solid #1b2436
-    img
-      width 65px
-      margin-left 102px
-      margin-top 50px
+    height 140px
+    padding-top 50px
+    .headpic
+      margin auto
+      width 60px
+      height 60px
+      border-radius 50%
+      overflow hidden
+      img
+        display block
+        width 100%
     .uname
-      font-family 'Arial'
+      font-family Arial
       font-size 12px
       display block
       text-align center
@@ -101,15 +105,42 @@ body
         border-radius 50%
         background #0fc19a
   ul
-    background-color #323a4d
-  li
-    width 265px
-    height 70px
-    line-height 70px
-    margin-left 5px
-    text-align center
-    font-size 16px
     border-bottom 1px solid #1b2436
+  li
+    position relative
+    height 70px
+    border-top 1px solid #1b2436
+    a
+      display block
+      line-height 70px
+      text-align center
+      font-size 16px
+      color #f3f3f3
+      em.line
+        position absolute
+        left 0
+        top -1px
+        width 8px
+        height 71px
+        background-color #323a4d
+        overflow hidden
+      em.arrow
+        display none
+      &.current
+        color #fff
+        background-color #2b3245
+        em.line
+          border-left solid 2px #12bb9a
+          background-color #2b3245
+          width 6px
+        em.arrow
+          position absolute
+          display inline-block
+          left 2px
+          top 29px
+          border solid 6px #12bb9a
+          border-color transparent transparent transparent #12bb9a
+
 
 .lvs-iframe
   position absolute
