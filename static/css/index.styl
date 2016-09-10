@@ -1,0 +1,109 @@
+/* live cms */
+body
+  font-family 'SimSun'
+
+/* 顶部 */
+.lvs-head
+  position absolute
+  top 0
+  left 0
+  right 0
+  height 100px
+  background-color #2a3345
+  color #f3f3f3
+  overflow hidden
+  .logo
+    float left
+    width 270px
+    height 100%
+    border-right 2px solid #1b2436
+  .nav
+    float left
+    height 100%
+    ul
+      list-style none
+      display inline-block
+      height 100px
+      padding-left:100px
+      li
+        float left
+        display inline-block
+        font-size 16px
+        line-height 100px
+        text-align center
+        &:after
+          content '/'
+          margin 0 40px
+        &:last-child:after
+          content ''
+          margin 0
+  .user
+    float right
+    height 100px
+    line-height 100px
+    margin 0 60px
+    img
+      width 40px
+      border-radius 50%
+      vertical-align middle
+      margin-right 15px
+    .uname
+      font-size 14px
+      margin-right 25px
+    .uset, .uquit
+      font-size 12px
+
+.lvs-nav
+  position absolute
+  left 0
+  top 100px
+  bottom 0
+  width 270px
+  background-color #323b4d
+  color #f3f3f3
+  .user
+    width 265px
+    height 190px
+    margin-left 5px
+    border-bottom 2px solid #1b2436
+    img
+      width 65px
+      margin-left 102px
+      margin-top 50px
+    .uname
+      font-family 'Arial'
+      font-size 12px
+      display block
+      text-align center
+      margin-top 10px
+      &:before
+        content ''
+        display inline-block
+        width 10px
+        height 10px
+        margin-right 5px
+        border-radius 50%
+        background #0fc19a
+  ul
+    background-color #323b4d
+  li
+    width 265px
+    height 70px
+    line-height 70px
+    margin-left 5px
+    text-align center
+    font-size 16px
+    border-bottom 2px solid #1b2436
+
+.lvs-iframe
+  position absolute
+  left 270px
+  top 100px
+  right 0
+  bottom 0
+  iframe
+    display block
+    width 100%
+    height 100%
+
+
