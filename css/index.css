@@ -1,0 +1,102 @@
+.wrap{
+	width: 100%;
+	min-width: 985px;
+	font-family: 'SimSun';
+	color: #f3f3f3;
+}
+.head{
+	width:100%;
+	height:100px;
+	background: #2a3345;
+}
+.logo{
+	float: left;
+	width: 270px;
+	height: 100%;
+	border-right: 2px solid #1b2436;
+}
+.head-top{
+	float: left;
+	height: 100%;
+}
+.head-top ul{
+	list-style: none;
+	display: inline-block;
+	height: 100px;
+	padding-left:100px;
+}
+.head-top ul li{
+	float:left;
+	display: inline-block;
+	font-size: 16px;
+	line-height: 100px;
+	text-align: center;
+}
+.head-top ul li:after{
+	content: '/';
+	margin: 0 40px;
+}
+.head-top ul li:last-child:after{
+	content: '';
+	margin: 0;
+}
+.user-top{
+	float: right;
+	height: 100px;
+	line-height: 100px;
+	margin: 0 60px;
+}
+.user-top img{
+	width: 40px;
+	border-radius: 50%;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+.user-top-name{
+	font-size: 14px;
+	margin-right: 25px;
+}
+.set,.quit{
+	font-size: 12px;
+}
+.head-left{
+	width: 270px;
+	height: 100%;
+	background: #323b4d;
+}
+.user-left{
+	width: 265px;
+	height: 190px;
+	margin-left: 5px;
+	border-bottom: 2px solid #1b2436;
+}
+.user-left img{
+	width: 65px;
+	margin-left: 102px;
+	margin-top: 50px;
+}
+.user-left-name{
+	font-family: 'Arial';
+	font-size: 12px;
+	display: block;
+	text-align: center;
+	margin-top: 10px;
+}
+.user-left-name:before{
+	content: '';
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin-right: 5px;
+	border-radius: 50%;
+	background: #0fc19a;
+}
+.head-left ul li{
+	width: 265px;
+	height: 70px;
+	line-height: 70px;
+	margin-left: 5px;
+	text-align: center;
+	font-size: 16px;
+	border-bottom: 2px solid #1b2436;
+}
