@@ -5,17 +5,17 @@
 	<title>现场管理 － 待签报道 － 列表</title>
 	<link rel="stylesheet" type="text/css" href="http://static.xinhuaapp.com/css/base.css">
 	<link rel="stylesheet" href="http://static.xinhuaapp.com/css/datetimepicker.min.css" />
-	<link rel="stylesheet" type="text/css" href="/static/css/lvsList.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/lvslist.css">
 	<script src="http://static.xinhuaapp.com/js/jquery-1.11.0-min.js"></script>
 	<script src="http://static.xinhuaapp.com/js/datetimepicker.min.js"></script>
-	<script src="/static/js/lvsList.js"></script>
+	<script src="/static/js/lvslist.js"></script>
 </head>
 <body style="overflow:scroll">
-<div class="fn-clear">
-	<div class="lvs-search fn-clear">
+<div class="lvslist-head fn-clear">
+	<div class="lvs-search  fn-clear">
 		<form>
-			<input class="start-day datetime" type="text" name="startDay" readonly value="开始日期" />
-			<input class="end-day datetime" type="text" name="endDay" readonly value="结束日期" />
+			<input class="start-day datetime" type="text" name="startDay" value="开始日期" />
+			<input class="end-day datetime" type="text" name="endDay" value="结束日期" />
 			<select class="lvs-style">
 				<option>报道类型</option>
 				<option>图文</option>
@@ -37,7 +37,7 @@
 		  <img class="img" src="/static/img/live.png">
 		  <img class="play" src="/static/img/play.png">
 		  <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
-		  <span class="click-number">5556</span>
+		  <span class="lvs-id">5556</span>
 	  </div>
 	  <div class="lvs-message">
 		  <div>现场：<span>里约奥运会闭幕式</span></div>
@@ -48,10 +48,14 @@
       <div class="lvs-praise">点赞：<span>20</span></div>
 	  </div>
 	  <div class="detail-footer">
-		  <img src="/static/img/eye.png">
-		  <img src="/static/img/edit.png">
-		  <img src="/static/img/search.png">
-		  <img src="/static/img/comment_menu.png">
+		  <a href="#"><img src="/static/img/eye.png"></a>
+		  <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+		  <a href="#"><img src="/static/img/search.png"></a>
+		  <span class="more"><img src="/static/img/menu.png"></span>
+		  <div class="more-menu hide-menu">
+		  	<a class="lcolse" href="#">关闭</a>
+		    <a class="lconment" href="#">评论</a>
+		  </div>
 	  </div>
 	</div>
 
@@ -60,7 +64,7 @@
 		  <img class="img" src="/static/img/live.png">
 		  <img class="play" src="/static/img/play.png">
 		  <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
-		  <span class="click-number">5556</span>
+		  <span class="lvs-id">5556</span>
 	  </div>
 	  <div class="lvs-message">
 		  <div>现场：<span>里约奥运会闭幕式</span></div>
@@ -71,10 +75,10 @@
       <div class="lvs-praise">点赞：<span>20</span></div>
 	  </div>
 	  <div class="detail-footer">
-		  <img src="/static/img/eye.png">
-		  <img src="/static/img/edit.png">
-		  <img src="/static/img/search.png">
-		  <img src="/static/img/comment_menu.png">
+		  <a href="#"><img src="/static/img/eye.png"></a>
+		  <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+		  <a href="#"><img src="/static/img/search.png"></a>
+		  <a href="#"><img src="/static/img/menu.png"></a>
 	  </div>
 	</div>
 
@@ -83,7 +87,7 @@
 		  <img class="img" src="/static/img/live.png">
 		  <img class="play" src="/static/img/play.png">
 		  <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
-		  <span class="click-number">5556</span>
+		  <span class="lvs-id">5556</span>
 	  </div>
 	  <div class="lvs-message">
 		  <div>现场：<span>里约奥运会闭幕式</span></div>
@@ -94,10 +98,10 @@
       <div class="lvs-praise">点赞：<span>20</span></div>
 	  </div>
 	  <div class="detail-footer">
-		  <img src="/static/img/eye.png">
-		  <img src="/static/img/edit.png">
-		  <img src="/static/img/search.png">
-		  <img src="/static/img/comment_menu.png">
+		  <a href="#"><img src="/static/img/eye.png"></a>
+		  <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+		  <a href="#"><img src="/static/img/search.png"></a>
+		  <a href="#"><img src="/static/img/menu.png"></a>
 	  </div>
 	</div>
 
@@ -105,7 +109,7 @@
 	  <div class="lvs-img">
 		  <img class="img" src="/static/img/live.png">
 		  <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
-		  <span class="click-number">5556</span>
+		  <span class="lvs-id">5556</span>
 	  </div>
 	  <div class="lvs-message">
 		  <div>现场：<span>里约奥运会闭幕式</span></div>
@@ -116,10 +120,10 @@
       <div class="lvs-praise">点赞：<span>20</span></div>
 	  </div>
 	  <div class="detail-footer">
-		  <img src="/static/img/eye.png">
-		  <img src="/static/img/edit.png">
-		  <img src="/static/img/search.png">
-		  <img src="/static/img/comment_menu.png">
+		  <a href="#"><img src="/static/img/eye.png"></a>
+		  <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+		  <a href="#"><img src="/static/img/search.png"></a>
+		  <a href="#"><img src="/static/img/menu.png"></a>
 	  </div>
 	</div>
 
@@ -128,7 +132,7 @@
 		  <img class="img" src="/static/img/live.png">
 		  <img class="play" src="/static/img/play.png">
 		  <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
-		  <span class="click-number">5556</span>
+		  <span class="lvs-id">5556</span>
 	  </div>
 	  <div class="lvs-message">
 		  <div>现场：<span>里约奥运会闭幕式</span></div>
@@ -139,10 +143,10 @@
       <div class="lvs-praise">点赞：<span>20</span></div>
 	  </div>
 	  <div class="detail-footer">
-		  <img src="/static/img/eye.png">
-		  <img src="/static/img/edit.png">
-		  <img src="/static/img/search.png">
-		  <img src="/static/img/comment_menu.png">
+		  <a href="#"><img src="/static/img/eye.png"></a>
+		  <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+		  <a href="#"><img src="/static/img/search.png"></a>
+		  <a href="#"><img src="/static/img/menu.png"></a>
 	  </div>
 	</div>
 
@@ -150,7 +154,7 @@
 	  <div class="lvs-img">
 		  <img class="img" src="/static/img/live.png">
 		  <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
-		  <span class="click-number">5556</span>
+		  <span class="lvs-id">5556</span>
 	  </div>
 	  <div class="lvs-message">
 		  <div>现场：<span>里约奥运会闭幕式</span></div>
@@ -161,10 +165,10 @@
       <div class="lvs-praise">点赞：<span>20</span></div>
 	  </div>
 	  <div class="detail-footer">
-		  <img src="/static/img/eye.png">
-		  <img src="/static/img/edit.png">
-		  <img src="/static/img/search.png">
-		  <img src="/static/img/comment_menu.png">
+		  <a href="#"><img src="/static/img/eye.png"></a>
+		  <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+		  <a href="#"><img src="/static/img/search.png"></a>
+		  <a href="#"><img src="/static/img/menu.png"></a>
 	  </div>
 	</div>
 </div>
@@ -186,11 +190,5 @@
 		</tr>
 	</table>
 </div>
-<script type="text/javascript">
-		$('.datetime').datetimepicker({
-			timepicker:false,
-			format:'Y.m.d'
-		});
-</script>
 </body>
 </html>
