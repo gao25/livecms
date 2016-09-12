@@ -62,14 +62,20 @@ body
           color #b3b3b3
           line-height 22px
           text-align center
-          border 1px solid #d6d6d6
-          border-radius 22px
           margin-right 25px
           margin-bottom 15px
           cursor pointer
           &:last-child
             margin-left 60px
-          &.checked
+          input
+            display none
+          span
+            display inline-block
+            width 85px
+            height 22px
+            border 1px solid #d6d6d6
+            border-radius 22px
+          input:checked+span
             color #12bb9a
             border-color #12bb9a
     .edit-content
