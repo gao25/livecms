@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>现场管理 － 待签报道 － 列表</title>
+  <link rel="stylesheet" type="text/css" href="http://static.xinhuaapp.com/css/base.css">
+  <link rel="stylesheet" href="http://static.xinhuaapp.com/css/datetimepicker.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lvs_list.css">
+  <script src="http://static.xinhuaapp.com/js/jquery-1.11.0-min.js"></script>
+  <script src="http://static.xinhuaapp.com/js/datetimepicker.min.js"></script>
+  <script src="/static/js/lvs_list.js"></script>
+</head>
+<body style="overflow:scroll">
+<div class="lvslist-head fn-clear">
+  <div class="lvs-search  fn-clear">
+    <form>
+      <input class="start-day datetime" type="text" name="startDay" value="开始日期" />
+      <input class="end-day datetime" type="text" name="endDay" value="结束日期" />
+      <select class="lvs-style">
+        <option>报道类型</option>
+        <option>图文</option>
+        <option>视频</option>
+        <option>语音</option>
+      </select>
+      <input type="text" name="keyword" class="lvs-keyword" value="关键字" />
+      <select class="lvs-reporter">
+        <option>张三</option>
+        <option>李四</option>
+      </select>
+      <img src="/static/img/search1.png">
+    </form>
+  </div>
+</div>
+<div class="lvs-list fn-clear">
+  <div class="lvs-detail">
+    <div class="lvs-img"> 
+      <img class="img" src="/static/img/live.png">
+      <img class="play" src="/static/img/play.png">
+      <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
+      <span class="lvs-id">5556</span>
+    </div>
+    <div class="lvs-message">
+      <div>现场：<span>里约奥运会闭幕式</span></div>
+      <div>报道人：<span>二狗子</span></div>
+      <div>发布时间：<span>2016/8/12 13:23</span></div>
+      <div>状态：<span>待审核</span></div>
+      <div class="lvs-comment">评论：<span>0</span></div>
+      <div class="lvs-praise">点赞：<span>20</span></div>
+    </div>
+    <div class="detail-footer">
+      <a href="lvspreview.html"><img src="/static/img/eye.png"></a>
+      <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+      <a href="#"><img src="/static/img/search.png"></a>
+      <span class="more"><img src="/static/img/menu.png"></span>
+      <div class="more-menu hide-menu">
+        <a class="lcolse" href="#">关闭</a>
+        <a class="lconment" href="#">评论</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="lvs-detail">
+    <div class="lvs-img">
+      <img class="img" src="/static/img/live.png">
+      <img class="play" src="/static/img/play.png">
+      <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
+      <span class="lvs-id">5556</span>
+    </div>
+    <div class="lvs-message">
+      <div>现场：<span>里约奥运会闭幕式</span></div>
+      <div>报道人：<span>二狗子</span></div>
+      <div>发布时间：<span>2016/8/12 13:23</span></div>
+      <div>状态：<span>待审核</span></div>
+      <div class="lvs-comment">评论：<span>0</span></div>
+      <div class="lvs-praise">点赞：<span>20</span></div>
+    </div>
+    <div class="detail-footer">
+      <a href="#"><img src="/static/img/eye.png"></a>
+      <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+      <a href="#"><img src="/static/img/search.png"></a>
+      <a href="#"><img src="/static/img/menu.png"></a>
+    </div>
+  </div>
+
+  <div class="lvs-detail">
+    <div class="lvs-img">
+      <img class="img" src="/static/img/live.png">
+      <img class="play" src="/static/img/play.png">
+      <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
+      <span class="lvs-id">5556</span>
+    </div>
+    <div class="lvs-message">
+      <div>现场：<span>里约奥运会闭幕式</span></div>
+      <div>报道人：<span>二狗子</span></div>
+      <div>发布时间：<span>2016/8/12 13:23</span></div>
+      <div>状态：<span>待审核</span></div>
+      <div class="lvs-comment">评论：<span>0</span></div>
+      <div class="lvs-praise">点赞：<span>20</span></div>
+    </div>
+    <div class="detail-footer">
+      <a href="#"><img src="/static/img/eye.png"></a>
+      <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+      <a href="#"><img src="/static/img/search.png"></a>
+      <a href="#"><img src="/static/img/menu.png"></a>
+    </div>
+  </div>
+
+  <div class="lvs-detail">
+    <div class="lvs-img">
+      <img class="img" src="/static/img/live.png">
+      <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
+      <span class="lvs-id">5556</span>
+    </div>
+    <div class="lvs-message">
+      <div>现场：<span>里约奥运会闭幕式</span></div>
+      <div>报道人：<span>二狗子</span></div>
+      <div>发布时间：<span>2016/8/12 13:23</span></div>
+      <div>状态：<span>待审核</span></div>
+      <div class="lvs-comment">评论：<span>0</span></div>
+      <div class="lvs-praise">点赞：<span>20</span></div>
+    </div>
+    <div class="detail-footer">
+      <a href="#"><img src="/static/img/eye.png"></a>
+      <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+      <a href="#"><img src="/static/img/search.png"></a>
+      <a href="#"><img src="/static/img/menu.png"></a>
+    </div>
+  </div>
+
+  <div class="lvs-detail">
+    <div class="lvs-img">
+      <img class="img" src="/static/img/live.png">
+      <img class="play" src="/static/img/play.png">
+      <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
+      <span class="lvs-id">5556</span>
+    </div>
+    <div class="lvs-message">
+      <div>现场：<span>里约奥运会闭幕式</span></div>
+      <div>报道人：<span>二狗子</span></div>
+      <div>发布时间：<span>2016/8/12 13:23</span></div>
+      <div>状态：<span>待审核</span></div>
+      <div class="lvs-comment">评论：<span>0</span></div>
+      <div class="lvs-praise">点赞：<span>20</span></div>
+    </div>
+    <div class="detail-footer">
+      <a href="#"><img src="/static/img/eye.png"></a>
+      <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+      <a href="#"><img src="/static/img/search.png"></a>
+      <a href="#"><img src="/static/img/menu.png"></a>
+    </div>
+  </div>
+
+  <div class="lvs-detail">
+    <div class="lvs-img">
+      <img class="img" src="/static/img/live.png">
+      <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
+      <span class="lvs-id">5556</span>
+    </div>
+    <div class="lvs-message">
+      <div>现场：<span>里约奥运会闭幕式</span></div>
+      <div>报道人：<span>二狗子</span></div>
+      <div>发布时间：<span>2016/8/12 13:23</span></div>
+      <div>状态：<span>待审核</span></div>
+      <div class="lvs-comment">评论：<span>0</span></div>
+      <div class="lvs-praise">点赞：<span>20</span></div>
+    </div>
+    <div class="detail-footer">
+      <a href="#"><img src="/static/img/eye.png"></a>
+      <a href="lvsedit.html"><img src="/static/img/edit.png"></a>
+      <a href="#"><img src="/static/img/search.png"></a>
+      <a href="#"><img src="/static/img/menu.png"></a>
+    </div>
+  </div>
+</div>
+<div class="lvs-pages">
+  <table cellspacing="0">
+    <tr align="center">
+      <td>共1308条记录</td>
+      <td>首页</td>
+      <td>上一页</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>......</td>
+      <td>34</td>
+      <td>35</td>
+      <td>上一页</td>
+      <td>尾页</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
