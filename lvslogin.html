@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CMS-登录</title>
+  <link rel="stylesheet" type="text/css" href="http://static.xinhuaapp.com/css/base.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/lvslogin.css">
+  <script src="http://static.xinhuaapp.com/js/jquery-1.11.0-min.js"></script>
+  <script src="/static/js/lvslogin.js"></script>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-logo">
+    <img src="/static/img/cms_logo.png">
+    <div>CMS内容管理平台</div>
+  </div>
+  <img src="/static/img/liner_img.png">
+  <div class="login-user-message">
+    <form>
+      <input class="login-name" type="text" name="name" placeholder="输入ID或用户名登录">
+      <input class="login-password" type="text" name="password" placeholder="输入密码">
+      <div class="login-checkcode">
+        <input type="text" name="checkcode" placeholder="输入验证码">
+        <span class="code"></span>
+      </div>
+      <div class="login-btn">
+        <a class="loginbtn" href="#"><input type="button" name="login" value="登录"></a>
+        <a href="index.html"><input class="cancelbtn" type="button" name="cancel" value="取消"></a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
