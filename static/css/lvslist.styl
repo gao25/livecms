@@ -81,26 +81,23 @@
     .detail-footer
       margin 8px 10px
       float right
-      position relative
+      li
+        cursor pointer
+        display inline-block
       .more
-        cursor pointer
-      .more-menu
-        position absolute
-        top -55px
-        right -8px
-        width 34px
-        height 55px
-        margin-bottom 16px
-        font-size 12px
-        color #808080
-        background-color #fff
-        text-align center
-        cursor pointer
-        &.hide-menu
+        position relative
+        ul
+          position absolute
+          top -46px
+          right -5px
+          width 25px
+          padding-bottom 10px
+          background-color #fff
           display none
-        a
-          display inline-block
-          padding 3px
+          li
+            margin-bottom 2px
+            a
+              color #808080
 .lvs-pages
   float right
   color #808080
