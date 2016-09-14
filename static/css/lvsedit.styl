@@ -65,7 +65,7 @@ body
           margin-right 25px
           margin-bottom 15px
           cursor pointer
-          &:last-child
+          &.lclosed
             margin-left 60px
           input
             display none
@@ -78,10 +78,13 @@ body
           input:checked+span
             color #12bb9a
             border-color #12bb9a
+          .checked
+              color #12bb9a
+              border-color #12bb9a
     .edit-content
       float left
       width 450px
-      margin 45px 90px
+      margin 45px 0 90px 45px
       .lvs-content
         font-size 14px
         span

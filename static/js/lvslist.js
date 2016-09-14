@@ -4,11 +4,11 @@ $(function(){
     format:'Y.m.d'
   });
   $('.more').hover(function(){
-    $('.more img').attr('src','/static/img/green_menu.png');
-    $('.more ul').show();
+    $(this).find('img').attr('src','/static/img/green_menu.png');
+    $(this).find('ul').show();
   },function(){
-    $('.more img').attr('src','/static/img/menu.png');
-    $('.more ul').hide();
+    $(this).find('img').attr('src','/static/img/menu.png');
+    $(this).find('ul').hide();
   })
   $('.more ul li a').hover(function(){
     $(this).css('color','#12bb9a');
