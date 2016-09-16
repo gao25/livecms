@@ -6,19 +6,11 @@
   <link rel="stylesheet" type="text/css" href="http://static.xinhuaapp.com/css/base.css">
   <link rel="stylesheet" type="text/css" href="/static/css/index.css">
   <script src="http://static.xinhuaapp.com/js/jquery-1.11.0-min.js"></script>
-  <script src="/static/js/index.js"></script>
 </head>
 <body>
 <div class="lvs-head">
   <div class="logo"></div>
-  <div class="nav">
-    <a href="#" class="current">现场管理<em class="arrow"></em></a>
-    <em>/</em>
-    <a href="#">用户统计<em class="arrow"></em></a>
-    <em>/</em>
-    <a href="#">数据统计<em class="arrow"></em></a>
-    <em>/</em>
-    <a href="#">管理员管理<em class="arrow"></em></a>
+  <div id="j-nav" class="nav">
   </div>
   <div class="user">
     <div class="headpic">
@@ -41,16 +33,11 @@
     <span class="point"></span>
     <span class="uname">Administrator</span>
   </div>
-  <ul>
-    <li><a href="#" class="current"><em class="line"></em><em class="arrow"></em>待签报道</a></li>
-    <li><a href="#"><em class="line"></em><em class="arrow"></em>待签现场</a></li>
-    <li><a href="#"><em class="line"></em><em class="arrow"></em>成品现场</a></li>
-    <li><a href="#"><em class="line"></em><em class="arrow"></em>待审评论</a></li>
-    <li><a href="#"><em class="line"></em><em class="arrow"></em>视频素材</a></li>
-  </ul>
+  <div id="j-leftnav"></div>
 </div>
 <div class="lvs-iframe">
-  <iframe scrolling="auto" frameborder="0" src="lvslist.html"></iframe>
+  <iframe scrolling="auto" frameborder="0" name="mainframe" src="about:blank"></iframe>
 </div>
+<script src="/static/js/index.js"></script>
 </body>
 </html>

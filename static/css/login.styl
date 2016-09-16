@@ -1,0 +1,96 @@
+@import "/sprite/login.styl";
+
+body
+  font-family SimSun, NSimSun
+  background url(/static/img/login_bg.png) no-repeat
+  background-size 100% 110%
+.login-wrap
+  width 720px
+  height 260px
+  color #fefefe
+  margin 230px auto
+.login-logo
+  float left
+  width 205px
+  height 115px
+  margin 70px 30px
+  img
+    display block
+    margin 0 auto
+  span
+    font-size 25px
+    margin 18px auto
+.login-user-message
+  float right
+  width 450px
+  height 240px
+  margin-top 10px
+  .barname
+    position absolute
+    overflow hidden
+  .username
+    .barname
+      margin 12px 0 0 77px
+      width 15px
+      height 17px
+      background: url(/sprite/login.png) no-repeat left -16px
+      text-indent -99px
+  .userpwd
+    .barname
+      margin 13px 0 0 77px
+      width 16px
+      height 16px
+      background: url(/sprite/login.png) no-repeat left top
+      text-indent -99px
+  input
+    display inline-block
+    width 315px
+    height 40px
+    margin 0 62px 22px
+    text-indent 42px
+    line-height 40px
+    background-color #2f3e65
+    background-color rgba(255,255,255,0.1)
+    filter Alpha(opacity=10)
+    border 1px solid #fff
+    color #fefefe
+    outline none
+  .checkcode
+    position relative
+    width 377px
+    input
+      text-indent 22px
+    .code
+      position absolute
+      right 0
+      top 0
+      font-family Microsoft Yahe
+      font-style italic
+      width 80px
+      height 40px
+      text-align center
+      line-height 40px
+      font-size 13px
+  .btnbar
+    width 316px
+    height 40px
+    margin 0 62px
+    input
+      display inline-block
+      height 40px
+      width 110px
+      color #fefefe
+      font-size 16px
+      text-align center
+      text-indent 0
+      line-height 40px
+      margin 0
+      border 0
+      background #0096e6
+      cursor pointer
+      &.cancelbtn
+        margin-left 90px
+
+        
+
+    
