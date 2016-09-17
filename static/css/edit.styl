@@ -1,0 +1,100 @@
+body
+  font-family SimSun, NSimSun
+
+/* 页面面包屑 */
+.lvs-crumb
+  height 24px
+  border-bottom 1px solid #ccc
+  padding 18px 20px
+  font-size 0
+  a, span
+    display inline-block
+    margin-right 8px
+    color #808080
+    font-size 14px
+    &.back
+      margin-right 16px
+      height 24px
+      line-height @height
+      padding-left 20px
+      background url(../img/back_img.png) no-repeat left center
+  
+.lvs-edit
+  position relative
+  padding 20px 0
+  color #2b3245
+  font-size 14px
+  .inputbar
+    width 400px
+    margin-bottom 20px
+    padding-left 120px
+    .barname
+      position absolute
+      width 120px
+      margin-left -120px
+      text-align right
+      line-height 30px
+    input, select
+      width 280px
+      height 28px
+      line-height @height
+      border solid 1px #2b3245
+      padding-left 10px
+      font-size 14px
+      outline none
+    select
+      width auto
+      height 30px
+    label
+      display inline-block
+      margin 0 20px 10px 0
+      padding 0 20px
+      height 28px
+      line-height @height
+      border 1px solid #d6d6d6
+      border-radius 14px
+      cursor pointer
+      input
+        display none
+      &.current
+        border-color #12bb9a
+        color #12bb9a
+  .readonly
+    input
+      border-color transparent
+  .editbar
+    position absolute
+    margin 0
+    padding 0
+    top 20px
+    left 520px
+    width 450px
+    .barname
+      position static
+      margin 0
+      width auto
+      text-align left
+    textarea
+      width 430px
+      height 220px
+      padding 9px
+      border solid 1px #d6d6d6
+      resize none
+      outline none
+  .btnbar
+    padding-left 120px
+    input
+      display inline-block
+      margin-right 40px
+      width 100px
+      height 36px
+      color #fff
+      background-color #c2c2c2
+      border none
+      border-radius 5px
+      cursor pointer
+      outline none
+      &.submit
+        background-color #12bb9a
+
+
