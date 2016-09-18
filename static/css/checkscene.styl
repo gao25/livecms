@@ -18,33 +18,7 @@ body
       img
         vertical-align middle
         margin-right 5px
-    .lvs-search
-      float right
-      position relative
-      margin 5px 20px 12px
-      width 710px
-      height 32px
-      border 1px solid #999
-      .start-day,.end-day,.lvs-style,.lvs-keyword,.lvs-reporter
-        outline none
-        border none
-        border-right 1px solid #999
-        width 100px
-        height 29px
-        font-size 14px
-        line-height 31px
-        color #808080
-      .start-day,.end-day
-        background url(/static/img/date.png) no-repeat 90% 50%
-      .start-day
-        padding-left 5px
-      .lvs-keyword
-        width 245px
-      img
-        position absolute
-        top 6px
-        right 8px
-  .comment-list
+  .scene-list
     width 96%
     margin-left 2%
     margin-bottom 5%
@@ -67,8 +41,25 @@ body
             width 13%
           &.llink,&.ltime
             width 17%
-          &.lhandle-btn a
-            color #2c1cca
-            margin 0 2px
-            text-decoration underline
-            cursor pointer
+          &.lhandle-btn li
+            display inline-block
+            a
+              color #2c1cca
+              text-decoration underline
+              cursor pointer
+            &.more
+              position relative
+              padding-top 5px
+              ul
+                position absolute
+                top -40px
+                right 0
+                width 25px
+                padding-bottom 6px
+                background-color #fff
+                display none
+                li
+                  margin-top 5px
+                  a
+                    text-decoration none
+                    color #808080

@@ -3,42 +3,29 @@
 <head>
   <meta charset="utf-8">
 	<title>现场管理 － 待签报道 － 评论</title>
-	<link rel="stylesheet" type="text/css" href="http://static.xinhuaapp.com/css/base.css">
-	<link rel="stylesheet" href="http://static.xinhuaapp.com/css/datetimepicker.min.css" />
-	<link rel="stylesheet" type="text/css" href="/static/css/lvscomment.css">
-  <script src="http://static.xinhuaapp.com/js/jquery-1.11.0-min.js"></script>
-  <script src="http://static.xinhuaapp.com/js/datetimepicker.min.js"></script>
-  <script src="/static/js/lvscomment.js"></script>
+	<link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+	<link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
 </head>
 <body>
-<div class="edit-head">
-	<a href="#"><img src="/static/img/back_img.png" /></a>
-	<a href="lvslist.html">返回上一页</a>
-	<a href="#">首页</a><em> &gt;</em>
-	<a href="#">待签报道</a><em> &gt;</em>
-	<a href="#">评论</a>
+<div class="lvs-crumb">
+  <a href="javascript:void(0)" class="back">返回上一页</a>
+  <span>现场管理</span>
+  <span>&gt;</span>
+  <a href="#">待签报道</a>
+  <span>&gt;</span>
+  <span>评论</span>
 </div>
 <div class="lvs-comment fn-clear">
   <a class="comment-delete-btn" href="#">
     <img src="/static/img/delete.png"><span>删除</span>
   </a>
-  <div class="lvs-search  fn-clear">
-    <input class="start-day datetime" type="text" name="startDay" value="开始日期" />
-    <input class="end-day datetime" type="text" name="endDay" value="结束日期" />
-    <select class="lvs-style">
-      <option>报道类型</option>
-      <option>图文</option>
-      <option>视频</option>
-      <option>语音</option>
-    </select>
-    <input type="text" name="keyword" class="lvs-keyword" value="关键词" />
-    <select class="lvs-reporter">
-      <option selected>报道人</option>
-      <option>张三</option>
-      <option>李四</option>
-    </select>
-    <img src="/static/img/search1.png">
-  </div>
+  <div class="lvs-listhead fn-clear">
+  <div id="j-search" class="search fn-clear"></div>
+</div>
 </div>
 <div class="comment-list">
 	<table cellspacing="0">
@@ -134,5 +121,10 @@
 		</tr>
 	</table>
 </div>
+<div id="j-page" class="lvs-page"></div>
+<script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/scene/reportlist.js"></script>
+<script src="/static/js/scene/reportcomment.js"></script>
 </body>
 </html>

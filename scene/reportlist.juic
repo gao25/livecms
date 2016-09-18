@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <title>现场管理 － 待签报道 － 列表</title>
-  <link rel="stylesheet" type="text/css" href="http://static.xinhuaapp.com/css/base.css">
-  <link rel="stylesheet" href="http://static.xinhuaapp.com/css/datetimepicker.min.css" />
+  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
   <link rel="stylesheet" type="text/css" href="/static/css/list.css">
-  <script src="http://static.xinhuaapp.com/js/jquery-1.11.0-min.js"></script>
-  <script src="http://static.xinhuaapp.com/js/datetimepicker.min.js"></script>
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
 </head>
 <body>
 <div class="lvs-listhead fn-clear">
@@ -32,14 +33,14 @@
     </div>
     <div class="detail-footer">
       <ul>
-        <li><a href="lvspreview.html"><img src="/static/img/eye.png"></a></li>
+        <li><a href="reportpreview.html"><img src="/static/img/eye.png"></a></li>
         <li><a href="reportedit.html"><img src="/static/img/edit.png"></a></li>
         <li><a href="#"><img src="/static/img/search.png"></a></li>
         <li class="more">
           <img src="/static/img/menu.png">
           <ul>
             <li><a class="lcolse" href="#">关闭</a></li>
-            <li><a class="lconment" href="lvscomment.html">评论</a></li>
+            <li><a class="lconment" href="reportcomment.html">评论</a></li>
           </ul>
         </li>
       </ul>

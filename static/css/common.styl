@@ -1,0 +1,72 @@
+  /* 页面面包屑 */
+.lvs-crumb
+  height 24px
+  border-bottom 1px solid #ccc
+  padding 18px 20px
+  font-size 0
+  a, span
+    display inline-block
+    margin-right 8px
+    color #808080
+    font-size 14px
+    &.back
+      margin-right 16px
+      height 24px
+      line-height @height
+      padding-left 20px
+      background url(../img/back_img.png) no-repeat left center
+  
+/* 搜索栏 */
+.lvs-listhead
+  height 60px
+  border-bottom 1px solid #ccc
+  .search
+    float right
+    margin 14px 20px
+    input, select
+      width 110px
+      height 30px
+      border none
+      outline none
+      border-radius 0
+      text-indent 6px
+      font-size 14px
+      color #808080
+    select
+      width 85px
+      -webkit-appearance none
+      text-indent 0
+      padding-left 6px
+      background url(../img/select.png) no-repeat right 12px
+      cursor pointer
+    .inputbar, .btnbar
+      float left
+      margin-left -1px
+      border 1px solid #999
+      .barname
+        display none
+      .date
+        margin-right 6px
+        background url(../img/date.png) no-repeat right center
+      .text
+        width 200px
+      .submit
+        width 31px
+        background url(../img/search1.png) #f0f0f0 no-repeat center center
+        text-indent -99px
+        cursor pointer
+/* 分页 */
+.lvs-page
+  margin 50px 20px 25px
+  text-align right
+  font-size 0
+  a, span
+    display inline-block
+    margin-left -1px
+    padding 8px 15px
+    border 1px solid #808080
+    color #808080
+    font-size 14px
+    &.current
+      background-color #13bb9a
+      color #fff
