@@ -1,8 +1,4 @@
 $(function(){
-  $('.datetime').datetimepicker({
-    timepicker:false,
-    format:'Y.m.d'
-  });
 	// 删除操作
 	var select_num=0;
   $('.lselect-btn').click(function(){

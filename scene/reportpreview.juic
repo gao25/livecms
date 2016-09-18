@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
 	<title>现场管理 － 待签报道 － 预览</title>
-	<link rel="stylesheet" type="text/css" href="http://static.xinhuaapp.com/css/base.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/lvspreview.css">
-	<script src="http://static.xinhuaapp.com/js/jquery-1.11.0-min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/preview.css">
+	<script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
 </head>
 <body>
-<div class="edit-head">
-	<a href="#"><img src="/static/img/back_img.png" /></a>
-	<a href="lvslist.html">返回上一页</a>
-	<a href="#">首页</a><em> &gt;</em>
-	<a href="#">待签报道</a><em> &gt;</em>
-	<a href="#">预览</a>
+<div class="lvs-crumb">
+  <a href="javascript:void(0)" class="back">返回上一页</a>
+  <span>现场管理</span>
+  <span>&gt;</span>
+  <a href="#">待签报道</a>
+  <span>&gt;</span>
+  <span>预览</span>
 </div>
 <div class="lvs-preview fn-clear">
   <div class="ltitel">
@@ -39,5 +40,6 @@
     </ul>
   </div>
 </div>
+<script src="/static/js/common.js"></script>
 </body>
 </html>

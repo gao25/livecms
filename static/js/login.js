@@ -20,11 +20,22 @@ formConfig = {
     "required": true,
     "maxlength": 100,
     "placeholder": "输入密码"
+  }, {
+    "class":"checkcode",
+    "title":"验证码",
+    "type":"text",
+    "name":"checkcode",
+    "required":true,
+    "placeholder":"输入验证码"
   }],
   "button": [
     {
       "value": "登录",
       "type": "submit"
+    }, {
+      "value": "取 消",
+      "type": "button",
+      "class": "cancel"
     }
   ]
 };

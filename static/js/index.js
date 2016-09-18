@@ -8,7 +8,7 @@ var navConfig = [
       },
       {
         "menu": "待签现场",
-        "link": "/scene/reportlist.html"
+        "link": "../../checkscene.html"
       },
       {
         "menu": "成品现场",
@@ -91,4 +91,16 @@ navObj.find('a:eq(0)').addClass('current');
 leftNavObj.find('ul:eq(0)').removeClass('fn-hide');
 leftNavObj.find('a:eq(0)').addClass('current');
 $('iframe[name=mainframe]').attr('src', leftNavObj.find('a:eq(0)').attr('href'));
+//个人设置样式
+$('.lset').hover(function(){
+  $('.lset ul').show();
+},function(){
+  $('.lset ul').hide();
+})
+$('.lset li a').hover(function(){
+  $(this).css('color','#12bb9a');
+},function(){
+  $(this).css('color','#f3f3f3');
+})
+
 
