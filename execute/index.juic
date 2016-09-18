@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>execute</title>
+  <script charset="utf-8" src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script charset="utf-8" src="${{staticServer}}/js/sha512.js"></script>
+  <script charset="utf-8" src="execute.js"></script>
+</head>
+<body>
+<script>
+var executeFn = {
+  random: function(){
+    executeCmd.ajax('${{executeRandomApi}}', {}, {}, function (state, res) {
+      parent.executeCallback(state, res);
+    });
+  },
+  start: function(actionHead, actionBody){
+    var ajaxHeader = {},
+      ajaxBody = {};
+    if (actionHead) ajaxHeader = JSON.parse(actionHead);
+    if (actionBody) ajaxBody = JSON.parse(actionBody);
+    executeCmd.ajax('${{executeStartApi}}', ajaxHeader, ajaxBody, function (state, res) {
+      parent.executeCallback(state, res);
+    });
+  },
+  login: function(actionHead, actionBody){
+    var ajaxHeader = {},
+      ajaxBody = {};
+    if (actionHead) ajaxHeader = JSON.parse(actionHead);
+    if (actionBody) ajaxBody = JSON.parse(actionBody);
+    executeCmd.ajax('${{executeLoginApi}}', ajaxHeader, ajaxBody, function (state, res) {
+      parent.executeCallback(state, res);
+    });
+  }
+};
+var action = executeCmd['urlParams']['action'];
+if (action && executeFn[action]) {
+  var actionHead = executeCmd['urlParams']['actionHead'],
+    actionBody = executeCmd['urlParams']['actionBody'];
+  executeFn[action](actionHead, actionBody);
+}
+</script>
+</body>
+</html>

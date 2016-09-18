@@ -31,4 +31,8 @@ formConfig = {
 };
 newTplform.render(formConfig, null, function(){
   alert('ajax');
+  
+
+
+  
 });

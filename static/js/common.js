@@ -11,7 +11,58 @@ lvsCmd['urlParams'] = (function(){
   }
   return data;
 })();
-// ajax请求
+// cookie操作
+lvsCmd['cookie'] = {
+  get: function (cname) {
+    var arr,
+      reg = new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if (arr = document.cookie.match(reg)) {
+      return unescape(arr[2]);
+    } else {
+      return null;
+    }
+  },
+  set: function (cname, value, extime) {
+    // extime 单位: s 秒、m 分钟、h 小时、d 天，无单位默认秒
+    var extimeExt = extime.substr(-1),
+      extimeInt = parseInt(extime),
+      extimeSec = {
+        "s": 1000,
+        "m": 60 * 1000,
+        "h": 3600 * 1000,
+        "d": 24 * 3600 * 1000
+      };
+    if (!extimeSec[extimeExt]) extimeExt = 's';
+    var sec = extimeInt * extimeSec[extimeExt],
+      exp = new Date();
+    exp.setTime(exp.getTime() + sec);
+    document.cookie = cname + "="+ escape(value) + ";expires=" + exp.toGMTString();
+  },
+  del: function (cname) {
+    lvsCmd['cookie'].set(cname, 'null', '-1');
+  }
+};
+// 接口随机数管理 random
+lvsCmd['random'] = {
+  get: function(){
+    var random = lvsCmd['cookie'].get('random');
+    if (random) {
+      var randomArray = random.split(','),
+        useRandom = randomArray.pop();
+      if (randomArray.length) {
+        lvsCmd['cookie'].set('random', randomArray.join(','));
+
+        
+      }
+
+      
+    }
+  },
+  refresh: function(){
+
+  }
+};
+// ajax请求，所有请求都需要 head: random, token, sign
 lvsCmd['ajax'] = function (url, data, callback) {
   $.ajax({
     type: "post",
