@@ -33,29 +33,40 @@ newTplform.render(formConfig, null, function(){
 });
 function loginRandomCallback (state, res) {
   if (state) {
-    var randomStr = res['data']['randomArray'].join(',');
-    lvsCmd['cookie'].set('random', randomStr, '18m'); // 实际过期时间是20分钟
-    loginFn();
+    if (res['status'] == 0) {
+      var randomStr = res['data']['randomArray'].join(',');
+      lvsCmd['cookie'].set('random', randomStr, '18m'); // 实际过期时间是20分钟
+      loginFn();
+    } else {
+      alert(res['errMsg']);
+    }
   } else {
     alert('接口请求失败，请检查网络连接！');
   }
 }
 function loginTokenCallback (state, res) {
   if (state) {
-    var token = res['data']['token'];
-    lvsCmd['cookie'].set('token', token, (7*24-1) + 'h'); // 实际过期时间是7天
-    loginFn();
+    if (res['status'] == 0) {
+      var token = res['data']['token'];
+      lvsCmd['cookie'].set('token', token, (7*24-1) + 'h'); // 实际过期时间是7天
+      loginFn();
+    } else {
+      alert(res['errMsg']);
+    }
   } else {
     alert('接口请求失败，请检查网络连接！');
   }
 }
 function loginCallback (state, res) {
   if (state) {
-    alert('d');
-    $(res['data'], function(key, val){
-      lvsCmd['cookie'].set(key, val, (7*24-1) + 'h'); // 实际过期时间是7天
-    });
-    location.href = '/';
+    if (res['status'] == 0) {
+      $.each(res['data'], function(key, val){
+        lvsCmd['cookie'].set(key, val, (7*24-1) + 'h'); // 实际过期时间是7天
+      });
+      location.href = '/';
+    } else {
+      alert(res['errMsg']);
+    }
   } else {
     alert('接口请求失败，请检查网络连接！');
   }

@@ -46,9 +46,14 @@ lvsCmd['cookie'] = {
 // randomCallback
 var randomCallback = function (state, res) {
   if (state) {
-    var randomStr = res['data']['randomArray'].join(',');
-    lvsCmd['cookie'].set('random', randomStr, '18m'); // 实际过期时间是20分钟
-    lvsCmd['random']['state'] = 'open';
+    if (res['status'] == 0) {
+      var randomStr = res['data']['randomArray'].join(',');
+      lvsCmd['cookie'].set('random', randomStr, '18m'); // 实际过期时间是20分钟
+      lvsCmd['random']['state'] = 'open';
+    } else {
+      alert(res['errMsg']);
+      lvsCmd['random']['state'] = 'close';
+    }
   } else {
     alert('接口请求失败，请检查网络连接！');
     lvsCmd['random']['state'] = 'close'
