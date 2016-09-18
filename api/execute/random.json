@@ -1,0 +1,19 @@
+{
+    "status": "0",
+    "errCode": null,
+    "errMsg": null,
+    "data": {
+        "randomArray": [
+            "ebfbf571ef624e5f8682d15035207af0",
+            "848b360f3cdc4786a430078c257e3d1f",
+            "466e4cb68f8445409b7eac6c044a923c",
+            "9ba482bcbca14db9ac9d1095ca02e695",
+            "5bb8e86ce90a405182043f30df2a656d",
+            "730c27566be24ef7b5913eb04e3f9b3b",
+            "c2a3f501dafe48deb014e533d2eb3a99",
+            "39d9dbe67fa14cd7ada8ad0ca27b80a0",
+            "6051906d64994ef18308e84292860f9a",
+            "b226ed0c97a54594ad1f40bc9f566ed9"
+        ]
+    }
+}
