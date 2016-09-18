@@ -15,7 +15,7 @@ lvsCmd['urlParams'] = (function(){
 lvsCmd['cookie'] = {
   get: function (cname) {
     var arr,
-      reg = new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+      reg = new RegExp("(^| )"+cname+"=([^;]*)(;|$)");
     if (arr = document.cookie.match(reg)) {
       return unescape(arr[2]);
     } else {
@@ -36,47 +36,98 @@ lvsCmd['cookie'] = {
     var sec = extimeInt * extimeSec[extimeExt],
       exp = new Date();
     exp.setTime(exp.getTime() + sec);
-    document.cookie = cname + "="+ escape(value) + ";expires=" + exp.toGMTString();
+    if (cname == 'random') lvsCmd['random']['expires'] = exp;
+    document.cookie = cname + "="+ value + ";expires=" + exp.toGMTString();
   },
   del: function (cname) {
     lvsCmd['cookie'].set(cname, 'null', '-1');
   }
 };
+// randomCallback
+var randomCallback = function (state, res) {
+  if (state) {
+    var randomStr = res['data']['randomArray'].join(',');
+    lvsCmd['cookie'].set('random', randomStr, '18m'); // 实际过期时间是20分钟
+    lvsCmd['random']['state'] = 'open';
+  } else {
+    alert('接口请求失败，请检查网络连接！');
+    lvsCmd['random']['state'] = 'close'
+  }
+};
 // 接口随机数管理 random
 lvsCmd['random'] = {
+  state: 'open',
+  expires: new Date(),
   get: function(){
+    if (lvsCmd['random']['state'] == 'close') {
+      lvsCmd['random'].refresh();
+      return null;
+    } else if (lvsCmd['random']['state'] == 'wait') {
+      return null;
+    }
     var random = lvsCmd['cookie'].get('random');
     if (random) {
       var randomArray = random.split(','),
         useRandom = randomArray.pop();
       if (randomArray.length) {
-        lvsCmd['cookie'].set('random', randomArray.join(','));
-
-        
+        var exp = lvsCmd['random']['expires'];
+        document.cookie = "random="+ randomArray.join(',') + ";expires=" + exp.toGMTString();
+      } else {
+        lvsCmd['cookie'].del('random');
+        lvsCmd['random']['state'] = 'close';
       }
-
-      
+      return useRandom;
+    } else {
+      lvsCmd['random'].refresh();
+      return null;
     }
   },
   refresh: function(){
-
+    if ($('#j-executeframe').length == 0) {
+      $('body').append('<div class="fn-hide"><iframe id="j-executeframe" src="about:blank"></iframe></div>');
+    }
+    lvsCmd['random']['state'] = 'wait';
+    $('#j-executeframe').attr('src', executeServer + '/execute/?action=random&callback=randomCallback');
   }
+};
+// 刷新用户cookie
+lvsCmd['tokenRefresh'] = function(){
+  var list = ['orgId', 'orgName', 'role', 'token'];
+  $.each(list, function(){
+    var val = lvsCmd['cookie'].get(this);
+    lvsCmd[this].set(this, val, (7*24-1) + 'h'); // 实际过期时间是7天
+  });
 };
 // ajax请求，所有请求都需要 head: random, token, sign
 lvsCmd['ajax'] = function (url, data, callback) {
-  $.ajax({
-    type: "post",
-    dataType: "json",
-    contentType: "application/json",
-    url: url,
-    data: JSON.stringify(data),
-    success: function(res){
-      callback(true, res);
-    },
-    error: function(err){
-      callback(false, err);
+  function roundFn(){
+    var random = lvsCmd['random'].get(),
+      token = lvsCmd['cookie'].get('token');
+    if (random && token) {
+      $.ajax({
+        type: "post",
+        dataType: "json",
+        contentType: "application/json",
+        url: url,
+        data: JSON.stringify(data),
+        beforeSend: function (req) {
+          req.setRequestHeader("random", hex_sha512(JSON.stringify(data)));
+          req.setRequestHeader("token", lvsCmd['cookie'].get('token'));
+          req.setRequestHeader("sign", hex_sha512(JSON.stringify(data)));
+        },
+        success: function(res){
+          lvsCmd.tokenRefresh();
+          callback(true, res);
+        },
+        error: function(err){
+          callback(false, err);
+        }
+      });
+    } else {
+      setTimeout(roundFn, 100);
     }
-  });
+  }
+  roundFn();
 };
 /* 分页 */
 lvsCmd['page'] = function (obj, count, page, pageSize) {

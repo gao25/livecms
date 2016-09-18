@@ -9,10 +9,12 @@
 </head>
 <body>
 <script>
+var action = executeCmd['urlParams']['action'],
+  callback = executeCmd['urlParams']['callback'];
 var executeFn = {
   random: function(){
     executeCmd.ajax('${{executeRandomApi}}', {}, {}, function (state, res) {
-      parent.executeCallback(state, res);
+      parent[callback](state, res);
     });
   },
   start: function(actionHead, actionBody){
@@ -21,7 +23,7 @@ var executeFn = {
     if (actionHead) ajaxHeader = JSON.parse(actionHead);
     if (actionBody) ajaxBody = JSON.parse(actionBody);
     executeCmd.ajax('${{executeStartApi}}', ajaxHeader, ajaxBody, function (state, res) {
-      parent.executeCallback(state, res);
+      parent[callback](state, res);
     });
   },
   login: function(actionHead, actionBody){
@@ -30,14 +32,13 @@ var executeFn = {
     if (actionHead) ajaxHeader = JSON.parse(actionHead);
     if (actionBody) ajaxBody = JSON.parse(actionBody);
     executeCmd.ajax('${{executeLoginApi}}', ajaxHeader, ajaxBody, function (state, res) {
-      parent.executeCallback(state, res);
+      parent[callback](state, res);
     });
   }
 };
-var action = executeCmd['urlParams']['action'];
 if (action && executeFn[action]) {
-  var actionHead = executeCmd['urlParams']['actionHead'],
-    actionBody = executeCmd['urlParams']['actionBody'];
+  var actionHead = unescape(executeCmd['urlParams']['actionHead']),
+    actionBody = unescape(executeCmd['urlParams']['actionBody']);
   executeFn[action](actionHead, actionBody);
 }
 </script>
