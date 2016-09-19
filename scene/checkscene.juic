@@ -2,47 +2,48 @@
 <html>
 <head>
   <meta charset="utf-8">
-	<title>现场管理 － 待签报道</title>
+	<title>现场管理 － 待签现场</title>
   <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
   <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/checkscene.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
 </head>
 <body>
 <div class="lvs-creat fn-clear">
-  <a class="creat-btn" href="scene/creatscene.html">
+  <a class="creat-btn" href="creatscene.html">
     <img src="/static/img/creat_img.png"><span>创建现场</span>
   </a>
   <div class="lvs-listhead fn-clear">
     <div id="j-search" class="search fn-clear"></div>
   </div>
 </div>
-<div class="scene-list">
+<div class="comment-list">
   <table cellspacing="0">
     <tr align="center" class="listhead">
-      <td class="lid">ID</td>
-      <td class="lhandle">操作</td>
-      <td class="lstate">状态</td>
-      <td class="ltitle">标题</td>
-      <td class="lcreater">创建人</td>
-      <td class="lstyle">现场类型</td>
-      <td class="lnum">报道数</td>
-      <td class="llink">短地址</td>
-      <td class="ltime">创建时间</td>
+      <td class="cid">ID</td>
+      <td class="chandle">操作</td>
+      <td class="cstate">状态</td>
+      <td class="ctitle">标题</td>
+      <td class="ccreater">创建人</td>
+      <td class="cstyle">现场类型</td>
+      <td class="cnum">报道数</td>
+      <td class="clink">短地址</td>
+      <td class="ctime">创建时间</td>
     </tr>
     <tr align="center">
       <td>2342</td>
       <td class="lhandle-btn">
         <ul>
-          <li><a href="scene/sceneedit.html">编辑</a></li>
-          <li><a href="scene/scenepreview.html">预览</a></li>
+          <li><a href="sceneedit.html">编辑</a></li>
+          <li><a href="scenepreview.html">预览</a></li>
           <li><a href="#">审核</a></li>
           <li class="more">
             <a href="#">更多</a>
             <ul>
               <li><a class="lcolse" href="#">关闭</a></li>
-              <li><a class="lreport" href="#">报道</a></li>
+              <li><a class="lreport" href="endreport.html">报道</a></li>
             </ul>
           </li>
         </ul>

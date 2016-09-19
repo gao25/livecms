@@ -24,8 +24,8 @@
     <img src="/static/img/delete.png"><span>删除</span>
   </a>
   <div class="lvs-listhead fn-clear">
-  <div id="j-search" class="search fn-clear"></div>
-</div>
+    <div id="j-search" class="search fn-clear"></div>
+  </div>
 </div>
 <div class="comment-list">
 	<table cellspacing="0">
