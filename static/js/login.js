@@ -3,7 +3,7 @@ formConfig = {
   "id": "j-loginform",
   "type": "ajax",
   "method": "post",
-  "action": "xxx",
+  "action": "/",
   "fields": [{
     "class": "username",
     "title": "用户名",
@@ -29,6 +29,9 @@ formConfig = {
   ]
 };
 newTplform.render(formConfig, null, function(){
+  if ($('#j-executeframe').length == 0) {
+    $('body').append('<div class="fn-hide"><iframe id="j-executeframe" src="about:blank"></iframe></div>');
+  }
   loginFn();
 });
 function loginRandomCallback (state, res) {
@@ -63,9 +66,12 @@ function loginCallback (state, res) {
       $.each(res['data'], function(key, val){
         lvsCmd['cookie'].set(key, val, (7*24-1) + 'h'); // 实际过期时间是7天
       });
-      location.href = '/';
+      var goUrl = document.URL;
+      goUrl = goUrl.substr(0, goUrl.lastIndexOf('/'));
+      location.href = goUrl;
     } else {
-      alert(res['errMsg']);
+      // alert(res['errMsg']);
+      alert('用户名或密码错误！');
     }
   } else {
     alert('接口请求失败，请检查网络连接！');
@@ -78,18 +84,18 @@ function loginFn(){
       // 请求登录
       var random = lvsCmd['random'].get(),
         actionHead = escape('{"random":"'+random+'","token":"'+token+'"}'),
-        actionBody = escape('{"loginType":"normal","openid":"","countryMobileCode":"86","mobile":"'+$('#j-loginform input[name=username]')+'","password":"'+$('#j-loginform input[name=userpwd]')+'","userType":4}');
-      $('#j-executeframe').attr('src', executeServer + '/execute/?action=login&actionHead='+actionHead+'&actionBody='+actionBody+'&callback=loginCallback');
+        actionBody = escape('{"loginType":"normal","openid":"","countryMobileCode":"86","mobile":"'+$('#j-loginform input[name=username]').val()+'","password":"'+$('#j-loginform input[name=userpwd]').val()+'","userType":4}');
+      $('#j-executeframe').attr('src', executeServer + '/execute/?action=/cms/login/execute.json&actionHead='+actionHead+'&actionBody='+actionBody+'&callback=loginCallback');
     } else {
       // 获取 token
       var random = lvsCmd['random'].get(),
         actionHead = escape('{"random":"'+random+'"}'),
         actionBody = escape('{"appid":"010002","projectid":"01"}');
-      $('#j-executeframe').attr('src', executeServer + '/execute/?action=start&actionHead='+actionHead+'&actionBody='+actionBody+'&callback=loginTokenCallback');
+      $('#j-executeframe').attr('src', executeServer + '/execute/?action=/cms/start/execute.json&actionHead='+actionHead+'&actionBody='+actionBody+'&callback=loginTokenCallback');
     }
   } else {
     // 获取 random
-    $('#j-executeframe').attr('src', executeServer + '/execute/?action=random&callback=loginRandomCallback');
+    $('#j-executeframe').attr('src', executeServer + '/execute/?action=/random/execute.json&callback=loginRandomCallback');
   }
 }
 

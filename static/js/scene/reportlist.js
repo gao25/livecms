@@ -1,3 +1,24 @@
+// 获取参数
+var page = + lvsCmd['urlParams']['page'];
+if (isNaN(page) || page < 1) page = 1;
+
+// 渲染列表
+var reportlistTpl = juicer($('#j-reportlist script').html());
+$('#j-reportlist script').remove();
+function loadReportList(){
+  lvsCmd.ajax('/live-web-reporter/report/getUnApproved.json', {"page": page}, function (state, res) {
+    if (state) {
+      var reportlistHtml = reportlistTpl.render(res);
+      $('#j-reportlist').html(reportlistHtml);
+    }
+  });
+}
+loadReportList();
+
+
+
+
+
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {

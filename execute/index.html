@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>execute</title>
+  <script charset="utf-8" src="http://localhost:6804/js/jquery-1.11.0-min.js"></script>
+  <script charset="utf-8" src="http://localhost:6804/js/sha512.js"></script>
+  <script charset="utf-8" src="execute.js"></script>
+</head>
+<body>
+<script>
+document.domain = 'live.com';
+var action = unescape(executeCmd['urlParams']['action']),
+  callback = unescape(executeCmd['urlParams']['callback']),
+  actionHead = {},
+  actionBody = {};
+if (executeCmd['urlParams']['actionHead']) {
+  actionHead = JSON.parse(unescape(executeCmd['urlParams']['actionHead']));
+}
+if (executeCmd['urlParams']['actionBody']) {
+  actionBody = JSON.parse(unescape(executeCmd['urlParams']['actionBody']));
+}
+executeCmd.ajax(action, actionHead, actionBody, function (state, res) {
+  parent[callback](state, res);
+});
+</script>
+</body>
+</html>

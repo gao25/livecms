@@ -2,12 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>41Api</title>
+  <title>Api</title>
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <meta name="format-detection" content="telephone=no" />
-  <link rel="stylesheet" href="http://localhost:6804/css/mobase.css" />
-  <script charset="utf-8" src="http://localhost:6804/js/zepto-1.1.6.min.js"></script>
-  <script charset="utf-8" src="http://localhost:6804/js/sha512.js"></script>
+  <link rel="stylesheet" href="http://static.xinhuaapp.com/css/mobase.css" />
+  <script charset="utf-8" src="http://static.xinhuaapp.com/js/zepto-1.1.6.min.js"></script>
+  <script charset="utf-8" src="http://static.xinhuaapp.com/js/sha512.js"></script>
   <style type="text/css">
   div{
     padding: 10px;
@@ -57,14 +57,16 @@ $('#j-btn').on('click', function(){
   } else {
     data = {};
   }
+  var dataStr = JSON.stringify(data);
+  if (dataStr == '{}') dataStr = '';
   $.ajax({
     type: type,
     dataType: "json",
     url: url,
-    data: JSON.stringify(data),
+    data: dataStr,
     contentType: "application/json",
     beforeSend: function (req) {
-      req.setRequestHeader("sign", hex_sha512(JSON.stringify(data)));
+      req.setRequestHeader("sign", hex_sha512(dataStr));
       $.each(header, function (key, val) {
         req.setRequestHeader(key, val);
       });

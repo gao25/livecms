@@ -12,16 +12,17 @@ executeCmd['urlParams'] = (function(){
   return data;
 })();
 // ajax请求
-executeCmd['ajax'] = function (url, ajaxHead, ajaxData, callback) {
-  var ajaxDataStr = JSON.stringify(ajaxData);
+executeCmd['ajax'] = function (url, ajaxHead, ajaxBody, callback) {
+  var data = JSON.stringify(ajaxBody);
+  if (data == '{}') data = '';
   $.ajax({
     type: "post",
     dataType: "json",
     contentType: "application/json",
     url: url,
-    data: ajaxDataStr,
+    data: data,
     beforeSend: function (req) {
-      req.setRequestHeader("sign", hex_sha512(ajaxDataStr));
+      req.setRequestHeader("sign", hex_sha512(data));
       $.each(ajaxHead, function (key, val) {
         req.setRequestHeader(key, val);
       });

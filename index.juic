@@ -12,32 +12,33 @@
   <div class="logo"></div>
   <div id="j-nav" class="nav">
   </div>
-  <div class="user">
+  <div id="j-user" class="user">
     <div class="headpic">
       <img src="/static/img/1.png" />
     </div>
-    <span class="uname">金君飞</span>
+    <span class="uname"></span>
     <ul>
       <li class="lset"><a href="#">设置</a>
         <ul><li><a href="#">个人设置</a></li></ul>
       </li> / 
-      <li><a href="#">退出</a></li>
+      <li><a id="j-logout" href="javascript:void(0)">退出</a></li>
     </ul>
   </div>
 </div>
 <div class="lvs-nav">
-  <div class="user">
+  <div id="j-admin" class="user">
     <div class="headpic">
       <img src="/static/img/1.png" />
     </div>
     <span class="point"></span>
-    <span class="uname">Administrator</span>
+    <span class="uname"></span>
   </div>
   <div id="j-leftnav"></div>
 </div>
 <div class="lvs-iframe">
   <iframe scrolling="auto" frameborder="0" name="mainframe" src="about:blank"></iframe>
 </div>
+<script src="/static/js/common.js"></script>
 <script src="/static/js/index.js"></script>
 </body>
 </html>

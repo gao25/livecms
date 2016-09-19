@@ -1,5 +1,42 @@
-var navConfig = [
-  {
+// 判断用户权限
+var role = lvsCmd['cookie'].get('role');
+if (!role) {
+  alert('尚未登录或登录过期，请重新登录！');
+  parent.location.href = '/login.html';
+}
+
+// 获取用户信息
+if ($('#j-executeframe').length == 0) {
+  $('body').append('<div class="fn-hide"><iframe id="j-executeframe" src="about:blank"></iframe></div>');
+}
+function executeUserCallback (state, res) {
+  if (state) {
+    if (res['status'] == 0) {
+      var userData = res['data'];
+      $('#j-user .uname').html(userData['nick']);
+      $('#j-admin .uname').html(userData['accountName']);
+      if (userData['portrait']) {
+        $('#j-user .headpic img, #j-admin .headpic img').attr('src', userData['portrait']);
+      }
+    } else {
+      alert(res['errMsg']);
+    }
+  }
+}
+function executeUserFn(){
+  var random = lvsCmd['random'].get();
+  if (random) {
+    var actionHead = '{"random":"'+random+'","token":"'+lvsCmd['cookie'].get('token')+'"}';
+    $('#j-executeframe').attr('src', executeServer + '/execute/?action=/userquery/getUser.json&actionHead='+actionHead+'&callback=executeUserCallback');
+  } else {
+    setTimeout(executeUserFn, 100);
+  }
+}
+executeUserFn();
+
+// 判断展示菜单
+var navAllData = {
+  scene: {
     "title": "现场管理",
     "list": [
       {
@@ -24,16 +61,16 @@ var navConfig = [
       }
     ]
   },
-  {
-    "title": "用户统计",
+  visitor: {
+    "title": "用户管理",
     "list": [
       {
-        "menu": "用户统计",
+        "menu": "用户管理",
         "link": "/scene/reportlist.html"
       }
     ]
   },
-  {
+  count: {
     "title": "数据统计",
     "list": [
       {
@@ -42,7 +79,7 @@ var navConfig = [
       }
     ]
   },
-  {
+  admin: {
     "title": "管理员管理",
     "list": [
       {
@@ -51,7 +88,21 @@ var navConfig = [
       }
     ]
   }
-];
+};
+var roleNav = {
+  sysadmin: ["admin"], // 系统管理员
+  admin: ["scene", "visitor", "count", "admin"], // 合作方管理员
+  approver: ["scene", "visitor", "count"], // 编辑人员
+  reporter: [] // 记者
+};
+var navConfig = [];
+if (roleNav[role]) {
+  $.each(roleNav[role], function(){
+    navConfig.push(navAllData[this]);
+  });
+}
+
+// 显示菜单
 var navObj = $('#j-nav'),
   leftNavObj = $('#j-leftnav');
 $.each(navConfig, function(index){
@@ -91,6 +142,16 @@ navObj.find('a:eq(0)').addClass('current');
 leftNavObj.find('ul:eq(0)').removeClass('fn-hide');
 leftNavObj.find('a:eq(0)').addClass('current');
 $('iframe[name=mainframe]').attr('src', leftNavObj.find('a:eq(0)').attr('href'));
+
+// 退出
+$('#j-logout').click(function(){
+  lvsCmd['cookie'].del('token');
+  lvsCmd['cookie'].del('role');
+  parent.location.href = '/login.html';
+  return false;
+});
+
+
 //个人设置样式
 $('.lset').hover(function(){
   $('.lset ul').show();
@@ -102,5 +163,8 @@ $('.lset li a').hover(function(){
 },function(){
   $(this).css('color','#f3f3f3');
 })
+
+
+
 
 

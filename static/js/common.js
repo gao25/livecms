@@ -1,3 +1,5 @@
+document.domain = 'live.com';
+var executeServer = 'http://api.live.com';
 var lvsCmd = {};
 // url参数
 lvsCmd['urlParams'] = (function(){
@@ -92,7 +94,7 @@ lvsCmd['random'] = {
       $('body').append('<div class="fn-hide"><iframe id="j-executeframe" src="about:blank"></iframe></div>');
     }
     lvsCmd['random']['state'] = 'wait';
-    $('#j-executeframe').attr('src', executeServer + '/execute/?action=random&callback=randomCallback');
+    $('#j-executeframe').attr('src', executeServer + '/execute/?action=/random/execute.json&callback=randomCallback');
   }
 };
 // 刷新用户cookie
@@ -105,20 +107,28 @@ lvsCmd['tokenRefresh'] = function(){
 };
 // ajax请求，所有请求都需要 head: random, token, sign
 lvsCmd['ajax'] = function (url, data, callback) {
+  var token = lvsCmd['cookie'].get('token');
+  if (!token) {
+    alert('尚未登录或登录过期，请重新登录！');
+    parent.location.href = '/login.html';
+    return false;
+  }
   function roundFn(){
-    var random = lvsCmd['random'].get(),
-      token = lvsCmd['cookie'].get('token');
-    if (random && token) {
+    var random = lvsCmd['random'].get();
+    if (random) {
+      var dataStr = JSON.stringify(data);
+      if (dataStr == '{}') dataStr = '';
       $.ajax({
-        type: "post",
+        type: "get",
         dataType: "json",
         contentType: "application/json",
         url: url,
-        data: JSON.stringify(data),
+        data: dataStr,
         beforeSend: function (req) {
-          req.setRequestHeader("random", hex_sha512(JSON.stringify(data)));
-          req.setRequestHeader("token", lvsCmd['cookie'].get('token'));
-          req.setRequestHeader("sign", hex_sha512(JSON.stringify(data)));
+          req.setRequestHeader("Content-Type", 'application/json');
+          req.setRequestHeader("random", random);
+          req.setRequestHeader("token", token);
+          req.setRequestHeader("sign", hex_sha512(dataStr));
         },
         success: function(res){
           lvsCmd.tokenRefresh();

@@ -9,27 +9,30 @@
   <link rel="stylesheet" type="text/css" href="/static/css/list.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+  <script src="${{staticServer}}/js/juicer-min.js"></script>
+  <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
 <body>
 <div class="lvs-listhead fn-clear">
   <div id="j-search" class="search fn-clear"></div>
 </div>
-<div class="lvs-list fn-clear">
-  {{@each i in range(0,10)}}
+<div id="j-reportlist" class="lvs-list fn-clear">
+  <script type="text/template">
+  {@each data as item}
   <div class="detail">
     <div class="lvs-img"> 
       <img class="img" src="/static/img/live.png">
       <img class="play" src="/static/img/play.png">
-      <span class="lvs-title">恭喜中国女排获得奥运会冠军...</span>
+      <span class="lvs-title">${item.topic}</span>
       <span class="lvs-id">5556</span>
     </div>
     <div class="lvs-message">
-      <div>现场：<span>里约奥运会闭幕式</span></div>
-      <div>报道人：<span>二狗子</span></div>
+      <div>现场：<span>${item.topic}</span></div>
+      <div>报道人：<span>${item.reporter}</span></div>
       <div>发布时间：<span>2016/8/12 13:23</span></div>
-      <div>状态：<span>待审核</span></div>
-      <div class="lvs-comment">评论：<span>0</span></div>
-      <div class="lvs-praise">点赞：<span>20</span></div>
+      <div>状态：<span>{@if item.state == 1}待审核{@else if item.state == 8}审核失败{@/each}</span></div>
+      <div class="lvs-comment">评论：<span>${item.commentnum}</span></div>
+      <div class="lvs-praise">点赞：<span>${item.likenum}</span></div>
     </div>
     <div class="detail-footer">
       <ul>
@@ -46,7 +49,8 @@
       </ul>
     </div>
   </div>
-  {{@/each}}
+  {@/each}
+  </script>
 </div>
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>

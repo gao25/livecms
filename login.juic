@@ -17,12 +17,6 @@
   <div id="j-loginform" class="login-user-message">
   </div>
 </div>
-<div class="fn-hide">
-  <iframe id="j-executeframe" src="about:blank"></iframe>
-</div>
-<script type="text/javascript">
-var executeServer = '${{executeServer}}';
-</script>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/login.js"></script>
