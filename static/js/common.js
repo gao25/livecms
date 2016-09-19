@@ -1,5 +1,6 @@
-document.domain = 'live.com';
-var executeServer = 'http://api.live.com';
+// document.domain = 'live.com';
+// var executeServer = 'http://api.live.com';
+var executeServer = '';
 var lvsCmd = {};
 // url参数
 lvsCmd['urlParams'] = (function(){
@@ -102,7 +103,7 @@ lvsCmd['tokenRefresh'] = function(){
   var list = ['orgId', 'orgName', 'role', 'token'];
   $.each(list, function(){
     var val = lvsCmd['cookie'].get(this);
-    lvsCmd[this].set(this, val, (7*24-1) + 'h'); // 实际过期时间是7天
+    lvsCmd['cookie'].set(this, val, (7*24-1) + 'h'); // 实际过期时间是7天
   });
 };
 // ajax请求，所有请求都需要 head: random, token, sign
@@ -119,10 +120,10 @@ lvsCmd['ajax'] = function (url, data, callback) {
       var dataStr = JSON.stringify(data);
       if (dataStr == '{}') dataStr = '';
       $.ajax({
-        type: "get",
+        type: "post",
         dataType: "json",
         contentType: "application/json",
-        url: url,
+        url: url.replace('.json', '.do'),
         data: dataStr,
         beforeSend: function (req) {
           req.setRequestHeader("Content-Type", 'application/json');

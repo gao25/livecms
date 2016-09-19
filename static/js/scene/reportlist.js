@@ -6,7 +6,7 @@ if (isNaN(page) || page < 1) page = 1;
 var reportlistTpl = juicer($('#j-reportlist script').html());
 $('#j-reportlist script').remove();
 function loadReportList(){
-  lvsCmd.ajax('/live-web-reporter/report/getUnApproved.json', {"page": page}, function (state, res) {
+  lvsCmd.ajax('/live-web-cms/report/getUnApprovedReport.json', {"page": page}, function (state, res) {
     if (state) {
       var reportlistHtml = reportlistTpl.render(res);
       $('#j-reportlist').html(reportlistHtml);
@@ -14,9 +14,6 @@ function loadReportList(){
   });
 }
 loadReportList();
-
-
-
 
 
 // 渲染搜索栏
@@ -62,8 +59,8 @@ searchConfig = {
     "option": [
       {"text": "报道类型", "value": "0"},
       {"text": "图文", "value": "1"},
-      {"text": "视频", "value": "2"},
-      {"text": "语音", "value": "4"}
+      {"text": "音频", "value": "2"},
+      {"text": "视频", "value": "4"}
     ]
   }, {
     "title": "关键字",
@@ -76,9 +73,11 @@ searchConfig = {
     "name": "other",
     "type": "select",
     "option": [
-      {"text": "报道人", "value": "0"},
-      {"text": "张三", "value": "1"},
-      {"text": "李四", "value": "2"}
+      {"text": "关键字类型", "value": "0"},
+      {"text": "报道人", "value": "1"},
+      {"text": "报道内容", "value": "2"},
+      {"text": "报道ID", "value": "4"},
+      {"text": "现场标题", "value": "8"}
     ]
   }],
   "button": [
@@ -93,7 +92,7 @@ newSearchform.render(searchConfig, null, function(){
 });
 
 // 分页
-lvsCmd.page('j-page', 437, 8, 10);
+lvsCmd.page('j-page', 437, page, 20);
 $('#j-page a').click(function(){
   alert($(this).data('page'));
 });

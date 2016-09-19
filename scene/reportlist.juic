@@ -30,7 +30,7 @@
       <div>现场：<span>${item.topic}</span></div>
       <div>报道人：<span>${item.reporter}</span></div>
       <div>发布时间：<span>2016/8/12 13:23</span></div>
-      <div>状态：<span>{@if item.state == 1}待审核{@else if item.state == 8}审核失败{@/each}</span></div>
+      <div>状态：<span>{@if item.state == 1}待审核{@else if item.state == 8}审核失败{@/if}</span></div>
       <div class="lvs-comment">评论：<span>${item.commentnum}</span></div>
       <div class="lvs-praise">点赞：<span>${item.likenum}</span></div>
     </div>

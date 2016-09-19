@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>execute</title>
-  <script charset="utf-8" src="http://localhost:6804/js/jquery-1.11.0-min.js"></script>
-  <script charset="utf-8" src="http://localhost:6804/js/sha512.js"></script>
+  <script charset="utf-8" src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script charset="utf-8" src="${{staticServer}}/js/sha512.js"></script>
   <script charset="utf-8" src="execute.js"></script>
 </head>
 <body>
 <script>
-document.domain = 'live.com';
+//document.domain = 'live.com';
 var action = unescape(executeCmd['urlParams']['action']),
   callback = unescape(executeCmd['urlParams']['callback']),
   actionHead = {},
