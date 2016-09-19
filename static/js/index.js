@@ -8,11 +8,11 @@ var navConfig = [
       },
       {
         "menu": "待签现场",
-        "link": "../../checkscene.html"
+        "link": "../scene/checkscene.html"
       },
       {
         "menu": "成品现场",
-        "link": "/scene/reportlist.html"
+        "link": "/scene/endscene.html"
       },
       {
         "menu": "待审评论",
@@ -20,7 +20,7 @@ var navConfig = [
       },
       {
         "menu": "视频素材",
-        "link": "/scene/reportlist.html"
+        "link": "/scene/videomaterial.html"
       }
     ]
   },

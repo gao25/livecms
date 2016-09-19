@@ -13,11 +13,13 @@ body
     line-height 32px
     text-align center
     border-radius 5px
-    margin 5px 20px 12px
+    margin 14px 20px 12px
     cursor pointer
     img
       vertical-align middle
       margin-right 5px
+.lvs-listhead
+  border 0
 .comment-list
   width 96%
   margin-left 2%
@@ -33,7 +35,7 @@ body
         height 55px
         color #2b3245
       td
-        padding 15px
+        padding 10px
         border-left 1px solid #2b3245
         border-top 1px solid #2b3245 
         &.lselect,&.lid
@@ -45,7 +47,56 @@ body
         &.delete-btn
           text-decoration underline
           cursor pointer
-        span
+        &.cid,&.cstate,&.ccreater,&.cstyle,&.cnum
+          width 8%
+        &.ctime,&.ctitle
+          width 13%
+        &.clink,&.chandle
+          width 17%
+        &.ssort,&.shandle,&.stitle,&.stime
+          width 12%
+        &.sid,&.screater,&.snum
+          width 6%
+        &.sstate,&.sstyle
+          width 7%
+        &.slink
+          width 16%
+        &.vselect,&.vcreater,&.vstate,&.vidnum,&.vhours,&.vsize,&.vformat
+          width 8%
+        &.vtitle,&.vhandle
+          width 12%
+        &.vtime
+          width 13%
+        &.lsort-btn ul
+          float right
+          li
+            display inline-block
+            color #2c1cca
+            text-decoration underline
+            cursor pointer
+        &.lhandle-btn li
+          display inline-block
+          a
+            color #2c1cca
+            text-decoration underline
+            cursor pointer
+          &.more
+            position relative
+            padding-top 5px
+            ul
+              position absolute
+              top -40px
+              right 0
+              width 25px
+              padding-bottom 6px
+              background-color #fff
+              display none
+              li
+                margin-top 5px
+                a
+                  text-decoration none
+                  color #808080
+        .lselect-btn,.select-btn
           display inline-block
           width 12px
           height 12px

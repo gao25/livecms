@@ -2,12 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>现场管理 － 待签现场 － 编辑</title>
+  <title>现场管理 － 待签现场 － 发布报道</title>
   <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
-  <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" />
   <link rel="stylesheet" type="text/css" href="/static/css/edit.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
-  <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
 </head>
 <body>
 <div class="lvs-crumb">
@@ -16,12 +14,12 @@
   <span>&gt;</span>
   <a href="#">待签现场</a>
   <span>&gt;</span>
-  <span>编辑</span>
+  <span>发布报道</span>
 </div>
 <div id="j-editform" class="lvs-edit"> 
 </div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
 <script src="/static/js/common.js"></script>
-<script src="/static/js/scene/sceneedit.js"></script>
+<script src="/static/js/scene/releasereport.js"></script>
 </body>
 </html>

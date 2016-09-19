@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>现场管理 － 成品现场</title>
+  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+</head>
+<body>
+<div class="lvs-creat fn-clear">
+  <a class="creat-btn" href="creatscene.html">
+    <span>复制列表地址</span>
+  </a>
+  <div class="lvs-listhead fn-clear">
+    <div id="j-search" class="search fn-clear"></div>
+  </div>
+</div>
+<div class="comment-list">
+  <table cellspacing="0">
+    <tr align="center" class="listhead">
+      <td class="ssort">排序</td>
+      <td class="sid">ID</td>
+      <td class="shandle">操作</td>
+      <td class="sstate">现场状态</td>
+      <td class="sstate">直播状态</td>
+      <td class="stitle">标题</td>
+      <td class="screater">创建人</td>
+      <td class="sstyle">现场类型</td>
+      <td class="snum">报道数</td>
+      <td class="slink">短地址</td>
+      <td class="stime">创建时间</td>
+    </tr>
+    <tr align="center">
+      <td class="lsort-btn">
+        <span class="sort-num">1</span>
+        <ul>
+          <li><a class="lup" href="#">上排</a></li>
+          <li><a class="ldown" href="#">下排</a></li>
+          <li><a class="ltop" href="#">置顶</a></li>
+        </ul>
+      </td>
+      <td>2341</td>
+      <td class="lhandle-btn">
+        <ul>
+          <li><a href="sceneedit.html">编辑</a></li>
+          <li><a href="scenepreview.html">预览</a></li>
+          <li><a href="#">审核</a></li>
+          <li class="more">
+            <a href="#">更多</a>
+            <ul>
+              <li><a class="lcolse" href="#">关闭</a></li>
+              <li><a class="lreport" href="endreport.html">报道</a></li>
+            </ul>
+          </li>
+        </ul>
+      </td>
+      <td>审核通过</td>
+      <td>开启</td>
+      <td>里约奥运会</td>
+      <td>张小娴</td>
+      <td>图文直播</td>
+      <td>1200</td>
+      <td>
+        <div>微信:http://dwz.cn/NcpRQ</div>
+        <div>新浪:http://dwz.cn/NcpRQ</div>
+        <div>APP:http://dwz.cn/NcpRQ</div>
+      </td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+
+    <tr align="center">
+      <td class="lsort-btn">
+        <span class="sort-num">2</span>
+        <ul>
+          <li><a class="lup" href="#">上排</a></li>
+          <li><a class="ldown" href="#">下排</a></li>
+          <li><a class="ltop" href="#">置顶</a></li>
+        </ul>
+      </td>
+      <td>2342</td>
+      <td class="lhandle-btn">
+        <ul>
+          <li><a href="sceneedit.html">编辑</a></li>
+          <li><a href="scenepreview.html">预览</a></li>
+          <li><a href="#">审核</a></li>
+          <li class="more">
+            <a href="#">更多</a>
+            <ul>
+              <li><a class="lcolse" href="#">关闭</a></li>
+              <li><a class="lreport" href="endreport.html">报道</a></li>
+            </ul>
+          </li>
+        </ul>
+      </td>
+      <td>审核通过</td>
+      <td>开启</td>
+      <td>里约奥运会</td>
+      <td>张小娴</td>
+      <td>图文直播</td>
+      <td>1200</td>
+      <td>
+        <div>微信:http://dwz.cn/NcpRQ</div>
+        <div>新浪:http://dwz.cn/NcpRQ</div>
+        <div>APP:http://dwz.cn/NcpRQ</div>
+      </td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+
+    <tr align="center">
+      <td class="lsort-btn">
+      <span class="sort-num">3</span>
+        <ul>
+          <li><a class="lup" href="#">上排</a></li>
+          <li><a class="ldown" href="#">下排</a></li>
+          <li><a class="ltop" href="#">置顶</a></li>
+        </ul>
+      </td>
+      <td>2343</td>
+      <td class="lhandle-btn">
+        <ul>
+          <li><a href="sceneedit.html">编辑</a></li>
+          <li><a href="scenepreview.html">预览</a></li>
+          <li><a href="#">审核</a></li>
+          <li class="more">
+            <a href="#">更多</a>
+            <ul>
+              <li><a class="lcolse" href="#">关闭</a></li>
+              <li><a class="lreport" href="endreport.html">报道</a></li>
+            </ul>
+          </li>
+        </ul>
+      </td>
+      <td>审核通过</td>
+      <td>开启</td>
+      <td>里约奥运会</td>
+      <td>张小娴</td>
+      <td>图文直播</td>
+      <td>1200</td>
+      <td>
+        <div>微信:http://dwz.cn/NcpRQ</div>
+        <div>新浪:http://dwz.cn/NcpRQ</div>
+        <div>APP:http://dwz.cn/NcpRQ</div>
+      </td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+  </table>
+</div>
+<div id="j-page" class="lvs-page"></div>
+<script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/scene/checkscene.js"></script>
+</body>
+</html>

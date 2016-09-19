@@ -89,3 +89,50 @@ $('.more ul li a').hover(function(){
 },function(){
   $(this).css('color','#808080');
 })
+
+//上排 下排 置顶
+$('.lsort-btn').on('click','a',function(event){
+  event=event?event:window.event;
+  if(event.preventDefault){
+    event.preventDefault();
+  }else{
+    event.returnValue=false;
+  }
+  var parent=$(this).parents('tr');
+  var val=parent.find('.sort-num').html();
+  var parents=$(this).parents('table');
+  var len=parents.children().length-1;
+  if(($(this).is('.lup')||$(this).is('.ltop'))&&parent.index()==1){
+    alert('已经置顶了！');
+    return false;
+  }else if($(this).is('.ldown')&&parent.index()==len){
+    alert('已经置底了！');
+    return false;
+  }
+  switch(true){
+    case $(this).is('.lup'):
+      var prev=parent.prev(),
+          val1=prev.find('.sort-num').html();
+      parent.find('.sort-num').html(val1);
+      prev.find('.sort-num').html(val);
+      parent.insertBefore(prev);
+      break;
+    case $(this).is('.ldown'):
+      var next=parent.next(),
+          val1=next.find('.sort-num').html();
+      parent.find('.sort-num').html(val1);
+      next.find('.sort-num').html(val);
+      parent.insertAfter(next);
+      break;
+    case $(this).is('.ltop'):
+      $('.sort-num').each(function(){
+        var val=parseInt($(this).html());
+        if($(this).html()<parent.index()){
+          $(this).html(val+1);
+        }
+      });
+      parent.find('.sort-num').html(1);
+      parent.insertBefore(parents.find('tr').eq(1));
+      break;
+  }
+})

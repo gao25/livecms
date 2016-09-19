@@ -35,14 +35,14 @@ searchConfig = {
       }
     }
   }, {
-    "title": "报道类型",
+    "title": "视频状态",
     "name": "type",
     "type": "select",
     "option": [
-      {"text": "报道类型", "value": "0"},
-      {"text": "图文", "value": "1"},
-      {"text": "视频", "value": "2"},
-      {"text": "语音", "value": "4"}
+      {"text": "视频状态", "value": "0"},
+      {"text": "N/A", "value": "1"},
+      {"text": "启用", "value": "2"},
+      {"text": "未启用", "value": "3"}
     ]
   }, {
     "title": "关键字",
@@ -51,11 +51,11 @@ searchConfig = {
     "maxlength": 100,
     "placeholder": "关键字"
   }, {
-    "title": "报道人",
+    "title": "创建人",
     "name": "other",
     "type": "select",
     "option": [
-      {"text": "报道人", "value": "0"},
+      {"text": "创建人", "value": "0"},
       {"text": "张三", "value": "1"},
       {"text": "李四", "value": "2"}
     ]
@@ -77,29 +77,25 @@ $('#j-page a').click(function(){
   alert($(this).data('page'));
 });
 
-
-// 列表
-$('.more').hover(function(){
-  $(this).find('img').attr('src','/static/img/green_menu.png');
-  $(this).find('ul').show();
-},function(){
-  $(this).find('img').attr('src','/static/img/menu.png');
-  $(this).find('ul').hide();
-})
-$('.more ul li a').hover(function(){
-  $(this).css('color','#12bb9a');
-},function(){
-  $(this).css('color','#808080');
-})
-
-//置顶
-$('.ltop').on('click',function(){
-  var parent=$(this).parents('.detail');
-  if(parent.index()==0){
-    alert('已经置顶了！');
-    return false;
-  }else{
-    var prev=parent.prev();
-    parent.insertBefore(prev);
-  }
-})
+//选中
+var select_num=0;
+  $('.lselect-btn').click(function(){
+    if(select_num==0){
+      $('.lselect-btn').addClass('lselected');
+      $('.select-btn').addClass('lselected');
+      select_num=1;
+    }else{
+      $('.lselect-btn').removeClass('lselected');
+      $('.select-btn').removeClass('lselected');
+      select_num=0;
+    }
+  })
+  $(".select-btn").on("click",function(){
+    $('.lselect-btn').removeClass('lselected');
+    select_num=0;
+    if(!$(this).hasClass("lselected")){
+      $(this).addClass('lselected');
+    }else{
+      $(this).removeClass('lselected');
+    }
+  })

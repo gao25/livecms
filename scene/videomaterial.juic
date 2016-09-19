@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>现场管理 － 视频素材</title>
+  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+</head>
+<body>
+<div class="lvs-creat fn-clear">
+  <a class="creat-btn" href="creatscene.html">
+    <span>视频转码</span>
+  </a>
+  <div class="lvs-listhead fn-clear">
+    <div id="j-search" class="search fn-clear"></div>
+  </div>
+</div>
+<div class="comment-list">
+  <table cellspacing="0">
+    <tr align="center" class="listhead">
+      <td class="vselect"><span class="lselect-btn"></span></td>
+      <td class="vtitle">标题</td>
+      <td class="vhandle">操作</td>
+      <td class="vceater">创建人</td>
+      <td class="vstate">状态</td>
+      <td class="vidnum">所属报道</td>
+      <td class="vhours">总时长</td>
+      <td class="vsize">文件大小</td>
+      <td class="vformat">格式</td>
+      <td class="vtime">创建时间</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>20160908135959</td>
+      <td class="lhandle-btn">
+        <ul>
+          <li><a href="#">播放</a></li>
+          <li><a href="#">下载</a></li>
+          <li><a href="#">重命名</a></li>
+        </ul>
+      </td>
+      <td>小小小</td>
+      <td>N/A</td>
+      <td>ID:3201</td>
+      <td>01:23:12</td>
+      <td>14G</td>
+      <td>M3U8</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>20160908135959</td>
+      <td class="lhandle-btn">
+        <ul>
+          <li><a href="#">播放</a></li>
+          <li><a href="#">下载</a></li>
+          <li><a href="#">重命名</a></li>
+        </ul>
+      </td>
+      <td>小小小</td>
+      <td>启用</td>
+      <td>ID:3201</td>
+      <td>01:23:12</td>
+      <td>200M</td>
+      <td>MP4</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>王宝强离婚</td>
+      <td class="lhandle-btn">
+        <ul>
+          <li><a href="#">播放</a></li>
+          <li><a href="#">下载</a></li>
+          <li><a href="#">重命名</a></li>
+        </ul>
+      </td>
+      <td>小小小</td>
+      <td>N/A</td>
+      <td>ID:3201</td>
+      <td>01:23:12</td>
+      <td>40M</td>
+      <td>MP3</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+  </table>
+</div>
+<div id="j-page" class="lvs-page"></div>
+<script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/scene/videomaterial.js"></script>
+</body>
+</html>
