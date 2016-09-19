@@ -19,15 +19,15 @@ loadReportList();
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
+  "id": "j-searchform",
   "type": "ajax",
   "method": "post",
-  "action": "xxx",
+  "action": "/report/searchUnApproved.json",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",
-    "name": "starttime",
+    "name": "beginDate",
     "type": "date",
-    "required": true,
     "placeholder": "开始时间",
     "config": {
       format: "Y.m.d",
@@ -40,9 +40,8 @@ searchConfig = {
   }, {
     "class": "j-endtime",
     "title": "结束时间",
-    "name": "endtime",
+    "name": "endDate",
     "type": "date",
-    "required": true,
     "placeholder": "结束时间",
     "config": {
       format: "Y.m.d",
@@ -54,7 +53,7 @@ searchConfig = {
     }
   }, {
     "title": "报道类型",
-    "name": "type",
+    "name": "reportType",
     "type": "select",
     "option": [
       {"text": "报道类型", "value": "0"},
@@ -64,13 +63,13 @@ searchConfig = {
     ]
   }, {
     "title": "关键字",
-    "name": "keyword",
+    "name": "key",
     "type": "text",
     "maxlength": 100,
     "placeholder": "关键字"
   }, {
-    "title": "报道人",
-    "name": "other",
+    "title": "关键字类型",
+    "name": "keyType",
     "type": "select",
     "option": [
       {"text": "关键字类型", "value": "0"},
@@ -87,8 +86,22 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function(){
-  alert('ajax');
+newSearchform.render(searchConfig, null, function(config){
+
+  var data = {page: 1},
+    beginDate = $('#j-searchform input[name=beginDate]').val(),
+    endDate = $('#j-searchform input[name=beginDate]').val(),
+    reportType = $('#j-searchform select[name=reportType]').val(),
+    key = $('#j-searchform input[name=key]').val(),
+    keyType = $('#j-searchform select[name=reportType]').val();
+  if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
+  if (endDate) data['endDate'] = new Date(endDate).getTime();
+  if (reportType > 0) data['reportType'] = reportType;
+  if (key) data['key'] = key;
+  if (keyType > 0) data['keyType'] = keyType;
+  lvsCmd.ajax(config['url'], data, function (state, res) {
+    console.log(res);
+  });  
 });
 
 // 分页
