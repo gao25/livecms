@@ -1,20 +1,71 @@
 // 获取参数
 var page = + lvsCmd['urlParams']['page'];
 if (isNaN(page) || page < 1) page = 1;
+var beginDate = '',
+  endDate = '',
+  reportType = '',
+  key = '',
+  keyType = '';
 
 // 渲染列表
 var reportlistTpl = juicer($('#j-reportlist script').html());
 $('#j-reportlist script').remove();
 function loadReportList(){
-  lvsCmd.ajax('/live-web-cms/report/getUnApprovedReport.json', {"page": page}, function (state, res) {
+  $('#j-reportlist').html('');
+  var url = '/live-web-cms/report/getUnApprovedReport.json',
+    searchUrl = '/live-web-cms/report/searchUnApproved.json',
+    data = {page: page};
+  if (beginDate) {
+    data['beginDate'] = beginDate;
+    url = searchUrl;
+  }
+  if (endDate) {
+    data['endDate'] = endDate;
+    url = searchUrl;
+  }
+  if (reportType > 0) {
+    data['reportType'] = reportType;
+    url = searchUrl;
+  }
+  if (key) {
+    data['key'] = key;
+    url = searchUrl;
+  }
+  if (keyType > 0) {
+    data['keyType'] = keyType;
+    url = searchUrl;
+  }
+  lvsCmd.ajax(searchUrl, data, function (state, res) {
     if (state) {
       var reportlistHtml = reportlistTpl.render(res);
       $('#j-reportlist').html(reportlistHtml);
+      // 绑定操作
+      bindReportList();
+      // 分页
+      lvsCmd.page('j-page', 437, page, 20);
+      $('#j-page a').click(function(){
+        page = $(this).data('page');
+        loadReportList();
+      });
     }
   });
 }
+function bindReportList(){
+  // 列表
+  $('#j-reportlist .more').hover(function(){
+    $(this).find('img').attr('src','/static/img/green_menu.png');
+    $(this).find('ul').show();
+  },function(){
+    $(this).find('img').attr('src','/static/img/menu.png');
+    $(this).find('ul').hide();
+  })
+  $('#j-reportlist .more ul li a').hover(function(){
+    $(this).css('color','#12bb9a');
+  },function(){
+    $(this).css('color','#808080');
+  })
+}
 loadReportList();
-
 
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
@@ -22,7 +73,7 @@ searchConfig = {
   "id": "j-searchform",
   "type": "ajax",
   "method": "post",
-  "action": "/report/searchUnApproved.json",
+  "action": "/live-web-cms/report/searchUnApproved.json",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",
@@ -86,53 +137,15 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function(config){
-
-  var data = {page: 1},
-    beginDate = $('#j-searchform input[name=beginDate]').val(),
-    endDate = $('#j-searchform input[name=beginDate]').val(),
-    reportType = $('#j-searchform select[name=reportType]').val(),
-    key = $('#j-searchform input[name=key]').val(),
-    keyType = $('#j-searchform select[name=reportType]').val();
-  if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
-  if (endDate) data['endDate'] = new Date(endDate).getTime();
-  if (reportType > 0) data['reportType'] = reportType;
-  if (key) data['key'] = key;
-  if (keyType > 0) data['keyType'] = keyType;
-  lvsCmd.ajax(config['url'], data, function (state, res) {
-    console.log(res);
-  });  
+newSearchform.render(searchConfig, null, function(){
+  page = 1;
+  beginDate = $('#j-searchform input[name=beginDate]').val(),
+  endDate = $('#j-searchform input[name=beginDate]').val(),
+  reportType = $('#j-searchform select[name=reportType]').val(),
+  key = $.trim($('#j-searchform input[name=key]').val()),
+  keyType = $('#j-searchform select[name=reportType]').val();
+  if (beginDate) beginDate = new Date(beginDate).getTime();
+  if (endDate) endDate = new Date(endDate).getTime();
+  loadReportList(); 
 });
 
-// 分页
-lvsCmd.page('j-page', 437, page, 20);
-$('#j-page a').click(function(){
-  alert($(this).data('page'));
-});
-
-
-// 列表
-$('.more').hover(function(){
-  $(this).find('img').attr('src','/static/img/green_menu.png');
-  $(this).find('ul').show();
-},function(){
-  $(this).find('img').attr('src','/static/img/menu.png');
-  $(this).find('ul').hide();
-})
-$('.more ul li a').hover(function(){
-  $(this).css('color','#12bb9a');
-},function(){
-  $(this).css('color','#808080');
-})
-
-//置顶
-$('.ltop').on('click',function(){
-  var parent=$(this).parents('.detail');
-  if(parent.index()==0){
-    alert('已经置顶了！');
-    return false;
-  }else{
-    var prev=parent.prev();
-    parent.insertBefore(prev);
-  }
-})
