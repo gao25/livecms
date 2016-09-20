@@ -57,7 +57,6 @@ function loadReportList(){
   });
 }
 function bindReportList(){
-
   // 列表
   $('#j-reportlist .more').hover(function(){
     $(this).find('img').attr('src','/static/img/green_menu.png');

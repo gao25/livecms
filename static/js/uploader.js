@@ -1,6 +1,5 @@
 // 获取上传 accessid、policyBase64、signature
-var uploader;
-function loadUploaderSign(callback){
+function loadUploaderSign (callback) {
   lvsCmd.ajax('/live-web-cms/uploader.json', {}, function (state, res) {
     if (state) {
       if (res['status'] == '0') {
@@ -14,12 +13,16 @@ function loadUploaderSign(callback){
   });
 }
 // 创建上传实例
-function loadUploaderMod(uploaderSign){
-  var host = 'http://post-test.oss-cn-hangzhou.aliyuncs.com';
+function loadUploaderMod (uploaderSign) {
   // http://xinhua-zbcb.oss-cn-hangzhou.aliyuncs.com
-  var accessid = uploaderSign['accessid'];
-    policyBase64 = uploaderSign['policyBase64'];
-    signature = uploaderSign['signature'];
+  var host = 'http://post-test.oss-cn-hangzhou.aliyuncs.com',
+    multipart_params = {
+      // 'key' : 'a.png', // 文件路径 文件名
+      'OSSAccessKeyId': uploaderSign['accessid'],
+      'policy': uploaderSign['policyBase64'],
+      'signature': uploaderSign['signature'],
+      'success_action_status': '200' //让服务端返回200,不然，默认会返回204
+    };
 
   function fileNameRandom(){
     var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678',
@@ -30,72 +33,63 @@ function loadUploaderMod(uploaderSign){
     }
     return random;
   }
-  function fileNameExt(){
-    
-  }
-
-    pos = filename.lastIndexOf('.')
-    suffix = ''
+  function fileNameExt (filename) {
+    var pos = filename.lastIndexOf('.'),
+      suffix = ''
     if (pos != -1) {
       suffix = filename.substring(pos)
     }
     return suffix;
+  }
 
-    
-
-
-    return 
-  };
-
-  uploader = new plupload.Uploader({
+  lvsCmd['uploader'] = new plupload.Uploader({
     runtimes: 'html5,flash,silverlight,html4',
-    browse_button: 'j-selectfiles', 
-    // multi_selection: false,
-    container: document.getElementById('j-filecontainer'),
+    browse_button: 'j-uploader-select', 
+    multi_selection: false, // 单选
+    container: document.getElementById('j-uploader'),
     flash_swf_url: '/lib/plupload-2.1.2/js/Moxie.swf',
     silverlight_xap_url: '/lib/plupload-2.1.2/js/Moxie.xap',
     url: host,
     filters: {
+      /*
       mime_types : [ //只允许上传图片和zip文件
         { title : "Image files", extensions : "jpg,gif,png,bmp" },
         { title : "Zip files", extensions : "zip" }
-      ], 
-      max_file_size : '1024kb', // 最大只能上传1024kb的文件
-      prevent_duplicates : true // 不允许选取重复文件
+      ],
+      */
+      max_file_size: '1048576kb', // 最大只能上传 1024 * 1024kb = 1G 的文件
+      prevent_duplicates: true // 不允许选取重复文件
     },
-
-
     init: {
-      PostInit: function() {
+      PostInit: function(up, files) {
         document.getElementById('ossfile').innerHTML = '';
-        document.getElementById('j-postfiles').onclick = function() {
-
-          new_multipart_params = {
+        document.getElementById('j-uploader-post').onclick = function(){
+          //var 
+          lvsCmd['uploader'].setOption({
+            multipart_params: {
               'key' : 'a.png', //g_object_name,
               'policy': policyBase64,
               'OSSAccessKeyId': accessid, 
               'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
               'signature': signature,
-          };
-
-          uploader.setOption({
-              // 'url': host,
-              'multipart_params': new_multipart_params
+            }
           });
 
-          uploader.start();
+          lvsCmd['uploader'].start();
 
           //set_upload_param(uploader, '', false);
           return false;
         };
       },
 
-      FilesAdded: function(up, files) {
-        plupload.each(files, function(file) {
+      FilesAdded: function (uploader, files) {
+        var file = files[0];
+        //console.log(file);
+        //plupload.each(files, function(file) {
           document.getElementById('ossfile').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
           +'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
           +'</div>';
-        });
+        //});
       },
       /*
       BeforeUpload: function(up, file) {
@@ -127,7 +121,11 @@ function loadUploaderMod(uploaderSign){
       },
       */
 
-      Error: function(up, err) {
+      Error: function (up, err) {
+        if (err['code'] == -602) {
+          // code: -602, message: "Duplicate file error.",
+          alert('文件已选择！');
+        }
         console.log(err);
         // document.getElementById('console').appendChild(document.createTextNode("\nError xml:" + err.response));
       }

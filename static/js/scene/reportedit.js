@@ -39,10 +39,10 @@ formConfig = {
       {"text": "视频", "value": "4"}
     ]
   }, {
-    "title": "自定义",
-    "name": 'filename',
+    "class": "uploader j-uploader",
+    "title": "上传文件",
     "type": 'html',
-    "html": '<div id="ossfile">你的浏览器不支持flash,Silverlight或者HTML5！</div><div id="j-filecontainer"><div id="j-selectfiles">选择</div>｜<div id="j-postfiles">上传</div></div>'
+    "html": '<div class="filelist"><p class="file"><em>-</em><span></span></p><p class="file"><span class="add">+</span></p></div>'
   }, {
     "class": "j-state",
     "title": "报道状态",
@@ -77,7 +77,7 @@ newTplform.render(formConfig, function(){
   // 上传
   loadUploaderSign(function(uploaderSign){
     loadUploaderMod(uploaderSign);
-    uploader.init();
+    lvsCmd['uploader'].init();
   });
   // 状态
   $('#j-editform .j-state label').click(function(){
@@ -89,6 +89,7 @@ newTplform.render(formConfig, function(){
     history.back();
   });
 }, function(){
+
   // alert('ajax');
 
   // /live-web-cms/report/update.json
@@ -115,10 +116,7 @@ lvsCmd.ajax('/live-web-cms/report/get.json', {reportId: id}, function (state, re
 });
 
 
-
-
-
-
-
+// parent.window.newOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" src="about:blank"></iframe></div>');
+// parent.window.frames['mainframe'].id
 
 

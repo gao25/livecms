@@ -71,6 +71,51 @@ body
   .readonly
     input
       border-color transparent
+  .uploader
+    .barname
+      display none
+    .filelist
+      display inline-block
+      border solid 1px #eee
+      padding 10px
+      padding-left 0
+      font-size 0
+      .file
+        position relative
+        margin-left 10px
+        display inline-block
+        width 60px
+        height 60px
+        border solid 1px #ccc
+        span
+          display block
+          width 60px
+          height 60px
+          overflow hidden
+          text-align center
+          line-height @height
+          &.add
+            background-color #ccc
+            font-size 60px
+            color #fff
+            cursor pointer
+          img
+            display block
+            width 100%
+        em
+          position absolute
+          width 20px
+          height 20px
+          right -8px
+          top -8px
+          border-radius 50%
+          text-align center
+          line-height @height
+          overflow hidden
+          background-color #f00
+          color #fff
+          font-size 20px
+          cursor pointer
   .editbar
     position absolute
     margin 0

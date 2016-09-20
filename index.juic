@@ -38,6 +38,7 @@
 <div class="lvs-iframe">
   <iframe scrolling="auto" frameborder="0" name="mainframe" src="about:blank"></iframe>
 </div>
+<script src="${{staticServer}}/js/cake/overlay/overlay-1.0.0.js"></script>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/index.js"></script>
 </body>

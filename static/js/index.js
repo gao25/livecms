@@ -164,7 +164,10 @@ $('.lset li a').hover(function(){
   $(this).css('color','#f3f3f3');
 })
 
-
+// 弹出框
+var newOverlay = new cake['overlay-1.0.0']({
+  maskClose: false
+});
 
 
 
