@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>现场管理 － 待签报道 － 列表</title>
-  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" />
-  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/list.css">
+  <link rel="stylesheet" href="/static/css/common.css">
+  <link rel="stylesheet" href="/static/css/list.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
   <script src="${{staticServer}}/js/juicer-min.js"></script>
@@ -24,12 +24,12 @@
       <img class="img" src="/static/img/live.png">
       <img class="play" src="/static/img/play.png">
       <span class="lvs-title">${item.topic}</span>
-      <span class="lvs-id">5556</span>
+      <span class="lvs-id">${item.id}</span>
     </div>
     <div class="lvs-message">
       <div>现场：<span>${item.topic}</span></div>
       <div>报道人：<span>${item.reporter}</span></div>
-      <div>发布时间：<span>2016/8/12 13:23</span></div>
+      <div>发布时间：<span>${item.createtime}</span></div>
       <div>状态：<span>{@if item.state == 1}待审核{@else if item.state == 8}审核失败{@/if}</span></div>
       <div class="lvs-comment">评论：<span>${item.commentnum}</span></div>
       <div class="lvs-praise">点赞：<span>${item.likenum}</span></div>

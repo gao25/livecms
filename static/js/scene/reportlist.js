@@ -37,16 +37,22 @@ function loadReportList(){
   }
   lvsCmd.ajax(searchUrl, data, function (state, res) {
     if (state) {
-      var reportlistHtml = reportlistTpl.render(res);
-      $('#j-reportlist').html(reportlistHtml);
-      // 绑定操作
-      bindReportList();
-      // 分页
-      lvsCmd.page('j-page', 437, page, 20);
-      $('#j-page a').click(function(){
-        page = $(this).data('page');
-        loadReportList();
-      });
+      if (res['status'] == '0') {
+        var reportlistHtml = reportlistTpl.render(res);
+        $('#j-reportlist').html(reportlistHtml);
+        // 绑定操作
+        bindReportList();
+        // 分页
+        lvsCmd.page('j-page', 437, page, 20);
+        $('#j-page a').click(function(){
+          page = $(this).data('page');
+          loadReportList();
+        });
+      } else {
+        alert(res['errMsg']);
+      }
+    } else {
+      alert("接口请求失败，请检查网络连接！");
     }
   });
 }

@@ -1,6 +1,7 @@
-// document.domain = 'live.com';
-// var executeServer = 'http://api.live.com';
-var executeServer = '';
+// document.domain = 'live.com'; // 主域名
+var executeServer = ''; // 用户接口服务器域名，如 http://api.live.com
+var upfileServer = ''; // 文件服务器域名，如 http://upfile.live.com
+
 var lvsCmd = {};
 // url参数
 lvsCmd['urlParams'] = (function(){
