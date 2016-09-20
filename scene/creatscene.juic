@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>现场管理 － 待签现场 － 创建现场</title>
+  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/edit.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
 </head>
 <body>
-
+<div class="lvs-crumb">
+  <a href="javascript:void(0)" class="back">返回上一页</a>
+  <span>现场管理</span>
+  <span>&gt;</span>
+  <a href="#">待签现场</a>
+  <span>&gt;</span>
+  <span>创建现场</span>
+</div>
+<div id="j-editform" class="lvs-edit"> 
+</div>
+<script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/scene/creatscene.js"></script>
 </body>
 </html>

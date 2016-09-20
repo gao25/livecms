@@ -141,6 +141,6 @@
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
 <script src="/static/js/common.js"></script>
-<script src="/static/js/scene/reportlist.js"></script>
+<script src="/static/js/scene/checkscene.js"></script>
 </body>
 </html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>现场管理 － 待审评论</title>
+  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
+  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+</head>
+<body>
+<div class="lvs-comment fn-clear">
+  <a class="comment-pending-btn" href="#">
+    <span>审核</span>
+  </a>
+  <a class="comment-delete-btn" href="#">
+    <span>删除</span>
+  </a>
+  <div class="lvs-listhead fn-clear">
+    <div id="j-search" class="search fn-clear"></div>
+  </div>
+</div>
+<div class="comment-list">
+  <table cellspacing="0">
+    <tr align="center" class="listhead">
+      <td class="lselect"><span class="lselect-btn"></span></td>
+      <td class="lid">ID</td>
+      <td class="ldelete">操作</td>
+      <td class="user">用户</td>
+      <td class="lcomment">评论内容</td>
+      <td class="idnum">所属报道</td>
+      <td class="lstate">状态</td>
+      <td class="ltime">创建时间</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+    <tr align="center">
+      <td><span class="select-btn"></span></td>
+      <td>2342</td>
+      <td>
+        <span class="pending-btn">审核</span>
+        <span class="delete-btn">删除</span>
+      </td>
+      <td>小小小</td>
+      <td>中国队加油中国队加油中国队加油中国队加油中国队加油</td>
+      <td>ID:3201</td>
+      <td>待审核</td>
+      <td>2016/8/24 14:32</td>
+    </tr>
+  </table>
+</div>
+<div id="j-page" class="lvs-page"></div>
+<script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/scene/reportcomment.js"></script>
+</body>
+</html>
