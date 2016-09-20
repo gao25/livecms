@@ -6,12 +6,17 @@ var beginDate = '',
   reportType = '',
   key = '',
   keyType = '';
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> 20244836a2a36a1bbee8033c3e744e3056372ddc
 // 渲染列表
 var reportlistTpl = juicer($('#j-reportlist script').html());
 $('#j-reportlist script').remove();
 function loadReportList(){
   $('#j-reportlist').html('');
+<<<<<<< HEAD
    var url = '/live-web-cms/report/getUnApprovedReport.json',
      searchUrl = '/live-web-cms/report/searchUnApproved.json',
      data = {page: page};
@@ -36,10 +41,37 @@ function loadReportList(){
      url = searchUrl;
    }
    lvsCmd.ajax(searchUrl, data, function (state, res) {
+=======
+  var url = '/live-web-cms/report/getUnApprovedReport.json',
+    searchUrl = '/live-web-cms/report/searchUnApproved.json',
+    data = {page: page};
+  if (beginDate) {
+    data['beginDate'] = beginDate;
+    url = searchUrl;
+  }
+  if (endDate) {
+    data['endDate'] = endDate;
+    url = searchUrl;
+  }
+  if (reportType > 0) {
+    data['reportType'] = reportType;
+    url = searchUrl;
+  }
+  if (key) {
+    data['key'] = key;
+    url = searchUrl;
+  }
+  if (keyType > 0) {
+    data['keyType'] = keyType;
+    url = searchUrl;
+  }
+  lvsCmd.ajax(searchUrl, data, function (state, res) {
+>>>>>>> 20244836a2a36a1bbee8033c3e744e3056372ddc
     if (state) {
       var reportlistHtml = reportlistTpl.render(res);
       $('#j-reportlist').html(reportlistHtml);
       // 绑定操作
+<<<<<<< HEAD
        bindReportList();
        // 分页
        lvsCmd.page('j-page', 437, page, 20);
@@ -47,10 +79,20 @@ function loadReportList(){
          page = $(this).data('page');
          loadReportList();
        });
+=======
+      bindReportList();
+      // 分页
+      lvsCmd.page('j-page', 437, page, 20);
+      $('#j-page a').click(function(){
+        page = $(this).data('page');
+        loadReportList();
+      });
+>>>>>>> 20244836a2a36a1bbee8033c3e744e3056372ddc
     }
   });
 }
 function bindReportList(){
+<<<<<<< HEAD
    // 列表
    $('#j-reportlist .more').hover(function(){
      $(this).find('img').attr('src','/static/img/green_menu.png');
@@ -65,6 +107,22 @@ function bindReportList(){
      $(this).css('color','#808080');
    })
  }
+=======
+  // 列表
+  $('#j-reportlist .more').hover(function(){
+    $(this).find('img').attr('src','/static/img/green_menu.png');
+    $(this).find('ul').show();
+  },function(){
+    $(this).find('img').attr('src','/static/img/menu.png');
+    $(this).find('ul').hide();
+  })
+  $('#j-reportlist .more ul li a').hover(function(){
+    $(this).css('color','#12bb9a');
+  },function(){
+    $(this).css('color','#808080');
+  })
+}
+>>>>>>> 20244836a2a36a1bbee8033c3e744e3056372ddc
 loadReportList();
 
 // 渲染搜索栏
@@ -138,6 +196,7 @@ searchConfig = {
   ]
 };
 newSearchform.render(searchConfig, null, function(){
+<<<<<<< HEAD
    page = 1;
    beginDate = $('#j-searchform input[name=beginDate]').val(),
    endDate = $('#j-searchform input[name=beginDate]').val(),
@@ -148,3 +207,16 @@ newSearchform.render(searchConfig, null, function(){
    if (endDate) endDate = new Date(endDate).getTime();
    loadReportList(); 
 });
+=======
+  page = 1;
+  beginDate = $('#j-searchform input[name=beginDate]').val(),
+  endDate = $('#j-searchform input[name=beginDate]').val(),
+  reportType = $('#j-searchform select[name=reportType]').val(),
+  key = $.trim($('#j-searchform input[name=key]').val()),
+  keyType = $('#j-searchform select[name=reportType]').val();
+  if (beginDate) beginDate = new Date(beginDate).getTime();
+  if (endDate) endDate = new Date(endDate).getTime();
+  loadReportList(); 
+});
+
+>>>>>>> 20244836a2a36a1bbee8033c3e744e3056372ddc
