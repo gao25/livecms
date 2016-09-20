@@ -53,7 +53,7 @@ var navAllData = {
       },
       {
         "menu": "待审评论",
-        "link": "/scene/reportlist.html"
+        "link": "/scene/pendingcomment.html"
       },
       {
         "menu": "视频素材",

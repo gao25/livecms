@@ -1,3 +1,7 @@
+// 获取参数
+var page = + lvsCmd['urlParams']['page'];
+if (isNaN(page) || page < 1) page = 1;
+
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
@@ -51,13 +55,14 @@ searchConfig = {
     "maxlength": 100,
     "placeholder": "关键字"
   }, {
-    "title": "创建人",
-    "name": "other",
+    "title": "关键字类型",
+    "name": "keyType",
     "type": "select",
     "option": [
-      {"text": "创建人", "value": "0"},
-      {"text": "张三", "value": "1"},
-      {"text": "李四", "value": "2"}
+      {"text": "关键字类型", "value": "0"},
+      {"text": "创建人", "value": "1"},
+      {"text": "报道ID", "value": "4"},
+      {"text": "现场标题", "value": "8"}
     ]
   }],
   "button": [
@@ -67,12 +72,25 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function(){
-  alert('ajax');
+newSearchform.render(searchConfig, null, function(config){
+  var data = {page: 1},
+    beginDate = $('#j-searchform input[name=beginDate]').val(),
+    endDate = $('#j-searchform input[name=beginDate]').val(),
+    reportType = $('#j-searchform select[name=reportType]').val(),
+    key = $('#j-searchform input[name=key]').val(),
+    keyType = $('#j-searchform select[name=reportType]').val();
+  if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
+  if (endDate) data['endDate'] = new Date(endDate).getTime();
+  if (reportType > 0) data['reportType'] = reportType;
+  if (key) data['key'] = key;
+  if (keyType > 0) data['keyType'] = keyType;
+  lvsCmd.ajax(config['url'], data, function (state, res) {
+    console.log(res);
+  });  
 });
 
 // 分页
-lvsCmd.page('j-page', 437, 8, 10);
+lvsCmd.page('j-page', 437, page,20);
 $('#j-page a').click(function(){
   alert($(this).data('page'));
 });

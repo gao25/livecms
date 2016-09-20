@@ -1,9 +1,10 @@
 body
   font-family SimSun, NSimSun
 .lvs-comment
-  width 100%
+  width 98%
   height 50px
-  .comment-delete-btn
+  margin-left 2%
+  .comment-pending-btn,.comment-delete-btn
     float left
     width 68px
     height 32px
@@ -13,7 +14,7 @@ body
     line-height 32px
     text-align center
     border-radius 5px
-    margin 14px 20px 12px
+    margin 14px 0 12px 5px
     cursor pointer
     img
       vertical-align middle
@@ -44,7 +45,7 @@ body
           width 12%
         &.lcomment
           width 22%
-        &.delete-btn
+        .pending-btn,.delete-btn
           text-decoration underline
           cursor pointer
         &.cid,&.cstate,&.ccreater,&.cstyle,&.cnum
