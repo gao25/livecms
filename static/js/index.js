@@ -66,7 +66,7 @@ var navAllData = {
     "list": [
       {
         "menu": "用户管理",
-        "link": "/scene/reportlist.html"
+        "link": "/user/usermanagement.html"
       }
     ]
   },
@@ -84,7 +84,7 @@ var navAllData = {
     "list": [
       {
         "menu": "管理员管理",
-        "link": "/scene/reportlist.html"
+        "link": "/administrator/administratormanagement.html"
       }
     ]
   }
