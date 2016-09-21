@@ -152,7 +152,67 @@ $('#j-logout').click(function(){
 });
 
 
-//个人设置样式
+//个人设置
+var newTplform = new cake["tplform-1.0.1"]('j-editform'),
+formConfig = {
+  "type": "ajax",
+  "method": "post",
+  "action": "xxx",
+  "fields": [{
+    "title": "头像",
+    "name": "userphone",
+    "type": "text"
+  }, {
+    "title": "昵称",
+    "name": "usernick",
+    "type": "text"
+  }, {
+    "class": "check-style",
+    "title": "性别",
+    "name": "usersex",
+    "type": "radio",
+    "option": [
+      {"text": "男", "value": "v1"},
+      {"text": "女", "value": "v2"}
+    ]
+  },{
+    "title": "年龄",
+    "name": "userage",
+    "type": "text"
+  }, {
+    "title": "现场类型",
+    "name": "type",
+    "type": "select",
+    "option": [
+      {"text": "图文直播", "value": "v1"},
+      {"text": "音频直播", "value": "v2"},
+      {"text": "视频直播", "value": "v3"}
+    ]
+  }, {
+    "class": "readonly",
+    "title": "所属",
+    "name": "userorgan",
+    "type": "text",
+    "readonly": true
+  }],
+  "button": [
+    {
+      "value": "确定",
+      "type": "submit"
+    },
+    {
+      "class": "j-cancel",
+      "value": "取消",
+      "type": "button"
+    }
+  ]
+};
+newTplform.render(formConfig, null, function(){
+  alert('ajax');
+});
+newTplform.setval({
+  "state": "v1"
+});
 $('.lset').hover(function(){
   $('.lset ul').show();
 },function(){
@@ -166,8 +226,13 @@ $('.lset li a').hover(function(){
 
 // 弹出框
 var newOverlay = new cake['overlay-1.0.0']({
+  width: '600px',
+  height: 'auto',
+  close: '.j-overlay-close',
   maskClose: false
 });
-
+$('.userset').click(function(){
+  newOverlay.show($('#j-overlay').html());
+});
 
 
