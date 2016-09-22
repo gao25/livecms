@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>文件上传</title>
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="/static/css/overlay.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+</head>
+<body>
+<div class="lvs-selectbtn">
+  <span id="j-local">本地文件</span>
+  <span id="j-material">媒体素材</span>
+</div>
+<script src="/static/js/common.js"></script>
+<script type="text/javascript">
+// filetype: img audio video
+var filetype = lvsCmd['urlParams']['filetype'],
+  callback = lvsCmd['urlParams']['callback'];
+$('#j-local').click(function(){
+  location.href = 'uploader.html?filetype='+filetype+'&callback='+callback;
+});
+$('#j-material').click(function(){
+  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="900" height="500" src="/scene/videomaterial.html"></iframe></div>');
+});
+</script>
+</body>
+</html>

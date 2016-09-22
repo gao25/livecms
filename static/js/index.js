@@ -165,7 +165,7 @@ $('.lset li a').hover(function(){
 })
 
 // 弹出框
-var newOverlay = new cake['overlay-1.0.0']({
+var mainOverlay = new cake['overlay-1.0.0']({
   maskClose: false
 });
 

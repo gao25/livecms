@@ -180,6 +180,65 @@ lvsCmd['page'] = function (obj, count, page, pageSize) {
   obj.html(html);
 };
 
+// 上传组件
+lvsCmd['upfile'] = function(obj){
+  this.obj = obj;
+  this.init();
+};
+lvsCmd['upfile'].prototype = {
+  init: function(){
+    _this = this;
+    var callback = 'upfileCallback' + new Date().getTime();
+    window[callback] = function(){
+      alert('dd');
+    }
+    // 上传按钮
+    var fileBtn = $('<p class="file"><span class="add">+</span></p>');
+    fileBtn.click(function(){
+      var filetype = _this.obj.data('filetype');
+      if (filetype == 'pictures') filetype = 'img';
+      parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="/overlay/upfile.html?filetype='+filetype+'&callback='+callback+'"></iframe></div>');
+      return false;
+    });
+    this.obj.append(fileBtn);
+  }
+};
+
+// 日期格式化
+lvsCmd['formatDate'] = function(date, typeStr) {
+  if (date) {
+    var thisDate = new Date(date);
+  } else {
+    var thisDate = new Date();
+  }
+  var YY = thisDate.getFullYear(),
+    Y = YY.toString().substr(2, 2),
+    M = 1 + thisDate.getMonth(),
+    MM = M > 9 ? M : '0' + M,
+    D = thisDate.getDate(),
+    DD = D > 9 ? D : '0' + D,
+    h = thisDate.getHours(),
+    hh = h > 9 ? h : '0' + h,
+    m = thisDate.getMinutes(),
+    mm = m > 9 ? m : '0' + m,
+    s = thisDate.getSeconds(),
+    ss = s > 9 ? s : '0' + s;
+  var formatStr = typeStr
+    .replace(/YY/g, YY)
+    .replace(/Y/g, Y)
+    .replace(/MM/g, MM)
+    .replace(/M/g, M)
+    .replace(/DD/g, DD)
+    .replace(/D/g, D)
+    .replace(/hh/g, hh)
+    .replace(/h/g, h)
+    .replace(/mm/g, mm)
+    .replace(/m/g, m)
+    .replace(/ss/g, ss)
+    .replace(/s/g, s);
+  return formatStr;
+};
+
 // 返回
 $('.lvs-crumb .back').click(function(){
   history.back();

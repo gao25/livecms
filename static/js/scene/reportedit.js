@@ -20,11 +20,7 @@ formConfig = {
     "title": "报道人",
     "name": "userid",
     "type": "select",
-    "option": [
-      {"text": "图文", "value": "1"},
-      {"text": "音频", "value": "2"},
-      {"text": "视频", "value": "4"}
-    ]
+    "option": []
   }, {
     "title": "发布时间",
     "name": "createtime",
@@ -33,6 +29,7 @@ formConfig = {
     "title": "稿件类型",
     "name": "type",
     "type": "select",
+    "disabled": true,
     "option": [
       {"text": "图文", "value": "1"},
       {"text": "音频", "value": "2"},
@@ -42,7 +39,7 @@ formConfig = {
     "class": "uploader j-uploader",
     "title": "上传文件",
     "type": 'html',
-    "html": '<div class="filelist"><p class="file"><em>-</em><span></span></p><p class="file"><span class="add">+</span></p></div>'
+    "html": '<div class="filelist"></div>'
   }, {
     "class": "j-state",
     "title": "报道状态",
@@ -74,11 +71,8 @@ formConfig = {
   ]
 };
 newTplform.render(formConfig, function(){
-  // 上传
-  loadUploaderSign(function(uploaderSign){
-    loadUploaderMod(uploaderSign);
-    lvsCmd['uploader'].init();
-  });
+  // 创建上传组件
+  var newUpfile = new lvsCmd['upfile']($('.j-uploader .filelist'));
   // 状态
   $('#j-editform .j-state label').click(function(){
     $(this).addClass('current')
@@ -89,22 +83,69 @@ newTplform.render(formConfig, function(){
     history.back();
   });
 }, function(){
-
-  // alert('ajax');
-
-  // /live-web-cms/report/update.json
-
-
+  // 获取表单数据
+  var formData = {
+    "id": id,
+    "createTime": new Date($('#j-editform select[name=userid]').val()).getTime(),
+    "content": $('#j-editform textarea[name=content]').val(),
+    "state": $('#j-editform input[name=state]').val()
+  };
+  var selectedIndex = $('#j-editform select[name=userid]')[0].selectedIndex,
+    reporterId = $('#j-editform select[name=userid] option').eq(selectedIndex).val(),
+    reporter = $('#j-editform select[name=userid] option').eq(selectedIndex).text();
+  formData['reporterId'] = reporterId;
+  formData['reporter'] = reporter;
+  var type = $('#j-editform select[name=type]').val();
+  if (type == 1) {
+    formData['pictures'] = '';
+  } else if (type == 2) {
+    formData['audio'] = '';
+  } else if (type == 3) {
+    formData['video'] = '';
+  }
+  // 提交表单
+  lvsCmd.ajax('/live-web-cms/report/update.json', formData, function (state, res) {
+    if (state) {
+      if (res['status'] == '0') {
+        alert("数据保存成功！");
+        location.reload();
+      } else {
+        alert(res['errMsg']);
+      }
+    } else {
+      alert("接口请求失败，请检查网络连接！");
+    }
+  });
 });
 
 // 获取数据
 lvsCmd.ajax('/live-web-cms/report/get.json', {reportId: id}, function (state, res) {
   if (state) {
     if (res['status'] == '0') {
-      newTplform.setval(res['data']);
+      var formVal = res['data'];
+      // 格式化日期
+      formVal['createtime'] = lvsCmd['formatDate'](formVal['createtime'], 'YY-MM-DD hh:mm');
+      // 插入报道人
+      $('#j-editform select[name=userid]').append('<option value="'+formVal['userid']+'">'+formVal['reporter']+'</option>');
+      // 设置表单值
+      newTplform.setval(formVal);
+      // 绑定状态
       $('#j-editform .j-state input').each(function(){
         if ($(this)[0].checked) {
           $(this).parent().addClass('current');
+        }
+      });
+      // 获取报道人列表
+      lvsCmd.ajax('/live-web-cms/report/getReporters.json', {}, function (state, res) {
+        if (state) {
+          if (res['status'] == '0') {
+            var userid = $('#j-editform select[name=userid]').val();
+            $('#j-editform select[name=userid]').html('');
+            $.each(res['data'], function(){
+              $('#j-editform select[name=userid]').append('<option value="'+this['userId']+'">'+this['reporter']+'</option>');
+            });
+            newTplform.setval({userid:userid});
+          }
         }
       });
     } else {
@@ -114,9 +155,4 @@ lvsCmd.ajax('/live-web-cms/report/get.json', {reportId: id}, function (state, re
     alert("接口请求失败，请检查网络连接！");
   }
 });
-
-
-// parent.window.newOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" src="about:blank"></iframe></div>');
-// parent.window.frames['mainframe'].id
-
 
