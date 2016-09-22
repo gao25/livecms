@@ -4,7 +4,7 @@ body
   width 98%
   height 50px
   margin-left 2%
-  .comment-pending-btn,.comment-delete-btn
+  .comment-pending-btn,.comment-delete-btn,.a-add-btn,.user-open-btn,.user-close-btn
     float left
     width 68px
     height 32px
@@ -45,7 +45,7 @@ body
           width 12%
         &.lcomment
           width 22%
-        .pending-btn,.delete-btn
+        .pending-btn,.preview-btn,.delete-btn,.edit-btn
           text-decoration underline
           cursor pointer
         &.cid,&.cstate,&.ccreater,&.cstyle,&.cnum
@@ -68,10 +68,27 @@ body
           width 12%
         &.vtime
           width 13%
+        &.uselect,&.usex,&.ustate,&.unick
+          width 6%
+        &.uhandle,&.uphoto,&.uname,&.uchannel,&.uphone
+          width 9%
+        &.uemail,&.utime
+          width 12%
+        &.aselect,&.aid,&.astate
+          width 8%
+        &.ahandle,&.arole,&.aorgan,&.aname,&.aphone
+          width 10%
+        &.aaccount,&.atime
+          width 13%
         &.lsort-btn ul
           float right
           li
             display inline-block
+            color #2c1cca
+            text-decoration underline
+            cursor pointer
+        &.uhandle-btn,&.ahandle-btn
+          a
             color #2c1cca
             text-decoration underline
             cursor pointer
@@ -97,6 +114,8 @@ body
                 a
                   text-decoration none
                   color #808080
+        img
+          width 40%
         .lselect-btn,.select-btn
           display inline-block
           width 12px

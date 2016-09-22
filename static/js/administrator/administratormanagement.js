@@ -38,31 +38,11 @@ searchConfig = {
       }
     }
   }, {
-    "title": "报道类型",
-    "name": "reportType",
-    "type": "select",
-    "option": [
-      {"text": "报道类型", "value": "0"},
-      {"text": "图文", "value": "1"},
-      {"text": "音频", "value": "2"},
-      {"text": "视频", "value": "4"}
-    ]
-  }, {
-    "title": "关键字",
+    "title": "账号",
     "name": "key",
     "type": "text",
     "maxlength": 100,
-    "placeholder": "关键字"
-  }, {
-    "title": "关键字类型",
-    "name": "keyType",
-    "type": "select",
-    "option": [
-      {"text": "关键字类型", "value": "0"},
-      {"text": "评论用户", "value": "1"},
-      {"text": "评论内容", "value": "2"},
-      {"text": "报道ID", "value": "4"},
-    ]
+    "placeholder": "账号"
   }],
   "button": [
     {
@@ -76,14 +56,10 @@ newSearchform.render(searchConfig, null, function(config){
   var data = {page: 1},
     beginDate = $('#j-searchform input[name=beginDate]').val(),
     endDate = $('#j-searchform input[name=beginDate]').val(),
-    reportType = $('#j-searchform select[name=reportType]').val(),
-    key = $('#j-searchform input[name=key]').val(),
-    keyType = $('#j-searchform select[name=reportType]').val();
+    key = $('#j-searchform input[name=key]').val();
   if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
   if (endDate) data['endDate'] = new Date(endDate).getTime();
-  if (reportType > 0) data['reportType'] = reportType;
   if (key) data['key'] = key;
-  if (keyType > 0) data['keyType'] = keyType;
   lvsCmd.ajax(config['url'], data, function (state, res) {
     console.log(res);
   });  
@@ -98,47 +74,42 @@ $('#j-page a').click(function(){
 // 选中操作
 var select_num=0;
 $('.lselect-btn').click(function(){
-	if(select_num==0){
-		$('.lselect-btn').addClass('lselected');
-		$('.select-btn').addClass('lselected');
-		select_num=1;
-	}else{
-		$('.lselect-btn').removeClass('lselected');
-		$('.select-btn').removeClass('lselected');
-		select_num=0;
-	}
+  if(select_num==0){
+    $('.lselect-btn').addClass('lselected');
+    $('.select-btn').addClass('lselected');
+    select_num=1;
+  }else{
+    $('.lselect-btn').removeClass('lselected');
+    $('.select-btn').removeClass('lselected');
+    select_num=0;
+  }
 })
 $(".select-btn").on("click",function(){
-	$('.lselect-btn').removeClass('lselected');
-	select_num=0;
-	if(!$(this).hasClass("lselected")){
-  	$(this).addClass('lselected');
+  $('.lselect-btn').removeClass('lselected');
+  select_num=0;
+  if(!$(this).hasClass("lselected")){
+    $(this).addClass('lselected');
   }else{
-  	$(this).removeClass('lselected');
+    $(this).removeClass('lselected');
   }
 })
 //删除操作
 $('.comment-delete-btn').click(function(){
-	$('.select-btn').each(function(){
-	  if($(this).hasClass('lselected')){
-	  	$(this).parent().parent().remove();
-	  	if($('.lselect-btn').hasClass('lselected')){
-	  		$('.lselect-btn').removeClass('lselected');
-	  		select_num=0;
-	  	}	
-	  }
-	})
-})
-$('.delete-btn').hover(function(){
-	$(this).css('color','#f00');
-},function(){
-	$(this).css('color','#323a4d');
+  $('.select-btn').each(function(){
+    if($(this).hasClass('lselected')){
+      $(this).parent().parent().remove();
+      if($('.lselect-btn').hasClass('lselected')){
+        $('.lselect-btn').removeClass('lselected');
+        select_num=0;
+      } 
+    }
+  })
 })
 $('.delete-btn').on('click',function(){
-	$(this).parents('tr').remove();
+  $(this).parents('tr').remove();
 })
-$('.pending-btn').hover(function(){
-  $(this).css('color','#2c1cca');
+$('.delete-btn').hover(function(){
+  $(this).css('color','#f00');
 },function(){
-  $(this).css('color','#323a4d');
+  $(this).css('color','#2c1cca');
 })

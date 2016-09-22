@@ -38,14 +38,23 @@ searchConfig = {
       }
     }
   }, {
-    "title": "报道类型",
-    "name": "reportType",
+    "title": "所属渠道",
+    "name": "userchannel",
     "type": "select",
     "option": [
       {"text": "报道类型", "value": "0"},
       {"text": "图文", "value": "1"},
       {"text": "音频", "value": "2"},
       {"text": "视频", "value": "4"}
+    ]
+  }, {
+    "title": "用户状态",
+    "name": "userstate",
+    "type": "select",
+    "option": [
+      {"text": "用户状态", "value": "0"},
+      {"text": "启用", "value": "1"},
+      {"text": "禁用", "value": "2"},
     ]
   }, {
     "title": "关键字",
@@ -59,9 +68,8 @@ searchConfig = {
     "type": "select",
     "option": [
       {"text": "关键字类型", "value": "0"},
-      {"text": "评论用户", "value": "1"},
-      {"text": "评论内容", "value": "2"},
-      {"text": "报道ID", "value": "4"},
+      {"text": "用户名", "value": "1"},
+      {"text": "昵称", "value": "2"},
     ]
   }],
   "button": [
@@ -76,12 +84,14 @@ newSearchform.render(searchConfig, null, function(config){
   var data = {page: 1},
     beginDate = $('#j-searchform input[name=beginDate]').val(),
     endDate = $('#j-searchform input[name=beginDate]').val(),
-    reportType = $('#j-searchform select[name=reportType]').val(),
+    userchannel = $('#j-searchform select[name=userchannel]').val(),
+    userstate = $('#j-searchform select[name=userstate]').val(),
     key = $('#j-searchform input[name=key]').val(),
     keyType = $('#j-searchform select[name=reportType]').val();
   if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
   if (endDate) data['endDate'] = new Date(endDate).getTime();
-  if (reportType > 0) data['reportType'] = reportType;
+  if (userchannel > 0) data['userchannel'] = userchannel;
+  if (userstate > 0) data['userstate'] = userstate;
   if (key) data['key'] = key;
   if (keyType > 0) data['keyType'] = keyType;
   lvsCmd.ajax(config['url'], data, function (state, res) {
@@ -94,51 +104,25 @@ lvsCmd.page('j-page', 437, page, 20);
 $('#j-page a').click(function(){
   alert($(this).data('page'));
 });
-
 // 选中操作
 var select_num=0;
 $('.lselect-btn').click(function(){
-	if(select_num==0){
-		$('.lselect-btn').addClass('lselected');
-		$('.select-btn').addClass('lselected');
-		select_num=1;
-	}else{
-		$('.lselect-btn').removeClass('lselected');
-		$('.select-btn').removeClass('lselected');
-		select_num=0;
-	}
-})
-$(".select-btn").on("click",function(){
-	$('.lselect-btn').removeClass('lselected');
-	select_num=0;
-	if(!$(this).hasClass("lselected")){
-  	$(this).addClass('lselected');
+  if(select_num==0){
+    $('.lselect-btn').addClass('lselected');
+    $('.select-btn').addClass('lselected');
+    select_num=1;
   }else{
-  	$(this).removeClass('lselected');
+    $('.lselect-btn').removeClass('lselected');
+    $('.select-btn').removeClass('lselected');
+    select_num=0;
   }
 })
-//删除操作
-$('.comment-delete-btn').click(function(){
-	$('.select-btn').each(function(){
-	  if($(this).hasClass('lselected')){
-	  	$(this).parent().parent().remove();
-	  	if($('.lselect-btn').hasClass('lselected')){
-	  		$('.lselect-btn').removeClass('lselected');
-	  		select_num=0;
-	  	}	
-	  }
-	})
-})
-$('.delete-btn').hover(function(){
-	$(this).css('color','#f00');
-},function(){
-	$(this).css('color','#323a4d');
-})
-$('.delete-btn').on('click',function(){
-	$(this).parents('tr').remove();
-})
-$('.pending-btn').hover(function(){
-  $(this).css('color','#2c1cca');
-},function(){
-  $(this).css('color','#323a4d');
+$(".select-btn").on("click",function(){
+  $('.lselect-btn').removeClass('lselected');
+  select_num=0;
+  if(!$(this).hasClass("lselected")){
+    $(this).addClass('lselected');
+  }else{
+    $(this).removeClass('lselected');
+  }
 })

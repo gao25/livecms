@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>CMS内容管理平台</title>
   <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="/static/css/edit.css">
   <link rel="stylesheet" type="text/css" href="/static/css/index.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
 </head>
@@ -19,7 +20,7 @@
     <span class="uname"></span>
     <ul>
       <li class="lset"><a href="#">设置</a>
-        <ul><li><a href="#">个人设置</a></li></ul>
+        <ul><li class="userset"><a href="#">个人设置</a></li></ul>
       </li> / 
       <li><a id="j-logout" href="javascript:void(0)">退出</a></li>
     </ul>
@@ -37,7 +38,15 @@
 </div>
 <div class="lvs-iframe">
   <iframe scrolling="auto" frameborder="0" name="mainframe" src="about:blank"></iframe>
+  <div id="j-overlay" style="display:none">
+    <div class="lvs-overlay">
+      <div class="title"><span>个人信息</span><em class=".j-overlay-close">X</em></div>
+      <div id="j-editform" class="lvs-edit"> 
+      </div>
+    </div>
+  </div>
 </div>
+<script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
 <script src="${{staticServer}}/js/cake/overlay/overlay-1.0.0.js"></script>
 <script src="/static/js/common.js"></script>
 <script src="/static/js/index.js"></script>
