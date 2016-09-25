@@ -9,7 +9,7 @@
 </head>
 <body>
 <script>
-//document.domain = 'live.com';
+document.domain = 'live.com';
 var action = unescape(executeCmd['urlParams']['action']),
   callback = unescape(executeCmd['urlParams']['callback']),
   actionHead = {},

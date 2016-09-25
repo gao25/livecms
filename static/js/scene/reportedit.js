@@ -56,7 +56,7 @@ formConfig = {
     "title": "报道内容(限制300个汉字)",
     "name": "content",
     "type": "textarea",
-    "maxlength": 1
+    "maxlength": 300
   }],
   "button": [
     {
@@ -73,11 +73,6 @@ formConfig = {
 newTplform.render(formConfig, function(){
   // 创建上传组件
   var newUpfile = new lvsCmd['upfile']($('.j-uploader .filelist'));
-  // 状态
-  $('#j-editform .j-state label').click(function(){
-    $(this).addClass('current')
-      .siblings().removeClass('current');
-  });
   // 取消
   $('.j-cancel').click(function(){
     history.back();
@@ -86,9 +81,8 @@ newTplform.render(formConfig, function(){
   // 获取表单数据
   var formData = {
     "id": id,
-    "createTime": new Date($('#j-editform select[name=userid]').val()).getTime(),
-    "content": $('#j-editform textarea[name=content]').val(),
-    "state": $('#j-editform input[name=state]').val()
+    "createTime": new Date($('#j-editform input[name=createTime]').val()).getTime(),
+    "content": $('#j-editform textarea[name=content]').val()
   };
   var selectedIndex = $('#j-editform select[name=userid]')[0].selectedIndex,
     reporterId = $('#j-editform select[name=userid] option').eq(selectedIndex).val(),
@@ -103,12 +97,18 @@ newTplform.render(formConfig, function(){
   } else if (type == 3) {
     formData['video'] = '';
   }
+  $('#j-editform input[name=state]').each(function(){
+    if ($(this)[0].checked) {
+      formData['state'] = $(this).val();
+    }
+  });
   // 提交表单
   lvsCmd.ajax('/live-web-cms/report/update.json', formData, function (state, res) {
     if (state) {
       if (res['status'] == '0') {
         alert("数据保存成功！");
-        location.reload();
+        // location.reload();
+        history.back();
       } else {
         alert(res['errMsg']);
       }
@@ -121,7 +121,7 @@ newTplform.render(formConfig, function(){
 // 获取数据
 lvsCmd.ajax('/live-web-cms/report/get.json', {reportId: id}, function (state, res) {
   if (state) {
-    if (res['status'] == '0') {
+    if (res['status'] == 0) {
       var formVal = res['data'];
       // 格式化日期
       formVal['createtime'] = lvsCmd['formatDate'](formVal['createtime'], 'YY-MM-DD hh:mm');
@@ -129,11 +129,22 @@ lvsCmd.ajax('/live-web-cms/report/get.json', {reportId: id}, function (state, re
       $('#j-editform select[name=userid]').append('<option value="'+formVal['userid']+'">'+formVal['reporter']+'</option>');
       // 设置表单值
       newTplform.setval(formVal);
+      if (formVal['type'] == 1) {
+        $('.j-uploader .filelist').data('filetype', 2);
+      } else if (formVal['type'] == 2) {
+        $('.j-uploader .filelist').data('filetype', 3);
+      } else if (formVal['type'] == 4) {
+        $('.j-uploader .filelist').data('filetype', 4);
+      }
       // 绑定状态
       $('#j-editform .j-state input').each(function(){
         if ($(this)[0].checked) {
           $(this).parent().addClass('current');
         }
+      });
+      $('#j-editform .j-state label').click(function(){
+        $(this).addClass('current')
+          .siblings().removeClass('current');
       });
       // 获取报道人列表
       lvsCmd.ajax('/live-web-cms/report/getReporters.json', {}, function (state, res) {

@@ -13,7 +13,6 @@ executeCmd['urlParams'] = (function(){
 })();
 // ajax请求
 executeCmd['ajax'] = function (url, ajaxHead, ajaxBody, callback) {
-  url = url.replace('.json', '.do');
   var data = JSON.stringify(ajaxBody);
   if (data == '{}') data = '';
   $.ajax({

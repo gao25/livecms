@@ -14,14 +14,31 @@
 </div>
 <script src="/static/js/common.js"></script>
 <script type="text/javascript">
-// filetype: img audio video
+/* filetype:
+  USER_PORTRAIT(1,"xinhua-usercenter","portrait","用户头像"),
+  REPORT_PIC(2,"xinhua-zbcb","report-img","报道图片"),
+  REPORT_AUDIO(3,"xinhua-zbcb","report-audio","报道音频"),
+  REPORT_VIDEO(4,"xinhua-zbcb","report-video","报道视频"),
+  LIVE_COVER(5,"xinhua-zbcb","live-img","现场封面"),
+  LIVE_VIDEO(6,"xinhua-zbcb","live-video","现场回看视频");
+*/
 var filetype = lvsCmd['urlParams']['filetype'],
-  callback = lvsCmd['urlParams']['callback'];
+  callback = lvsCmd['urlParams']['callback'],
+  iframe = lvsCmd['urlParams']['iframe'],
+  uploaderUrl = 'uploader.html?filetype='+filetype+'&callback='+callback;
+  materialUrl = '/scene/videomaterial.html?action=select&callback='+callback;
+if (iframe) {
+  uploaderUrl += '&iframe='+iframe;
+  materialUrl += '&iframe='+iframe;
+}
+if (filetype == 1 || filetype == 2 || filetype == 5) {
+  location.href = uploaderUrl;
+}
 $('#j-local').click(function(){
-  location.href = 'uploader.html?filetype='+filetype+'&callback='+callback;
+  location.href = uploaderUrl;
 });
 $('#j-material').click(function(){
-  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="900" height="500" src="/scene/videomaterial.html"></iframe></div>');
+  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="900" height="500" src="'+materialUrl+'"></iframe></div>');
 });
 </script>
 </body>

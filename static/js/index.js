@@ -5,34 +5,49 @@ if (!role) {
   parent.location.href = '/login.html';
 }
 
-// 获取用户信息
-if ($('#j-executeframe').length == 0) {
-  $('body').append('<div class="fn-hide"><iframe id="j-executeframe" src="about:blank"></iframe></div>');
+// 请求用户服务器
+function executeCallback (action, actionBody, callbackName, iframename) {
+  if (!iframename) iframename = 'mainframe';
+  var executeCallbackName = 'executeCallback' + new Date().getTime();
+  window[executeCallbackName] = function(state, res){
+    parent.window.frames[iframename][callbackName](state, res);
+  };
+  executeFn(action, actionBody, executeCallbackName);
 }
-function executeUserCallback (state, res) {
+function executeFn (action, actionBody, callbackName) {
+  var random = lvsCmd['random'].get();
+  if (random) {
+    var executeURL = executeServer + '/execute/?action='+action+'&callback='+callbackName,
+      actionHead = escape('{"random":"'+random+'","token":"'+lvsCmd['cookie'].get('token')+'"}');
+    executeURL += '&actionHead='+actionHead;
+    if (actionBody) {
+      actionBody = escape(JSON.stringify(actionBody));
+      executeURL += '&actionBody='+actionBody;
+    }
+    $('#j-executeframe').attr('src', executeURL);
+  } else {
+    setTimeout(function(){
+      executeFn(action, actionBody, callbackName);
+    }, 100);
+  }
+}
+// 获取用户信息
+function executeUser (state, res) {
   if (state) {
     if (res['status'] == 0) {
       var userData = res['data'];
       $('#j-user .uname').html(userData['nick']);
       $('#j-admin .uname').html(userData['accountName']);
       if (userData['portrait']) {
-        $('#j-user .headpic img, #j-admin .headpic img').attr('src', userData['portrait']);
+        $('#j-user .headpic img, #j-admin .headpic img').attr('src', usercenterServer + userData['portrait']);
       }
+      lvsCmd['cookie'].set('userId', userData['id'], (7*24-1) + 'h'); // 实际过期时间是7天
     } else {
       alert(res['errMsg']);
     }
   }
 }
-function executeUserFn(){
-  var random = lvsCmd['random'].get();
-  if (random) {
-    var actionHead = '{"random":"'+random+'","token":"'+lvsCmd['cookie'].get('token')+'"}';
-    $('#j-executeframe').attr('src', executeServer + '/execute/?action=/userquery/getUser.json&actionHead='+actionHead+'&callback=executeUserCallback');
-  } else {
-    setTimeout(executeUserFn, 100);
-  }
-}
-executeUserFn();
+executeFn('/userquery/getUser.json', {}, 'executeUser');
 
 // 判断展示菜单
 var navAllData = {
@@ -151,68 +166,7 @@ $('#j-logout').click(function(){
   return false;
 });
 
-
 //个人设置
-var newTplform = new cake["tplform-1.0.1"]('j-editform'),
-formConfig = {
-  "type": "ajax",
-  "method": "post",
-  "action": "xxx",
-  "fields": [{
-    "title": "头像",
-    "name": "userphone",
-    "type": "text"
-  }, {
-    "title": "昵称",
-    "name": "usernick",
-    "type": "text"
-  }, {
-    "class": "check-style",
-    "title": "性别",
-    "name": "usersex",
-    "type": "radio",
-    "option": [
-      {"text": "男", "value": "v1"},
-      {"text": "女", "value": "v2"}
-    ]
-  },{
-    "title": "年龄",
-    "name": "userage",
-    "type": "text"
-  }, {
-    "title": "现场类型",
-    "name": "type",
-    "type": "select",
-    "option": [
-      {"text": "图文直播", "value": "v1"},
-      {"text": "音频直播", "value": "v2"},
-      {"text": "视频直播", "value": "v3"}
-    ]
-  }, {
-    "class": "readonly",
-    "title": "所属",
-    "name": "userorgan",
-    "type": "text",
-    "readonly": true
-  }],
-  "button": [
-    {
-      "value": "确定",
-      "type": "submit"
-    },
-    {
-      "class": "j-cancel",
-      "value": "取消",
-      "type": "button"
-    }
-  ]
-};
-newTplform.render(formConfig, null, function(){
-  alert('ajax');
-});
-newTplform.setval({
-  "state": "v1"
-});
 $('.lset').hover(function(){
   $('.lset ul').show();
 },function(){
@@ -223,13 +177,19 @@ $('.lset li a').hover(function(){
 },function(){
   $(this).css('color','#f3f3f3');
 })
+$('.userset').click(function(){
+  $('#j-useroverly').show();
+  $('#j-useroverly iframe').attr('src', 'user/setupuser.html');
+});
+
+function closeUseroverly(){
+  $('#j-useroverly').hide();
+}
+$('#j-useroverly .close').click(closeUseroverly);
 
 // 弹出框
 var mainOverlay = new cake['overlay-1.0.0']({
   maskClose: false
-});
-$('.userset').click(function(){
-  newOverlay.show($('#j-overlay').html());
 });
 
 

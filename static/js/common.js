@@ -1,6 +1,7 @@
-// document.domain = 'live.com'; // 主域名
-var executeServer = ''; // 用户接口服务器域名，如 http://api.live.com
-var upfileServer = ''; // 文件服务器域名，如 http://upfile.live.com
+document.domain = 'live.com'; // 主域名
+var executeServer = 'http://api.live.com'; // 用户接口服务器域名，如 http://api.live.com
+var usercenterServer = 'http://xinhua-usercenter.oss-cn-hangzhou.aliyuncs.com/', // 头像文件服务器
+  zbcbServer = 'http://xinhua-zbcb.oss-cn-hangzhou.aliyuncs.com/'; // 项目图片服务器
 
 var lvsCmd = {};
 // url参数
@@ -41,7 +42,7 @@ lvsCmd['cookie'] = {
       exp = new Date();
     exp.setTime(exp.getTime() + sec);
     if (cname == 'random') lvsCmd['random']['expires'] = exp;
-    document.cookie = cname + "="+ value + ";expires=" + exp.toGMTString();
+    document.cookie = cname + "="+ value + ";path=/;expires=" + exp.toGMTString();
   },
   del: function (cname) {
     lvsCmd['cookie'].set(cname, 'null', '-1');
@@ -80,7 +81,7 @@ lvsCmd['random'] = {
         useRandom = randomArray.pop();
       if (randomArray.length) {
         var exp = lvsCmd['random']['expires'];
-        document.cookie = "random="+ randomArray.join(',') + ";expires=" + exp.toGMTString();
+        document.cookie = "random="+ randomArray.join(',') + ";path=/;expires=" + exp.toGMTString();
       } else {
         lvsCmd['cookie'].del('random');
         lvsCmd['random']['state'] = 'close';
@@ -101,7 +102,7 @@ lvsCmd['random'] = {
 };
 // 刷新用户cookie
 lvsCmd['tokenRefresh'] = function(){
-  var list = ['orgId', 'orgName', 'role', 'token'];
+  var list = ['orgId', 'orgName', 'role', 'token', 'userId'];
   $.each(list, function(){
     var val = lvsCmd['cookie'].get(this);
     lvsCmd['cookie'].set(this, val, (7*24-1) + 'h'); // 实际过期时间是7天
@@ -124,7 +125,7 @@ lvsCmd['ajax'] = function (url, data, callback) {
         type: "post",
         dataType: "json",
         contentType: "application/json",
-        url: url.replace('.json', '.do'),
+        url: url,
         data: dataStr,
         beforeSend: function (req) {
           req.setRequestHeader("Content-Type", 'application/json');
@@ -188,16 +189,25 @@ lvsCmd['upfile'] = function(obj){
 lvsCmd['upfile'].prototype = {
   init: function(){
     _this = this;
-    var callback = 'upfileCallback' + new Date().getTime();
-    window[callback] = function(){
-      alert('dd');
+    var fileBtn = $('<p class="file"><span class="add">+</span></p>'),
+      callback = 'upfileCallback' + new Date().getTime();
+    window[callback] = function(mediaurl){
+      var newFileObj = $('<p class="file" data-mediaurl="'+mediaurl+'"><span></span><em>-</em></p>');
+      newFileObj.find('em').click(function(){
+        newFileObj.remove();
+      });
+      fileBtn.before(newFileObj);
     }
-    // 上传按钮
-    var fileBtn = $('<p class="file"><span class="add">+</span></p>');
+    // 上传
     fileBtn.click(function(){
-      var filetype = _this.obj.data('filetype');
-      if (filetype == 'pictures') filetype = 'img';
-      parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="/overlay/upfile.html?filetype='+filetype+'&callback='+callback+'"></iframe></div>');
+      var filetype = _this.obj.data('filetype'),
+        iframe = _this.obj.data('iframe'),
+        upfileUrl = '/overlay/upfile.html?filetype='+filetype+'&callback='+callback;
+      if (filetype == 1 || filetype == 2 || filetype == 5) {
+        upfileUrl = '/overlay/uploader.html?filetype='+filetype+'&callback='+callback;
+      }
+      if (iframe) upfileUrl += '&iframe=' + iframe;
+      parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" name="uploaderFrame" src="'+upfileUrl+'"></iframe></div>');
       return false;
     });
     this.obj.append(fileBtn);

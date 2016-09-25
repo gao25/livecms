@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>文件上传</title>
   <link rel="stylesheet" href="${{staticServer}}/css/base.css">
-  <link rel="stylesheet" href="/static/css/overlay.css">
+  <link rel="stylesheet" href="../static/css/overlay.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
@@ -14,8 +14,8 @@
   <p id="j-uploader-tip" class="fn-hide">文件正在上传...</p>
   <div id="j-uploader" class="fn-hide"></div>
 </div>
-<script src="/static/js/common.js"></script>
-<script src="/lib/plupload-2.1.2/js/plupload.full.min.js"></script>
-<script src="/static/js/uploader.js"></script>
+<script src="../static/js/common.js"></script>
+<script src="../lib/plupload-2.1.2/js/plupload.full.min.js"></script>
+<script src="../static/js/uploader.js"></script>
 </body>
 </html>

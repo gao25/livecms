@@ -9,33 +9,44 @@
   <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+  <script src="${{staticServer}}/js/juicer-min.js"></script>
+  <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
 <body>
 <div class="lvs-creat fn-clear">
-  <a class="creat-btn" href="creatscene.html">
+  <a id="j-recode" class="creat-btn" href="javascript:void(0)" style="display:none;">
     <span>视频转码</span>
   </a>
   <div class="lvs-listhead fn-clear">
     <div id="j-search" class="search fn-clear"></div>
   </div>
 </div>
-<div class="comment-list">
+<div id="j-list" class="comment-list">
+  <script type="text/template">
   <table cellspacing="0">
     <tr align="center" class="listhead">
+      {@if action == "select"}
+      <td>选择</td>
+      {@else}
       <td class="vselect"><span class="lselect-btn"></span></td>
-      <td class="vtitle">标题</td>
+      {@/if}
+      <td>标题</td>
+      {@if action != "select"}
       <td class="vhandle">操作</td>
-      <td class="vceater">创建人</td>
-      <td class="vstate">状态</td>
-      <td class="vidnum">所属报道</td>
-      <td class="vhours">总时长</td>
-      <td class="vsize">文件大小</td>
-      <td class="vformat">格式</td>
-      <td class="vtime">创建时间</td>
+      {@/if}
+      <td>创建人</td>
+      <td>状态</td>
+      <td>所属报道</td>
+      <td>总时长</td>
+      <td>文件大小</td>
+      <td>格式</td>
+      <td>创建时间</td>
     </tr>
+    {@each data as item}
     <tr align="center">
-      <td><span class="select-btn"></span></td>
-      <td>20160908135959</td>
+      <td><span class="select-btn" data-mediaurl="${item.mediaurl}"></span></td>
+      <td>${item.topic}</td>
+      {@if action != "select"}
       <td class="lhandle-btn">
         <ul>
           <li><a href="#">播放</a></li>
@@ -43,53 +54,18 @@
           <li><a href="#">重命名</a></li>
         </ul>
       </td>
-      <td>小小小</td>
-      <td>N/A</td>
-      <td>ID:3201</td>
-      <td>01:23:12</td>
-      <td>14G</td>
-      <td>M3U8</td>
-      <td>2016/8/24 14:32</td>
+      {@/if}
+      <td>${item.creater}</td>
+      <td>${item.state|formatState}</td>
+      <td></td>
+      <td>${item.duration}</td>
+      <td>${item.filesize|formatSize}</td>
+      <td>${item.format}</td>
+      <td>${item.createtime|formatDate, 'YY-MM-DD hh:mm'}</td>
     </tr>
-
-    <tr align="center">
-      <td><span class="select-btn"></span></td>
-      <td>20160908135959</td>
-      <td class="lhandle-btn">
-        <ul>
-          <li><a href="#">播放</a></li>
-          <li><a href="#">下载</a></li>
-          <li><a href="#">重命名</a></li>
-        </ul>
-      </td>
-      <td>小小小</td>
-      <td>启用</td>
-      <td>ID:3201</td>
-      <td>01:23:12</td>
-      <td>200M</td>
-      <td>MP4</td>
-      <td>2016/8/24 14:32</td>
-    </tr>
-
-    <tr align="center">
-      <td><span class="select-btn"></span></td>
-      <td>王宝强离婚</td>
-      <td class="lhandle-btn">
-        <ul>
-          <li><a href="#">播放</a></li>
-          <li><a href="#">下载</a></li>
-          <li><a href="#">重命名</a></li>
-        </ul>
-      </td>
-      <td>小小小</td>
-      <td>N/A</td>
-      <td>ID:3201</td>
-      <td>01:23:12</td>
-      <td>40M</td>
-      <td>MP3</td>
-      <td>2016/8/24 14:32</td>
-    </tr>
+    {@/each}
   </table>
+  </script>
 </div>
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>

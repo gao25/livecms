@@ -9,17 +9,20 @@
   <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+  <script src="${{staticServer}}/js/juicer-min.js"></script>
+  <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
 <body>
 <div class="lvs-creat fn-clear">
-  <a class="creat-btn" href="creatscene.html">
+  <a class="creat-btn" href="sceneedit.html">
     <img src="/static/img/creat_img.png"><span>创建现场</span>
   </a>
   <div class="lvs-listhead fn-clear">
     <div id="j-search" class="search fn-clear"></div>
   </div>
 </div>
-<div class="comment-list">
+<div id="j-list" class="comment-list">
+  <script type="text/template">
   <table cellspacing="0">
     <tr align="center" class="listhead">
       <td class="cid">ID</td>
@@ -32,11 +35,12 @@
       <td class="clink">短地址</td>
       <td class="ctime">创建时间</td>
     </tr>
+    {@each data as item}
     <tr align="center">
-      <td>2342</td>
+      <td>${item.id}</td>
       <td class="lhandle-btn">
         <ul>
-          <li><a href="sceneedit.html">编辑</a></li>
+          <li><a href="sceneedit.html?id=${item.id}">编辑</a></li>
           <li><a href="scenepreview.html">预览</a></li>
           <li><a href="#">审核</a></li>
           <li class="more">
@@ -48,95 +52,21 @@
           </li>
         </ul>
       </td>
-      <td>待审核</td>
-      <td>里约奥运会</td>
-      <td>张小娴</td>
-      <td>图文直播</td>
-      <td>1200</td>
+      <td>${item.state|formatState}</td>
+      <td>${item.topic}</td>
+      <td>${item.creater}</td>
+      <td>${item.type|formatType}</td>
+      <td>${item.reportnum}</td>
       <td>
         <div>微信:http://dwz.cn/NcpRQ</div>
         <div>短地址:</div>
-        <div>短地址:</div>
+        <div>短地址:${item.shorturls}</div>
       </td>
-      <td>2016/8/24 14:32</td>
+      <td>${item.createtime|formatDate,'YY-MM-DD hh:mm'}</td>
     </tr>
-    <tr align="center">
-      <td>2342</td>
-      <td class="lhandle-btn">
-        <ul>
-          <li><a href="scene/sceneedit.html">编辑</a></li>
-          <li><a href="scene/scenepreview.html">预览</a></li>
-          <li><a href="#">审核</a></li>
-          <li class="more">
-            <a href="#">更多</a>
-            <ul>
-              <li><a class="lcolse" href="#">关闭</a></li>
-              <li><a class="lreport" href="#">报道</a></li>
-            </ul>
-          </li>
-        </ul>
-      </td>
-      <td>待审核</td>
-      <td>里约奥运会</td>
-      <td>张小娴</td>
-      <td>图文直播</td>
-      <td>1200</td>
-      <td>
-        <div>微信:http://dwz.cn/NcpRQ</div>
-        <div>短地址:</div>
-        <div>短地址:</div>
-      </td>
-      <td>2016/8/24 14:32</td>
-    </tr>
-    <tr align="center">
-      <td>2342</td>
-      <td class="lhandle-btn">
-        <ul>
-          <li><a href="scene/sceneedit.html">编辑</a></li>
-          <li><a href="scene/scenepreview.html">预览</a></li>
-          <li><a href="#">审核</a></li>
-          <li class="more">
-            <a href="#">更多</a>
-            <ul>
-              <li><a class="lcolse" href="#">关闭</a></li>
-              <li><a class="lreport" href="#">报道</a></li>
-            </ul>
-          </li>
-        </ul>
-      </td>
-      <td>待审核</td>
-      <td>里约奥运会</td>
-      <td>张小娴</td>
-      <td>图文直播</td>
-      <td>1200</td>
-      <td>微信:http://dwz.cn/NcpRQ</td>
-      <td>2016/8/24 14:32</td>
-    </tr>
-    <tr align="center">
-      <td>2342</td>
-      <td class="lhandle-btn">
-        <ul>
-          <li><a href="scene/sceneedit.html">编辑</a></li>
-          <li><a href="scene/scenepreview.html">预览</a></li>
-          <li><a href="#">审核</a></li>
-          <li class="more">
-            <a href="#">更多</a>
-            <ul>
-              <li><a class="lcolse" href="#">关闭</a></li>
-              <li><a class="lreport" href="#">报道</a></li>
-            </ul>
-          </li>
-        </ul>
-      </td>
-      <td>待审核</td>
-      <td>里约奥运会</td>
-      <td>张小娴</td>
-      <td>图文直播</td>
-      <td>1200</td>
-      <td>微信:http://dwz.cn/NcpRQ</td>
-      <td>2016/8/24 14:32</td>
-    </tr>
+    {@/each}
   </table>
+  </script>
 </div>
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>

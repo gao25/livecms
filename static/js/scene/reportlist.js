@@ -1,61 +1,39 @@
 // 获取参数
-var page = + lvsCmd['urlParams']['page'];
-if (isNaN(page) || page < 1) page = 1;
-var beginDate = '',
-  endDate = '',
-  reportType = '',
-  key = '',
-  keyType = '';
+var searchFromData = lvsCmd['urlParams'];
+if (!searchFromData['page']) {
+  searchFromData['page'] = 1;
+}
 
 // 渲染列表
 var reportlistTpl = juicer($('#j-reportlist script').html());
 $('#j-reportlist script').remove();
-function loadReportList(){
-  $('#j-reportlist').html('');
-  var url = '/live-web-cms/report/getUnApprovedReport.json',
-    searchUrl = '/live-web-cms/report/searchUnApproved.json',
-    data = {page: page};
-  if (beginDate) {
-    data['beginDate'] = beginDate;
-    url = searchUrl;
-  }
-  if (endDate) {
-    data['endDate'] = endDate;
-    url = searchUrl;
-  }
-  if (reportType > 0) {
-    data['reportType'] = reportType;
-    url = searchUrl;
-  }
-  if (key) {
-    data['key'] = key;
-    url = searchUrl;
-  }
-  if (keyType > 0) {
-    data['keyType'] = keyType;
-    url = searchUrl;
-  }
-  lvsCmd.ajax(searchUrl, data, function (state, res) {
-    if (state) {
-      if (res['status'] == '0') {
-        var reportlistHtml = reportlistTpl.render(res);
-        $('#j-reportlist').html(reportlistHtml);
-        // 绑定操作
-        bindReportList();
-        // 分页
-        lvsCmd.page('j-page', 437, page, 20);
-        $('#j-page a').click(function(){
-          page = $(this).data('page');
-          loadReportList();
-        });
-      } else {
-        alert(res['errMsg']);
-      }
-    } else {
-      alert("接口请求失败，请检查网络连接！");
-    }
-  });
+if (searchFromData['beginDate'] || searchFromData['endDate'] || searchFromData['reportType'] || searchFromData['key'] || searchFromData['keyType']) {
+  var url = '/live-web-cms/report/searchUnApproved.json';
+} else {
+  var url = '/live-web-cms/report/getUnApproved.json';
 }
+var ajaxData = $.extend({}, searchFromData);
+if (ajaxData['endDate']) ajaxData['endDate'] = + ajaxData['endDate'] + 24 * 3600 * 1000;
+lvsCmd.ajax(url, ajaxData, function (state, res) {
+  if (state) {
+    if (res['status'] == '0') {
+      var reportlistHtml = reportlistTpl.render(res);
+      $('#j-reportlist').html(reportlistHtml);
+      // 绑定操作
+      bindReportList();
+      // 分页
+      lvsCmd.page('j-page', res['totalcount'], res['currentpage'], 10);
+      $('#j-page a').click(function(){
+        searchFromData['page'] = $(this).data('page');
+        locationFn();
+      });
+    } else {
+      alert(res['errMsg']);
+    }
+  } else {
+    alert("接口请求失败，请检查网络连接！");
+  }
+});
 function bindReportList(){
   // 列表
   $('#j-reportlist .more').hover(function(){
@@ -71,7 +49,20 @@ function bindReportList(){
     $(this).css('color','#808080');
   })
 }
-loadReportList();
+
+// 跳转
+function locationFn(){
+  var toUrl = '';
+  $.each(searchFromData, function (key, val) {
+    if (toUrl == '') {
+      toUrl += '?';
+    } else {
+      toUrl += '&';
+    }
+    toUrl += key + '=' + val;
+  });
+  location.href = toUrl;
+}
 
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
@@ -143,14 +134,29 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function(){
-  page = 1;
-  beginDate = $('#j-searchform input[name=beginDate]').val(),
-  endDate = $('#j-searchform input[name=beginDate]').val(),
-  reportType = $('#j-searchform select[name=reportType]').val(),
-  key = $.trim($('#j-searchform input[name=key]').val()),
-  keyType = $('#j-searchform select[name=reportType]').val();
-  if (beginDate) beginDate = new Date(beginDate).getTime();
-  if (endDate) endDate = new Date(endDate).getTime();
-  loadReportList(); 
+newSearchform.render(searchConfig, null, function (formInfo) {
+  var formData = formInfo['data'],
+    newFromData = {'page': 1};
+  if (formData['beginDate']) {
+    newFromData['beginDate'] = new Date(formData['beginDate']).getTime();
+  }
+  if (formData['endDate']) {
+    newFromData['endDate'] = new Date(formData['endDate']).getTime();
+  }
+  if (formData['reportType'] > 0) {
+    newFromData['reportType'] = formData['reportType'];
+  }
+  if (formData['key']) {
+    newFromData['key'] = formData['key'];
+  }
+  if (formData['keyType'] > 0) {
+    newFromData['keyType'] = formData['keyType'];
+  }
+  searchFromData = newFromData;
+  locationFn(); 
 });
+newSearchform.setval(searchFromData);
+if (searchFromData['beginDate']) $('.j-starttime input').val(lvsCmd.formatDate(+searchFromData['beginDate'], 'YY-MM-DD'));
+if (searchFromData['endDate']) $('.j-endtime input').val(lvsCmd.formatDate(+searchFromData['endDate'], 'YY-MM-DD'));
+
+

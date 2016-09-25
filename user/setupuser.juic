@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户管理 － 个人设置</title>
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="../static/css/common.css">
+  <link rel="stylesheet" href="../static/css/edit.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+</head>
+<body>
+<div id="j-editform" class="lvs-edit"></div>
+<script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
+<script src="../static/js/common.js"></script>
+<script src="../static/js/user/setupuser.js"></script>
+</body>
+</html>

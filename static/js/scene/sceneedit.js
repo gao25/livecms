@@ -1,24 +1,32 @@
+// 获取参数
+var id = + lvsCmd["urlParams"]["id"];
+if (isNaN(id) || id < 1) {
+  id = 0;
+  $('#j-pagetitle').html('创建现场');
+} else {
+  $('#j-pagetitle').html('编辑');
+}
+
+// 渲染表单
 var newTplform = new cake["tplform-1.0.1"]('j-editform'),
 formConfig = {
   "type": "ajax",
   "method": "post",
-  "action": "xxx",
+  "action": "/live-web-cms/live/add.json",
   "fields": [{
-    "class": "readonly",
     "title": "现场标题",
-    "name": "username",
+    "name": "topic",
     "type": "text",
-    "readonly": true
+    "required": true
   }, {
-    "class": "readonly",
+    "class": "uploader j-uploader",
+    "title": "现场封面",
+    "type": 'html',
+    "html": '<div class="filelist"></div>'
+  }, {
+    "class": "readonly j-createrName",
     "title": "创建人",
-    "name": "creatername",
-    "type": "text",
-    "readonly": true
-  }, {
-    "class": "readonly",
-    "title": "发布时间",
-    "name": "username",
+    "name": "createrName",
     "type": "text",
     "readonly": true
   }, {
@@ -26,56 +34,73 @@ formConfig = {
     "name": "type",
     "type": "select",
     "option": [
-      {"text": "图文直播", "value": "v1"},
-      {"text": "音频直播", "value": "v2"},
-      {"text": "视频直播", "value": "v3"}
+      {"text": "图文直播", "value": "1"},
+      {"text": "音频直播", "value": "2"},
+      {"text": "视频直播", "value": "4"}
     ]
   }, {
-    "class": "readonly",
+    "class": "j-startTime",
+    "title": "发布时间",
+    "name": "startTime",
+    "type": "datetime"
+  }, {
+    "class": 'j-remark',
+    "title": "描述",
+    "name": "remark",
+    "type": "textarea"
+  }, {
+    "class": 'j-liveLink',
     "title": "直播流地址",
-    "name": "livelink",
-    "type": "text",
-    "readonly": true
+    "name": "liveLink",
+    "type": "text"
+  }, {
+    "class": "uploader j-uploader-review",
+    "title": "回顾视频",
+    "type": 'html',
+    "html": '<div class="filelist"></div>'
   }, {
     "class": "check-style",
     "title": "报道审核",
-    "name": "reportcheck",
+    "name": "reportApproveType",
     "type": "radio",
     "value": "先审后发",
     "option": [
-      {"text": "先审后发", "value": "先审后发"},
-      {"text": "先发后审", "value": "v2"}
-    ]
+      {"text": "先审后发", "value": "1"},
+      {"text": "先发后审", "value": "2"}
+    ],
+    "value": 1
   }, {
     "class": "check-style",
     "title": "评论审核",
-    "name": "commentcheck",
+    "name": "commentApproveType",
     "type": "radio",
     "value": "先审后发",
     "option": [
-      {"text": "先审后发", "value": "先审后发"},
-      {"text": "先发后审", "value": "v2"}
-    ]
+      {"text": "先审后发", "value": "1"},
+      {"text": "先发后审", "value": "2"}
+    ],
+    "value": 1
   }, {
-    "class": "live-state",
+    "class": "live-state j-liveState",
     "title": "直播状态",
-    "name": "livestate",
+    "name": "liveState",
     "type": "radio",
     "value": "关闭",
     "option": [
-      {"text": "开启", "value": "v1"},
-      {"text": "关闭", "value": "关闭"}
-    ]
+      {"text": "开启", "value": "1"},
+      {"text": "关闭", "value": "0"}
+    ],
+    "value": 1
   }, {
     "class": "j-state",
     "title": "现场状态",
     "name": "state",
     "type": "radio",
     "option": [
-      {"text": "待审核", "value": "v1"},
-      {"text": "审核通过", "value": "v2"},
-      {"text": "审核失败", "value": "v2"},
-      {"text": "已关闭", "value": "v2"}
+      {"text": "待审核", "value": "1"},
+      {"text": "审核通过", "value": "2"},
+      {"text": "审核失败", "value": "4"},
+      {"text": "已关闭", "value": "8"}
     ]
   }],
   "button": [
@@ -90,25 +115,106 @@ formConfig = {
     }
   ]
 };
-newTplform.render(formConfig, null, function(){
-  alert('ajax');
-});
-newTplform.setval({
-  "state": "v1"
-});
+newTplform.render(formConfig, function(){
+  // 创建、编辑 的不同
+  if (id > 0) {
 
-// 设置、绑定报道状态
-$('#j-editform .j-state input').each(function(){
-  if ($(this)[0].checked) {
-    $(this).parent().addClass('current');
+  } else {
+    $('.j-createrName').remove();
+    $('.j-state').remove();
+    $('.j-liveLink').hide();
+    $('.j-uploader-review').hide();
   }
-});
-$('#j-editform .j-state label').click(function(){
-  $(this).addClass('current')
-    .siblings().removeClass('current');
+  $('#j-editform input[name=startTime]').val(lvsCmd.formatDate(null,'YY-MM-DD hh:mm'));
+  // 创建上传组件
+  var newUpfile = new lvsCmd['upfile']($('.j-uploader .filelist')),
+    newUpfileReview = new lvsCmd['upfile']($('.j-uploader-review .filelist'));
+  // 绑定现场类型
+  $('#j-editform select[name=type]').change(function(){
+    var type = $(this).val();
+    if (type == 1) {
+      $('.j-remark').show();
+      $('.j-liveLink').hide();
+      $('.j-uploader-review').hide();
+    } else {
+      $('.j-remark').hide();
+      $('.j-liveLink').show();
+      $('.j-uploader-review').show();
+    }
+  });
+  // 取消
+  $('.j-cancel').click(function(){
+    history.back();
+  });
+}, function (formInfo) {
+  if (id > 0) {
+    var url = "/live-web-cms/live/update.json";
+  } else {
+    var url = formInfo['url'];
+  }
+  // 获取表单数据
+  var formData = formInfo['data'];
+  formData['startTime'] = new Date(formData['startTime']).getTime();
+  if (id > 0) {
+    formData['id'] = id;
+  } else {
+    formData['state'] = 2;
+  }
+  // 提交表单
+  lvsCmd.ajax(url, formData, function (state, res) {
+    if (state) {
+      if (res['status'] == '0') {
+        alert("数据保存成功！");
+        if (id > 0) {
+          location.reload();
+        } else {
+          location.href = 'checkscene.html';
+        }
+      } else {
+        alert(res['errMsg']);
+      }
+    } else {
+      alert("接口请求失败，请检查网络连接！");
+    }
+  });
 });
 
-// 取消
-$('.j-cancel').click(function(){
-  history.back();
-});
+// 获取数据
+function getData(){
+  lvsCmd.ajax('/live-web-cms/live/get.json', {id: id}, function (state, res) {
+    if (state) {
+      if (res['status'] == 0) {
+        var formVal = res['data'];
+        // 格式化日期
+        formVal['startTime'] = lvsCmd['formatDate'](formVal['startTime'], 'YY-MM-DD hh:mm');
+        // 设置表单值
+        newTplform.setval(formVal);
+        // 判断现场类型
+        if (formVal['type'] == 1) {
+          $('.j-liveLink').hide();
+          $('.j-uploader-review').hide();
+        } else {
+          $('.j-remark').hide();
+        }
+        // 绑定状态
+        $('#j-editform .j-state input').each(function(){
+          if ($(this)[0].checked) {
+            $(this).parent().addClass('current');
+          }
+        });
+        $('#j-editform .j-state label').click(function(){
+          $(this).addClass('current')
+            .siblings().removeClass('current');
+        });
+      } else {
+        alert(res['errMsg']);
+      }
+    } else {
+      alert("接口请求失败，请检查网络连接！");
+    }
+  });
+}
+if (id > 0) {
+  getData();
+}
+

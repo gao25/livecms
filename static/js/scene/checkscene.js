@@ -1,19 +1,94 @@
 // 获取参数
-var page = + lvsCmd['urlParams']['page'];
-if (isNaN(page) || page < 1) page = 1;
+var searchFromData = lvsCmd['urlParams'];
+if (!searchFromData['page']) {
+  searchFromData['page'] = 1;
+}
+
+// juicer函数
+juicer.register('formatDate', lvsCmd['formatDate']);
+juicer.register('formatType', function(type){
+  var typeStr = '';
+  if (type == 1) {
+    typeStr = '图文';
+  } else if (type == 2) {
+    typeStr = '音频';
+  } else if (type == 4) {
+    typeStr = '视频';
+  }
+  return typeStr;
+});
+juicer.register('formatState', function(state){
+  var stateDict = {
+    "1": "未审核",
+    "2": "审核通过",
+    "4": "审核失败",
+    "8": "未开始直播",
+    "16": "正在直播",
+    "32": "直播结束",
+    "64": "删除"
+  }
+  return stateDict[state];
+});
+
+// 渲染列表
+var listTpl = juicer($('#j-list script').html());
+$('#j-list script').remove();
+if (searchFromData['beginDate'] || searchFromData['endDate'] || searchFromData['reportType'] || searchFromData['key'] || searchFromData['keyType']) {
+  var url = '/live-web-cms/live/search.json';
+} else {
+  var url = '/live-web-cms/live/getUnApproved.json';
+}
+var ajaxData = $.extend({}, searchFromData);
+if (ajaxData['endDate']) ajaxData['endDate'] = + ajaxData['endDate'] + 24 * 3600 * 1000;
+lvsCmd.ajax(url, ajaxData, function (state, res) {
+  if (state) {
+    if (res['status'] == '0') {
+      var listHtml = listTpl.render(res);
+      $('#j-list').html(listHtml);
+      // 绑定操作
+      bindList();
+      // 分页
+      lvsCmd.page('j-page', res['totalcount'], res['currentpage'], 10);
+      $('#j-page a').click(function(){
+        searchFromData['page'] = $(this).data('page');
+        locationFn();
+      });
+    } else {
+      alert(res['errMsg']);
+    }
+  } else {
+    alert("接口请求失败，请检查网络连接！");
+  }
+});
+function bindList(){
+  // nothing
+}
+
+// 跳转
+function locationFn(){
+  var toUrl = '';
+  $.each(searchFromData, function (key, val) {
+    if (toUrl == '') {
+      toUrl += '?';
+    } else {
+      toUrl += '&';
+    }
+    toUrl += key + '=' + val;
+  });
+  location.href = toUrl;
+}
 
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
   "type": "ajax",
   "method": "post",
-  "action": "xxx",
+  "action": "",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",
-    "name": "starttime",
+    "name": "beginDate",
     "type": "date",
-    "required": true,
     "placeholder": "开始时间",
     "config": {
       format: "Y.m.d",
@@ -26,9 +101,8 @@ searchConfig = {
   }, {
     "class": "j-endtime",
     "title": "结束时间",
-    "name": "endtime",
+    "name": "endDate",
     "type": "date",
-    "required": true,
     "placeholder": "结束时间",
     "config": {
       format: "Y.m.d",
@@ -39,18 +113,18 @@ searchConfig = {
       }
     }
   }, {
-    "title": "现场类型",
-    "name": "type",
+    "title": "视频状态",
+    "name": "reportType",
     "type": "select",
     "option": [
       {"text": "现场类型", "value": "0"},
-      {"text": "图文直播", "value": "1"},
-      {"text": "音频直播", "value": "2"},
-      {"text": "视频直播", "value": "4"}
+      {"text": "图文", "value": "1"},
+      {"text": "音频", "value": "2"},
+      {"text": "视频", "value": "4"}
     ]
   }, {
     "title": "关键字",
-    "name": "keyword",
+    "name": "key",
     "type": "text",
     "maxlength": 100,
     "placeholder": "关键字"
@@ -61,8 +135,8 @@ searchConfig = {
     "option": [
       {"text": "关键字类型", "value": "0"},
       {"text": "创建人", "value": "1"},
-      {"text": "报道ID", "value": "4"},
-      {"text": "现场标题", "value": "8"}
+      {"text": "现场ID", "value": "2"},
+      {"text": "现场标题", "value": "4"}
     ]
   }],
   "button": [
@@ -72,85 +146,27 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function(config){
-  var data = {page: 1},
-    beginDate = $('#j-searchform input[name=beginDate]').val(),
-    endDate = $('#j-searchform input[name=beginDate]').val(),
-    reportType = $('#j-searchform select[name=reportType]').val(),
-    key = $('#j-searchform input[name=key]').val(),
-    keyType = $('#j-searchform select[name=reportType]').val();
-  if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
-  if (endDate) data['endDate'] = new Date(endDate).getTime();
-  if (reportType > 0) data['reportType'] = reportType;
-  if (key) data['key'] = key;
-  if (keyType > 0) data['keyType'] = keyType;
-  lvsCmd.ajax(config['url'], data, function (state, res) {
-    console.log(res);
-  });  
+newSearchform.render(searchConfig, null, function (formInfo) {
+  var formData = formInfo['data'],
+    newFromData = {'page': 1};
+  if (formData['beginDate']) {
+    newFromData['beginDate'] = new Date(formData['beginDate']).getTime();
+  }
+  if (formData['endDate']) {
+    newFromData['endDate'] = new Date(formData['endDate']).getTime();
+  }
+  if (formData['reportType'] > 0) {
+    newFromData['reportType'] = formData['reportType'];
+  }
+  if (formData['key']) {
+    newFromData['key'] = formData['key'];
+  }
+  if (formData['keyType'] > 0) {
+    newFromData['keyType'] = formData['keyType'];
+  }
+  searchFromData = newFromData;
+  locationFn(); 
 });
-
-// 分页
-lvsCmd.page('j-page', 437, page,20);
-$('#j-page a').click(function(){
-  alert($(this).data('page'));
-});
-
-
-// 列表
-$('.more').hover(function(){
-  $(this).find('ul').show();
-},function(){
-  $(this).find('ul').hide();
-})
-$('.more ul li a').hover(function(){
-  $(this).css('color','#12bb9a');
-},function(){
-  $(this).css('color','#808080');
-})
-
-//上排 下排 置顶
-$('.lsort-btn').on('click','a',function(event){
-  event=event?event:window.event;
-  if(event.preventDefault){
-    event.preventDefault();
-  }else{
-    event.returnValue=false;
-  }
-  var parent=$(this).parents('tr');
-  var val=parent.find('.sort-num').html();
-  var parents=$(this).parents('table');
-  var len=parents.children().length-1;
-  if(($(this).is('.lup')||$(this).is('.ltop'))&&parent.index()==1){
-    alert('已经置顶了！');
-    return false;
-  }else if($(this).is('.ldown')&&parent.index()==len){
-    alert('已经置底了！');
-    return false;
-  }
-  switch(true){
-    case $(this).is('.lup'):
-      var prev=parent.prev(),
-          val1=prev.find('.sort-num').html();
-      parent.find('.sort-num').html(val1);
-      prev.find('.sort-num').html(val);
-      parent.insertBefore(prev);
-      break;
-    case $(this).is('.ldown'):
-      var next=parent.next(),
-          val1=next.find('.sort-num').html();
-      parent.find('.sort-num').html(val1);
-      next.find('.sort-num').html(val);
-      parent.insertAfter(next);
-      break;
-    case $(this).is('.ltop'):
-      $('.sort-num').each(function(){
-        var val=parseInt($(this).html());
-        if($(this).html()<parent.index()){
-          $(this).html(val+1);
-        }
-      });
-      parent.find('.sort-num').html(1);
-      parent.insertBefore(parents.find('tr').eq(1));
-      break;
-  }
-})
+newSearchform.setval(searchFromData);
+if (searchFromData['beginDate']) $('.j-starttime input').val(lvsCmd.formatDate(+searchFromData['beginDate'], 'YY-MM-DD'));
+if (searchFromData['endDate']) $('.j-endtime input').val(lvsCmd.formatDate(+searchFromData['endDate'], 'YY-MM-DD'));

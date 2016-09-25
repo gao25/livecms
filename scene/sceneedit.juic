@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/edit.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+  <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
 <body>
 <div class="lvs-crumb">
@@ -16,7 +17,7 @@
   <span>&gt;</span>
   <a href="#">待签现场</a>
   <span>&gt;</span>
-  <span>编辑</span>
+  <span id="j-pagetitle"></span>
 </div>
 <div id="j-editform" class="lvs-edit"> 
 </div>
