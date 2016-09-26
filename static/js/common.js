@@ -188,8 +188,8 @@ lvsCmd['upfile'] = function(obj){
 };
 lvsCmd['upfile'].prototype = {
   init: function(){
-    _this = this;
-    var fileBtn = $('<p class="file"><span class="add">+</span></p>'),
+    var _this = this,
+      fileBtn = $('<p class="file"><span class="add">+</span></p>'),
       callback = 'upfileCallback' + new Date().getTime();
     window[callback] = function(mediaurl){
       var newFileObj = $('<p class="file" data-mediaurl="'+mediaurl+'"><span></span><em>-</em></p>');

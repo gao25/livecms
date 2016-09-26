@@ -22,7 +22,7 @@ formConfig = {
     "class": "uploader j-uploader",
     "title": "现场封面",
     "type": 'html',
-    "html": '<div class="filelist"></div>'
+    "html": '<div class="filelist" data-filetype="5"></div>'
   }, {
     "class": "readonly j-createrName",
     "title": "创建人",
@@ -57,7 +57,7 @@ formConfig = {
     "class": "uploader j-uploader-review",
     "title": "回顾视频",
     "type": 'html',
-    "html": '<div class="filelist"></div>'
+    "html": '<div class="filelist" data-filetype="6"></div>'
   }, {
     "class": "check-style",
     "title": "报道审核",
