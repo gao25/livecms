@@ -1,7 +1,7 @@
 document.domain = 'live.com'; // 主域名
 var executeServer = 'http://api.live.com'; // 用户接口服务器域名，如 http://api.live.com
-var usercenterServer = 'http://xinhua-usercenter.oss-cn-hangzhou.aliyuncs.com/', // 头像文件服务器
-  zbcbServer = 'http://xinhua-zbcb.oss-cn-hangzhou.aliyuncs.com/'; // 项目图片服务器
+var usercenterServer = 'http://xinhua-usercenter.oss-cn-hangzhou.aliyuncs.com', // 头像文件服务器
+  zbcbServer = 'http://xinhua-zbcb.oss-cn-hangzhou.aliyuncs.com'; // 项目图片服务器
 
 var lvsCmd = {};
 // url参数
@@ -188,18 +188,14 @@ lvsCmd['upfile'] = function(obj){
 };
 lvsCmd['upfile'].prototype = {
   init: function(){
+    this.fileBtn = $('<p class="file"><span class="add">+</span></p>');
     var _this = this,
-      fileBtn = $('<p class="file"><span class="add">+</span></p>'),
       callback = 'upfileCallback' + new Date().getTime();
-    window[callback] = function(mediaurl){
-      var newFileObj = $('<p class="file" data-mediaurl="'+mediaurl+'"><span></span><em>-</em></p>');
-      newFileObj.find('em').click(function(){
-        newFileObj.remove();
-      });
-      fileBtn.before(newFileObj);
+    window[callback] = function(fileurl){
+      _this.addfile(fileurl);
     }
     // 上传
-    fileBtn.click(function(){
+    this.fileBtn.click(function(){
       var filetype = _this.obj.data('filetype'),
         iframe = _this.obj.data('iframe'),
         upfileUrl = '/overlay/upfile.html?filetype='+filetype+'&callback='+callback;
@@ -210,7 +206,38 @@ lvsCmd['upfile'].prototype = {
       parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" name="uploaderFrame" src="'+upfileUrl+'"></iframe></div>');
       return false;
     });
-    this.obj.append(fileBtn);
+    this.obj.append(this.fileBtn);
+  },
+  addfile: function (fileurl) {
+    var _this = this,
+      filetype = this.obj.data('filetype'),
+      newFileObj = $('<p class="file" data-fileurl="'+fileurl+'"><span></span><em>-</em></p>');
+    /* filetype:
+      USER_PORTRAIT(1,"xinhua-usercenter","portrait","用户头像"),
+      REPORT_PIC(2,"xinhua-zbcb","report-img","报道图片"),
+      REPORT_AUDIO(3,"xinhua-zbcb","report-audio","报道音频"),
+      REPORT_VIDEO(4,"xinhua-zbcb","report-video","报道视频"),
+      LIVE_COVER(5,"xinhua-zbcb","live-img","现场封面"),
+      LIVE_VIDEO(6,"xinhua-zbcb","live-video","现场回看视频");
+    */
+    if (filetype == 1 || filetype == 5) {
+      newFileObj.find('span').append('<img src="' + usercenterServer + fileurl + '">');
+      this.fileBtn.hide();
+    } else if (filetype == 2) {
+      newFileObj.find('span').append('<img src="' + zbcbServer + fileurl + '">');
+      if (this.obj.find('.file').length >= 4) {
+        this.fileBtn.hide();
+      }
+    } else if (filetype == 3) {
+      //this.fileBtn.hide();
+    } else if (filetype == 4 || filetype == 6) {
+      //this.fileBtn.hide();
+    }
+    newFileObj.find('em').click(function(){
+      newFileObj.remove();
+      _this.fileBtn.show();
+    });
+    this.fileBtn.before(newFileObj);
   }
 };
 

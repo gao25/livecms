@@ -41,8 +41,9 @@ function getUploaderSign (state, res) {
       dir = res['data']['dir'];
       multipart_params = {
         // 'key' : 'a.png', // 文件路径 文件名
-        'OSSAccessKeyId': res['data']['accessid'],
-        'policy': res['data']['policyBase64'],
+        'OSSAccessKeyId': res['data']['accessId'],
+        'policy': res['data']['policy'],
+        'expire': res['data']['expire'],
         'signature': res['data']['signature'],
         'success_action_status': '200' //让服务端返回200,不然，默认会返回204
       };
@@ -55,7 +56,11 @@ function getUploaderSign (state, res) {
     alert("接口请求失败，请检查网络连接！");
   }
 }
-parent.executeCallback('/osspolicy/getPolicy.json', {"fileType":filetype}, 'getUploaderSign', 'uploaderFrame');
+function getUploaderSignFn(){
+  parent.executeCallback('/osspolicy/getPolicy.json', {"fileType":filetype}, 'getUploaderSign', 'uploaderFrame');
+  setTimeout(getUploaderSignFn, 540000); // 实际过期时间10分钟，每9分钟重新获取一次
+}
+getUploaderSignFn();
 
 // 生成文件名
 function fileNameRandom(){
@@ -98,11 +103,14 @@ var uploader = new plupload.Uploader({
       $('#j-uploader-select').hide();
       $('#j-uploader-tip').removeClass('fn-hide').html('文件 ['+file.name+'/'+filesize+'KB] 正在上传... <em>0%</em>');
 
-      multipart_params['key'] = '/' + dir + newFilename;
+      multipart_params['key'] = dir + newFilename;
       up.setOption({
         url: host,
         multipart_params: multipart_params
       });
+
+      // console.log(multipart_params);
+
       up.start();
     },
     /*
@@ -115,7 +123,7 @@ var uploader = new plupload.Uploader({
     },
     FileUploaded: function(up, file, info) {
       if (info.status == 200) {
-        parent.window.frames[iframe][callback](multipart_params['key']);
+        parent.window.frames[iframe][callback]('/' + multipart_params['key']);
         parent.window.mainOverlay.hide();
       } else {
         $('#j-uploader-tip').html(info.response);

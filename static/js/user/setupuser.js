@@ -49,8 +49,6 @@ formConfig = {
   ]
 };
 newTplform.render(formConfig, function(){
-  // 创建上传组件
-  var newUpfile = new lvsCmd['upfile']($('.j-uploader .filelist'));
   // 取消
   $('.j-cancel').click(function(){
     parent.closeUseroverly();
@@ -62,6 +60,12 @@ newTplform.render(formConfig, function(){
     age: formInfo['data']['age'],
     sex: formInfo['data']['sex']
   };
+  var fileurl = $('.j-uploader .filelist .file').eq(0).data('fileurl');
+  if (fileurl) {
+    formData['portrait'] = fileurl;
+  } else {
+    formData['portrait'] = '';
+  }
   parent.executeCallback(formInfo['url'], formData, 'setupUser', "setupuserFrame");
 });
 
@@ -84,6 +88,11 @@ function getUser (state, res) {
   if (state) {
     if (res['status'] == '0') {
       newTplform.setval(res['data']);
+      // 创建上传组件
+      var newUpfile = new lvsCmd['upfile']($('.j-uploader .filelist'));
+      if (res['data']['portrait']) {
+        newUpfile.addfile(res['data']['portrait']);
+      }
     } else {
       alert(res['errMsg']);
     }

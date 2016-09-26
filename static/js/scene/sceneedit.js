@@ -39,11 +39,6 @@ formConfig = {
       {"text": "视频直播", "value": "4"}
     ]
   }, {
-    "class": "j-startTime",
-    "title": "发布时间",
-    "name": "startTime",
-    "type": "datetime"
-  }, {
     "class": 'j-remark',
     "title": "描述",
     "name": "remark",
@@ -51,7 +46,7 @@ formConfig = {
   }, {
     "class": 'j-liveLink',
     "title": "直播流地址",
-    "name": "liveLink",
+    "name": "liveStreamUrl",
     "type": "text"
   }, {
     "class": "uploader j-uploader-review",
@@ -81,19 +76,8 @@ formConfig = {
     ],
     "value": 1
   }, {
-    "class": "live-state j-liveState",
-    "title": "直播状态",
-    "name": "liveState",
-    "type": "radio",
-    "value": "关闭",
-    "option": [
-      {"text": "开启", "value": "1"},
-      {"text": "关闭", "value": "0"}
-    ],
-    "value": 1
-  }, {
     "class": "j-state",
-    "title": "现场状态",
+    "title": "直播状态",
     "name": "state",
     "type": "radio",
     "option": [
@@ -118,14 +102,14 @@ formConfig = {
 newTplform.render(formConfig, function(){
   // 创建、编辑 的不同
   if (id > 0) {
-
+    // nothing
   } else {
     $('.j-createrName').remove();
     $('.j-state').remove();
     $('.j-liveLink').hide();
     $('.j-uploader-review').hide();
   }
-  $('#j-editform input[name=startTime]').val(lvsCmd.formatDate(null,'YY-MM-DD hh:mm'));
+  // $('#j-editform input[name=startTime]').val(lvsCmd.formatDate(null,'YY-MM-DD hh:mm'));
   // 创建上传组件
   var newUpfile = new lvsCmd['upfile']($('.j-uploader .filelist')),
     newUpfileReview = new lvsCmd['upfile']($('.j-uploader-review .filelist'));
@@ -154,19 +138,29 @@ newTplform.render(formConfig, function(){
   }
   // 获取表单数据
   var formData = formInfo['data'];
-  formData['startTime'] = new Date(formData['startTime']).getTime();
+  // formData['startTime'] = new Date(formData['startTime']).getTime();
   if (id > 0) {
     formData['id'] = id;
   } else {
     formData['state'] = 2;
   }
+  var cover = $('.j-uploader .filelist .file').eq(0).data('fileurl');
+  if (cover) {
+    formData['cover'] = cover;
+  }
+  var reviewVideoUrl = $('.j-uploader-review .filelist .file').eq(0).data('fileurl');
+  if (reviewVideoUrl) {
+    formData['reviewVideoUrl'] = reviewVideoUrl;
+  }
+  console.log(formData);
   // 提交表单
   lvsCmd.ajax(url, formData, function (state, res) {
     if (state) {
       if (res['status'] == '0') {
         alert("数据保存成功！");
         if (id > 0) {
-          location.reload();
+          // location.reload();
+          history.back();
         } else {
           location.href = 'checkscene.html';
         }
