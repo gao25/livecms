@@ -36,13 +36,8 @@
     </div>
     <div class="detail-footer">
       <ul>
-<<<<<<< HEAD
         <li><a href="reportpreview.html?reportId=${item.id}"><img src="../static/img/eye.png"></a></li>
-        <li><a href="reportedit.html?id=${item.id}"><img src="../static/img/edit.png"></a></li>
-=======
-        <li><a href="reportpreview.html"><img src="../static/img/eye.png"></a></li>
         <li><a href="reportedit.html?reportId=${item.id}"><img src="../static/img/edit.png"></a></li>
->>>>>>> fc08d1fa2f4070a78731caf70efef8a6911482f3
         <li><a href="#"><img src="../static/img/search.png"></a></li>
         <li class="more">
           <img src="../static/img/menu.png">
