@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" type="text/css" href="/static/css/preview.css">
 	<script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/juicer-min.js"></script>
+  <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
 <body>
 <div class="lvs-crumb">
@@ -26,20 +28,25 @@
 
     </div>
   </div>
-  <div class="message-preview">
+  <div id="j-reportpreview" class="message-preview">
+    <script type="text/template">
+    {@each data as item}
     <ul>
-      <li>所属现场: <span>里约奥运会</span></li>
-      <li>报道人: <span>王晓晓</span></li>
-      <li>发布时间: <span>2016/8/26 12::26</span></li>
-      <li>报道类型: <span>图文</span></li>
-      <li>评论数: <span>3</span></li>
-      <li>点赞数: <span>3</span></li>
-      <li>报道状态: <span>待审核</span></li>
-      <li>IP:<span>192.168.1.1</span></li>
-      <li>来源: <span>安卓</span></li>
+      <li>所属现场: <span>${item.topic}</span></li>
+      <li>报道人: <span>${item.reporter}</span></li>
+      <li>发布时间: <span>${item.createtime}</span></li>
+      <li>报道类型: <span>${item.type|formatType}</span></li>
+      <li>评论数: <span>${item.commentnum}</span></li>
+      <li>点赞数: <span>${item.likenum}</span></li>
+      <li>报道状态: <span>${item.state|formatState}</span></li>
+      <li>IP:<span>${item.ip}</span></li>
+      <li>来源: <span>${item.source}</span></li>
     </ul>
+    {@/each}
+    </script>
   </div>
 </div>
 <script src="/static/js/common.js"></script>
+<script src="/static/js/scene/reportpreview.js"></script>
 </body>
 </html>

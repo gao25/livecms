@@ -4,6 +4,17 @@ if (!searchFromData['page']) {
   searchFromData['page'] = 1;
 }
 
+// juicer函数
+juicer.register('formatDate', lvsCmd['formatDate']);
+juicer.register('formatState', function(state){
+  var stateDict = {
+    "1": "未审核",
+    "2": "审核通过",
+    "8": "审核失败"
+  }
+  return stateDict[state];
+});
+
 // 渲染列表
 var reportlistTpl = juicer($('#j-reportlist script').html());
 $('#j-reportlist script').remove();
@@ -67,10 +78,8 @@ function locationFn(){
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
-  "id": "j-searchform",
   "type": "ajax",
   "method": "post",
-  "action": "/live-web-cms/report/searchUnApproved.json",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",

@@ -6,47 +6,24 @@ if (!searchFromData['page']) {
 
 // juicer函数
 juicer.register('formatDate', lvsCmd['formatDate']);
-juicer.register('formatType', function(type){
-  var typeStr = '';
-  if (type == 1) {
-    typeStr = '图文';
-  } else if (type == 2) {
-    typeStr = '音频';
-  } else if (type == 4) {
-    typeStr = '视频';
-  }
-  return typeStr;
-});
-juicer.register('formatState', function(state){
-  var stateDict = {
-    "1": "未审核",
-    "2": "审核通过",
-    "4": "审核失败",
-    "8": "未开始直播",
-    "16": "正在直播",
-    "32": "直播结束",
-    "64": "删除"
-  }
-  return stateDict[state];
-});
 
 // 渲染列表
-var listTpl = juicer($('#j-list script').html());
-$('#j-list script').remove();
+var reportlistTpl = juicer($('#j-reportlist script').html());
+$('#j-reportlist script').remove();
 if (searchFromData['beginDate'] || searchFromData['endDate'] || searchFromData['reportType'] || searchFromData['key'] || searchFromData['keyType']) {
-  var url = '/live-web-cms/live/search.json';
+  var url = '/live-web-cms/report/searchApproved.json';
 } else {
-  var url = '/live-web-cms/live/getUnApproved.json';
+  var url = '/live-web-cms/report/getApproved.json';
 }
 var ajaxData = $.extend({}, searchFromData);
 if (ajaxData['endDate']) ajaxData['endDate'] = + ajaxData['endDate'] + 24 * 3600 * 1000;
 lvsCmd.ajax(url, ajaxData, function (state, res) {
   if (state) {
     if (res['status'] == '0') {
-      var listHtml = listTpl.render(res);
-      $('#j-list').html(listHtml);
+      var reportlistHtml = reportlistTpl.render(res);
+      $('#j-reportlist').html(reportlistHtml);
       // 绑定操作
-      bindList();
+      bindReportList();
       // 分页
       lvsCmd.page('j-page', res['totalcount'], res['currentpage'], 10);
       $('#j-page a').click(function(){
@@ -60,18 +37,20 @@ lvsCmd.ajax(url, ajaxData, function (state, res) {
     alert("接口请求失败，请检查网络连接！");
   }
 });
-function bindList(){
+function bindReportList(){
   // 列表
-  $('#j-list .more').hover(function(){
-   $(this).find('ul').show();
- },function(){
-   $(this).find('ul').hide();
- })
- $('#j-list .more ul li a').hover(function(){
-   $(this).css('color','#12bb9a');
- },function(){
-   $(this).css('color','#808080');
- })
+  $('#j-reportlist .more').hover(function(){
+    $(this).find('img').attr('src','/static/img/green_menu.png');
+    $(this).find('ul').show();
+  },function(){
+    $(this).find('img').attr('src','/static/img/menu.png');
+    $(this).find('ul').hide();
+  })
+  $('#j-reportlist .more ul li a').hover(function(){
+    $(this).css('color','#12bb9a');
+  },function(){
+    $(this).css('color','#808080');
+  })
 }
 
 // 跳转
@@ -93,7 +72,6 @@ var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
   "type": "ajax",
   "method": "post",
-  "action": "",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",
@@ -123,11 +101,11 @@ searchConfig = {
       }
     }
   }, {
-    "title": "视频状态",
+    "title": "报道类型",
     "name": "reportType",
     "type": "select",
     "option": [
-      {"text": "现场类型", "value": "0"},
+      {"text": "报道类型", "value": "0"},
       {"text": "图文", "value": "1"},
       {"text": "音频", "value": "2"},
       {"text": "视频", "value": "4"}
@@ -144,9 +122,10 @@ searchConfig = {
     "type": "select",
     "option": [
       {"text": "关键字类型", "value": "0"},
-      {"text": "创建人", "value": "1"},
-      {"text": "现场ID", "value": "2"},
-      {"text": "现场标题", "value": "4"}
+      {"text": "报道人", "value": "1"},
+      {"text": "报道内容", "value": "2"},
+      {"text": "报道ID", "value": "4"},
+      {"text": "现场标题", "value": "8"}
     ]
   }],
   "button": [

@@ -34,9 +34,9 @@ juicer.register('formatState', function(state){
 var listTpl = juicer($('#j-list script').html());
 $('#j-list script').remove();
 if (searchFromData['beginDate'] || searchFromData['endDate'] || searchFromData['reportType'] || searchFromData['key'] || searchFromData['keyType']) {
-  var url = '/live-web-cms/live/search.json';
+  var url = '/live-web-cms/report/searchApproved.json';
 } else {
-  var url = '/live-web-cms/live/getUnApproved.json';
+  var url = '/live-web-cms/report/getApproved.json';
 }
 var ajaxData = $.extend({}, searchFromData);
 if (ajaxData['endDate']) ajaxData['endDate'] = + ajaxData['endDate'] + 24 * 3600 * 1000;
@@ -61,17 +61,7 @@ lvsCmd.ajax(url, ajaxData, function (state, res) {
   }
 });
 function bindList(){
-  // 列表
-  $('#j-list .more').hover(function(){
-   $(this).find('ul').show();
- },function(){
-   $(this).find('ul').hide();
- })
- $('#j-list .more ul li a').hover(function(){
-   $(this).css('color','#12bb9a');
- },function(){
-   $(this).css('color','#808080');
- })
+  // nothing
 }
 
 // 跳转

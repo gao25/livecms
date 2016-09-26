@@ -1,14 +1,125 @@
 // 获取参数
-var page = + lvsCmd['urlParams']['page'];
-if (isNaN(page) || page < 1) page = 1;
+var searchFromData = lvsCmd['urlParams'];
+if (!searchFromData['page']) {
+  searchFromData['page'] = 1;
+}
+if (isNaN(searchFromData['reportId']) || searchFromData['reportId'] < 1) {
+  parent.location.href = '/';
+}
+// juicer函数
+juicer.register('formatDate', lvsCmd['formatDate']);
+juicer.register('formatState', function(state){
+  var stateDict = {
+    "1": "未审核",
+    "2": "审核通过",
+    "4": "审核失败",
+    "8": "未开始直播",
+    "16": "正在直播",
+    "32": "直播结束",
+    "64": "删除"
+  }
+  return stateDict[state];
+});
 
+//渲染列表
+var listTpl = juicer($('#j-list script').html());
+$('#j-list script').remove();
+if (searchFromData['beginDate'] || searchFromData['endDate'] || searchFromData['reportType'] || searchFromData['key'] || searchFromData['keyType']) {
+  var url = '/live-web-cms/comment/search.json';
+} else{
+  var url = '/live-web-cms/comment/getByReport.json';
+}
+var ajaxData = $.extend({}, searchFromData);
+if (ajaxData['endDate']) ajaxData['endDate'] = + ajaxData['endDate'] + 24 * 3600 * 1000;
+lvsCmd.ajax(url, ajaxData, function (state, res) {
+  if (state) {
+    if (res['status'] == '0') {
+      var listHtml = listTpl.render(res);
+      $('#j-list').html(listHtml);
+      // 绑定操作
+      bindList();
+      // 分页
+      lvsCmd.page('j-page', res['totalcount'], res['currentpage'], 10);
+      $('#j-page a').click(function(){
+        searchFromData['page'] = $(this).data('page');
+        locationFn();
+      });
+    } else {
+      alert(res['errMsg']);
+    }
+  } else {
+    alert("接口请求失败，请检查网络连接！");
+  }
+});
+function bindList(){
+  // 选中操作
+var select_num=0;
+$('.lselect-btn').click(function(){
+  if(select_num==0){
+    $('.lselect-btn').addClass('lselected');
+    $('.select-btn').addClass('lselected');
+    select_num=1;
+  }else{
+    $('.lselect-btn').removeClass('lselected');
+    $('.select-btn').removeClass('lselected');
+    select_num=0;
+  }
+})
+$(".select-btn").on("click",function(){
+  $('.lselect-btn').removeClass('lselected');
+  select_num=0;
+  if(!$(this).hasClass("lselected")){
+    $(this).addClass('lselected');
+  }else{
+    $(this).removeClass('lselected');
+  }
+})
+//删除操作
+$('.comment-delete-btn').click(function(){
+  $('.select-btn').each(function(){
+    if($(this).hasClass('lselected')){
+      $(this).parent().parent().remove();
+      if($('.lselect-btn').hasClass('lselected')){
+        $('.lselect-btn').removeClass('lselected');
+        select_num=0;
+      } 
+    }
+  })
+})
+$('.delete-btn').hover(function(){
+  $(this).css('color','#f00');
+},function(){
+  $(this).css('color','#323a4d');
+})
+$('.delete-btn').on('click',function(){
+  $(this).parents('tr').remove();
+})
+$('.pending-btn').hover(function(){
+  $(this).css('color','#2c1cca');
+},function(){
+  $(this).css('color','#323a4d');
+})
+}
+
+// 跳转
+function locationFn(){
+  var toUrl = '';
+  $.each(searchFromData, function (key, val) {
+    if (toUrl == '') {
+      toUrl += '?';
+    } else {
+      toUrl += '&';
+    }
+    toUrl += key + '=' + val;
+  });
+  location.href = toUrl;
+}
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
-  "id": "j-searchform",
   "type": "ajax",
   "method": "post",
-  "action": "/report/searchUnApproved.json",
+  "action": "",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",
@@ -71,74 +182,27 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function(config){
-
-  var data = {page: 1},
-    beginDate = $('#j-searchform input[name=beginDate]').val(),
-    endDate = $('#j-searchform input[name=beginDate]').val(),
-    reportType = $('#j-searchform select[name=reportType]').val(),
-    key = $('#j-searchform input[name=key]').val(),
-    keyType = $('#j-searchform select[name=reportType]').val();
-  if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
-  if (endDate) data['endDate'] = new Date(endDate).getTime();
-  if (reportType > 0) data['reportType'] = reportType;
-  if (key) data['key'] = key;
-  if (keyType > 0) data['keyType'] = keyType;
-  lvsCmd.ajax(config['url'], data, function (state, res) {
-    console.log(res);
-  });  
-});
-
-// 分页
-lvsCmd.page('j-page', 437, page, 20);
-$('#j-page a').click(function(){
-  alert($(this).data('page'));
-});
-
-// 选中操作
-var select_num=0;
-$('.lselect-btn').click(function(){
-	if(select_num==0){
-		$('.lselect-btn').addClass('lselected');
-		$('.select-btn').addClass('lselected');
-		select_num=1;
-	}else{
-		$('.lselect-btn').removeClass('lselected');
-		$('.select-btn').removeClass('lselected');
-		select_num=0;
-	}
-})
-$(".select-btn").on("click",function(){
-	$('.lselect-btn').removeClass('lselected');
-	select_num=0;
-	if(!$(this).hasClass("lselected")){
-  	$(this).addClass('lselected');
-  }else{
-  	$(this).removeClass('lselected');
+newSearchform.render(searchConfig, null, function (formInfo) {
+  var formData = formInfo['data'],
+    newFromData = {'page': 1};
+  if (formData['beginDate']) {
+    newFromData['beginDate'] = new Date(formData['beginDate']).getTime();
   }
-})
-//删除操作
-$('.comment-delete-btn').click(function(){
-	$('.select-btn').each(function(){
-	  if($(this).hasClass('lselected')){
-	  	$(this).parent().parent().remove();
-	  	if($('.lselect-btn').hasClass('lselected')){
-	  		$('.lselect-btn').removeClass('lselected');
-	  		select_num=0;
-	  	}	
-	  }
-	})
-})
-$('.delete-btn').hover(function(){
-	$(this).css('color','#f00');
-},function(){
-	$(this).css('color','#323a4d');
-})
-$('.delete-btn').on('click',function(){
-	$(this).parents('tr').remove();
-})
-$('.pending-btn').hover(function(){
-  $(this).css('color','#2c1cca');
-},function(){
-  $(this).css('color','#323a4d');
-})
+  if (formData['endDate']) {
+    newFromData['endDate'] = new Date(formData['endDate']).getTime();
+  }
+  if (formData['reportType'] > 0) {
+    newFromData['reportType'] = formData['reportType'];
+  }
+  if (formData['key']) {
+    newFromData['key'] = formData['key'];
+  }
+  if (formData['keyType'] > 0) {
+    newFromData['keyType'] = formData['keyType'];
+  }
+  searchFromData = newFromData;
+  locationFn(); 
+});
+newSearchform.setval(searchFromData);
+if (searchFromData['beginDate']) $('.j-starttime input').val(lvsCmd.formatDate(+searchFromData['beginDate'], 'YY-MM-DD'));
+if (searchFromData['endDate']) $('.j-endtime input').val(lvsCmd.formatDate(+searchFromData['endDate'], 'YY-MM-DD'));
