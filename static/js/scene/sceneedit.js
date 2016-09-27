@@ -99,6 +99,7 @@ formConfig = {
     }
   ]
 };
+var coverUpfile, reviewUpfile;
 newTplform.render(formConfig, function(){
   // 创建、编辑 的不同
   if (id > 0) {
@@ -111,8 +112,8 @@ newTplform.render(formConfig, function(){
   }
   // $('#j-editform input[name=startTime]').val(lvsCmd.formatDate(null,'YY-MM-DD hh:mm'));
   // 创建上传组件
-  var newUpfile = new lvsCmd['upfile']($('.j-uploader .filelist')),
-    newUpfileReview = new lvsCmd['upfile']($('.j-uploader-review .filelist'));
+  coverUpfile = new lvsCmd['upfile']($('.j-uploader .filelist'));
+  reviewUpfile = new lvsCmd['upfile']($('.j-uploader-review .filelist'));
   // 绑定现场类型
   $('#j-editform select[name=type]').change(function(){
     var type = $(this).val();
@@ -138,34 +139,30 @@ newTplform.render(formConfig, function(){
     commentApproveType: formInfo['data']['commentApproveType'],
     reportApproveType: formInfo['data']['reportApproveType']
   }
-  if (formData['type'] == 1) {
-    formData['remark'] = formInfo['data']['remark'];
-  } else if (formData['type'] == 2) {
-    formData['liveStreamUrl'] = '';
-  } else if (formData['type'] == 3) {
-    formData['liveStreamUrl'] = '';
-  }
-  if (id > 0) {
-    var formData = formInfo['data'];
-    var url = "/live-web-cms/live/update.json";
-  } else {
-    var url = formInfo['url'];
-  }  
-  // formData['startTime'] = new Date(formData['startTime']).getTime();
-  if (id > 0) {
-    formData['id'] = id;
-  } else {
-    formData['state'] = 2;
-  }
   var cover = $('.j-uploader .filelist .file').eq(0).data('fileurl');
   if (cover) {
     formData['cover'] = cover;
+  } else {
+    alert('请添加现场封面！');
+    return false;
   }
-  var reviewVideoUrl = $('.j-uploader-review .filelist .file').eq(0).data('fileurl');
-  if (reviewVideoUrl) {
-    formData['reviewVideoUrl'] = reviewVideoUrl;
+  if (formData['type'] == 1) {
+    formData['remark'] = formInfo['data']['remark'];
+  } else {
+    formData['liveStreamUrl'] = '';
+    var reviewVideoUrl = $('.j-uploader-review .filelist .file').eq(0).data('fileurl');
+    if (reviewVideoUrl) {
+      formData['reviewVideoUrl'] = reviewVideoUrl;
+    }
   }
-  console.log(formData);
+  if (id > 0) {
+    formData['id'] = id;
+    var url = "/live-web-cms/live/update.json";
+  } else {
+    formData['state'] = 2;
+    var url = formInfo['url'];
+  }  
+  // formData['startTime'] = new Date(formData['startTime']).getTime();
   // 提交表单
   lvsCmd.ajax(url, formData, function (state, res) {
     if (state) {
@@ -196,6 +193,8 @@ function getData(){
         formVal['startTime'] = lvsCmd['formatDate'](formVal['startTime'], 'YY-MM-DD hh:mm');
         // 设置表单值
         newTplform.setval(formVal);
+        if (formVal['cover']) coverUpfile.addfile(formVal['cover']);
+        if (formVal['reviewVideoUrl']) reviewUpfile.addfile(formVal['reviewVideoUrl']);
         // 判断现场类型
         if (formVal['type'] == 1) {
           $('.j-liveLink').hide();

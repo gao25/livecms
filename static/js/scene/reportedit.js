@@ -56,7 +56,7 @@ formConfig = {
   }],
   "button": [
     {
-      "value": "保存并签发",
+      "value": "保存",
       "type": "submit"
     },
     {

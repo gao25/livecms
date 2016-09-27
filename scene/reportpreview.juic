@@ -33,10 +33,10 @@
     <ul>
       <li>所属现场: <span>${data.topic}</span></li>
       <li>报道人: <span>${data.reporter}</span></li>
-      <li>发布时间: <span>${data.createtime}</span></li>
+      <li>发布时间: <span>${data.createTime|formatDate,'YY-MM-DD hh:mm'}</span></li>
       <li>报道类型: <span>${data.type|formatType}</span></li>
-      <li>评论数: <span>${data.commentnum}</span></li>
-      <li>点赞数: <span>${data.likenum}</span></li>
+      <li>评论数: <span>${data.commentNum}</span></li>
+      <li>点赞数: <span>${data.likeNum}</span></li>
       <li>报道状态: <span>${data.state|formatState}</span></li>
       <li>IP:<span>${data.ip}</span></li>
       <li>来源: <span>${data.source}</span></li>

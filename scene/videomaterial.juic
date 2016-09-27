@@ -44,7 +44,7 @@
     </tr>
     {@each data as item}
     <tr align="center">
-      <td><span class="select-btn" data-mediaurl="${item.mediaurl}"></span></td>
+      <td><span class="select-btn" data-mediaurl="${item.mediaUrl}"></span></td>
       <td>${item.topic}</td>
       {@if action != "select"}
       <td class="lhandle-btn">
