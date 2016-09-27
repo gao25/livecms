@@ -1,4 +1,0 @@
-{"status":"0","errCode":"get_list_succeed","errMsg":"获取列表成功","data":[
-  {"id":14742557247021,"topic":"啊啊啊啊啊啊啊","creater":"zjh","reportid":0,"state":1,"createtime":1474255610000,"filesize":0,"format":"mp4","duration":0.0,"mediaurl":"http://xinhua-zbcb.oss-cn-hangzhou.aliyuncs.com/report/xhs.mp4"},
-  {"id":14742554765440,"topic":"报道内容","creater":"zjh","reportid":0,"state":1,"createtime":1474255362000,"filesize":0,"format":"com","duration":0.0,"mediaurl":"http://xinhua-zbcb.oss-cn-hangzhou.aliyuncs.comrtmp://video-center.alivecdn.com/zbcb/1474132672678?vhost=xinhualive.zhongguowangshi.com"},
-  {"id":14741794779673500,"topic":"aaaaaa","creater":"xxs","reportid":0,"state":1,"createtime":1474179466000,"filesize":7402400,"format":"mp4","duration":0.0,"mediaurl":"http://xinhua-zbcb.oss-cn-hangzhou.aliyuncs.com/report/xhs.mp4"}],"totalcount":null,"totalpage":1,"currentpage":1,"pagecount":null}

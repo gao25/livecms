@@ -5,8 +5,8 @@
   <title>现场管理 － 成品现场</title>
   <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
-  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
   <script src="${{staticServer}}/js/juicer-min.js"></script>
@@ -81,7 +81,7 @@
 </div>
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
-<script src="/static/js/common.js"></script>
-<script src="/static/js/scene/endscene.js"></script>
+<script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{webServer}}/static/js/scene/endscene.js"></script>
 </body>
 </html>
