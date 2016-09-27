@@ -64,11 +64,13 @@ getUploaderSignFn();
 
 // 生成文件名
 function fileNameRandom(){
-  var randomName = '';
+  var randomName = '/' + lvsCmd['cookie'].get('orgId');
   if (filetype == 1) {
-    randomName += '/' + lvsCmd['cookie'].get('orgId') + '/' + lvsCmd['cookie'].get('userId') + '/' + new Date().getTime();
+    randomName +=  '/' + lvsCmd['cookie'].get('userId') + '/' + new Date().getTime();
+  } else if (filetype == 5) {
+    randomName += '/' + new Date().getTime();
   } else {
-    randomName = new Date().getTime();
+    randomName += '/' + new Date().getTime();
   }
   return randomName;
 }

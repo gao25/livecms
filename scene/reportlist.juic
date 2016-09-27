@@ -38,7 +38,7 @@
       <ul>
         <li><a href="reportpreview.html?reportId=${item.id}"><img src="${{webServer}}/static/img/eye.png"></a></li>
         <li><a href="reportedit.html?reportId=${item.id}"><img src="${{webServer}}/static/img/edit.png"></a></li>
-        <li><a href="#"><img src="${{webServer}}/static/img/search.png"></a></li>
+        <li><a class="j-verify" href="javascript:void(0)" data-id="${item.id}"><img src="${{webServer}}/static/img/search.png"></a></li>
         <li class="more">
           <img src="${{webServer}}/static/img/menu.png">
           <ul>

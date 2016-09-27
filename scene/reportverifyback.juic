@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>报道审核</title>
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/overlay.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/sha512.js"></script>
+</head>
+<body>
+<div class="lvs-textarea">
+  <textarea id="j-notThroughReason" cols="30" rows="10"></textarea>
+</div>
+<div class="lvs-selectbtn">
+  <span id="j-true">确定</span>
+  <span id="j-false">取消</span>
+</div>
+<script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{webServer}}/static/js/scene/reportverifyback.js"></script>
+</body>
+</html>

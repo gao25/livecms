@@ -43,5 +43,5 @@ lvsCmd.ajax("/live-web-cms/report/preview.json", searchFromData, function (state
   }
 });
 function bindReportList(){
-	//nothing
+  //nothing
 }

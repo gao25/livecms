@@ -41,7 +41,6 @@ lvsCmd['cookie'] = {
     var sec = extimeInt * extimeSec[extimeExt],
       exp = new Date();
     exp.setTime(exp.getTime() + sec);
-    if (cname == 'random') lvsCmd['random']['expires'] = exp;
     document.cookie = cname + "="+ value + ";path=/;expires=" + exp.toGMTString();
   },
   del: function (cname) {
@@ -54,6 +53,7 @@ var randomCallback = function (state, res) {
     if (res['status'] == 0) {
       var randomStr = res['data']['randomArray'].join(',');
       lvsCmd['cookie'].set('random', randomStr, '18m'); // 实际过期时间是20分钟
+      lvsCmd['cookie'].set('randomExpires', (new Date().getTime() + 18 * 60 * 1000), '18m');
       lvsCmd['random']['state'] = 'open';
     } else {
       alert(res['errMsg']);
@@ -67,7 +67,6 @@ var randomCallback = function (state, res) {
 // 接口随机数管理 random
 lvsCmd['random'] = {
   state: 'open',
-  expires: new Date(),
   get: function(){
     if (lvsCmd['random']['state'] == 'close') {
       lvsCmd['random'].refresh();
@@ -75,12 +74,13 @@ lvsCmd['random'] = {
     } else if (lvsCmd['random']['state'] == 'wait') {
       return null;
     }
-    var random = lvsCmd['cookie'].get('random');
-    if (random) {
+    var random = lvsCmd['cookie'].get('random'),
+      randomExpires = lvsCmd['cookie'].get('randomExpires');
+    if (random && randomExpires) {
       var randomArray = random.split(','),
         useRandom = randomArray.pop();
       if (randomArray.length) {
-        var exp = lvsCmd['random']['expires'];
+        var exp = new Date( + randomExpires );
         document.cookie = "random="+ randomArray.join(',') + ";path=/;expires=" + exp.toGMTString();
       } else {
         lvsCmd['cookie'].del('random');
@@ -113,7 +113,7 @@ lvsCmd['ajax'] = function (url, data, callback) {
   var token = lvsCmd['cookie'].get('token');
   if (!token) {
     alert('尚未登录或登录过期，请重新登录！');
-    parent.location.href = '/live-web-cms/login.html';
+    parent.location.href = 'login.html';
     return false;
   }
   function roundFn(){
@@ -220,7 +220,7 @@ lvsCmd['upfile'].prototype = {
       LIVE_COVER(5,"xinhua-zbcb","live-img","现场封面"),
       LIVE_VIDEO(6,"xinhua-zbcb","live-video","现场回看视频");
     */
-    if (filetype == 1 || filetype == 5) {
+    if (filetype == 1) {
       newFileObj.find('span').append('<img src="' + usercenterServer + fileurl + '">');
       this.fileBtn.hide();
     } else if (filetype == 2) {
@@ -229,9 +229,14 @@ lvsCmd['upfile'].prototype = {
         this.fileBtn.hide();
       }
     } else if (filetype == 3) {
-      //this.fileBtn.hide();
+      newFileObj.find('span').append('<img src="xxxx.jpg">');
+      this.fileBtn.hide();
     } else if (filetype == 4 || filetype == 6) {
-      //this.fileBtn.hide();
+      newFileObj.find('span').append('<img src="xxxx.jpg">');
+      this.fileBtn.hide();
+    } else if (filetype == 5) {
+      newFileObj.find('span').append('<img src="' + zbcbServer + fileurl + '">');
+      this.fileBtn.hide();
     }
     newFileObj.find('em').click(function(){
       newFileObj.remove();

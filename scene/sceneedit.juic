@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>现场管理 － 待签现场 － 编辑</title>
-  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" />
-  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/edit.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/edit.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
   <script src="${{staticServer}}/js/sha512.js"></script>

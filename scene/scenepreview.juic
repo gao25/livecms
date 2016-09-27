@@ -2,10 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-	<title>现场管理 － 待签现场 － 预览</title>
-	<link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <title>现场管理 － 待签现场 － 预览</title>
+  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/preview.css">
-	<script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/juicer-min.js"></script>
+  <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
 <body>
 <div class="lvs-crumb">
@@ -26,7 +28,8 @@
 
     </div>
   </div>
-  <div class="message-preview">
+  <div id="j-view" class="message-preview">
+    <script type="text/template">
     <ul>
       <li>现场标题: <span>里约奥运会</span></li>
       <li>创建人: <span>王晓晓</span></li>
@@ -43,8 +46,10 @@
         <div>短地址：http://dwz.cn/NcpRQ</div>
       </li>
     </ul>
+    </script>
   </div>
 </div>
 <script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{staticServer}}/js/scenepreview.js"></script>
 </body>
 </html>

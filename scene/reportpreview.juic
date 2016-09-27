@@ -30,19 +30,17 @@
   </div>
   <div id="j-reportpreview" class="message-preview">
     <script type="text/template">
-    {@each data as item}
     <ul>
-      <li>所属现场: <span>${item.topic}</span></li>
-      <li>报道人: <span>${item.reporter}</span></li>
-      <li>发布时间: <span>${item.createtime}</span></li>
-      <li>报道类型: <span>${item.type|formatType}</span></li>
-      <li>评论数: <span>${item.commentnum}</span></li>
-      <li>点赞数: <span>${item.likenum}</span></li>
-      <li>报道状态: <span>${item.state|formatState}</span></li>
-      <li>IP:<span>${item.ip}</span></li>
-      <li>来源: <span>${item.source}</span></li>
+      <li>所属现场: <span>${data.topic}</span></li>
+      <li>报道人: <span>${data.reporter}</span></li>
+      <li>发布时间: <span>${data.createTime|formatDate,'YY-MM-DD hh:mm'}</span></li>
+      <li>报道类型: <span>${data.type|formatType}</span></li>
+      <li>评论数: <span>${data.commentNum}</span></li>
+      <li>点赞数: <span>${data.likeNum}</span></li>
+      <li>报道状态: <span>${data.state|formatState}</span></li>
+      <li>IP:<span>${data.ip}</span></li>
+      <li>来源: <span>${data.source}</span></li>
     </ul>
-    {@/each}
     </script>
   </div>
 </div>
