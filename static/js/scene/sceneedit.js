@@ -131,13 +131,26 @@ newTplform.render(formConfig, function(){
     history.back();
   });
 }, function (formInfo) {
+  var formData = {};
+  var formData = {
+    topic: formInfo['data']['topic'],
+    type: formInfo['data']['type'],
+    commentApproveType: formInfo['data']['commentApproveType'],
+    reportApproveType: formInfo['data']['reportApproveType']
+  }
+  if (formData['type'] == 1) {
+    formData['remark'] = formInfo['data']['remark'];
+  } else if (formData['type'] == 2) {
+    formData['liveStreamUrl'] = '';
+  } else if (formData['type'] == 3) {
+    formData['liveStreamUrl'] = '';
+  }
   if (id > 0) {
+    var formData = formInfo['data'];
     var url = "/live-web-cms/live/update.json";
   } else {
     var url = formInfo['url'];
-  }
-  // 获取表单数据
-  var formData = formInfo['data'];
+  }  
   // formData['startTime'] = new Date(formData['startTime']).getTime();
   if (id > 0) {
     formData['id'] = id;

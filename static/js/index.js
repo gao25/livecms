@@ -2,7 +2,7 @@
 var role = lvsCmd['cookie'].get('role');
 if (!role) {
   alert('尚未登录或登录过期，请重新登录！');
-  parent.location.href = '/login.html';
+  parent.location.href = 'login.html';
 }
 
 // 请求用户服务器
@@ -56,23 +56,23 @@ var navAllData = {
     "list": [
       {
         "menu": "待签报道",
-        "link": "/scene/reportlist.html"
+        "link": "scene/reportlist.html"
       },
       {
         "menu": "待签现场",
-        "link": "../scene/checkscene.html"
+        "link": "scene/checkscene.html"
       },
       {
         "menu": "成品现场",
-        "link": "/scene/endscene.html"
+        "link": "scene/endscene.html"
       },
       {
         "menu": "待审评论",
-        "link": "/scene/pendingcomment.html"
+        "link": "scene/pendingcomment.html"
       },
       {
         "menu": "视频素材",
-        "link": "/scene/videomaterial.html"
+        "link": "scene/videomaterial.html"
       }
     ]
   },
@@ -81,7 +81,7 @@ var navAllData = {
     "list": [
       {
         "menu": "用户管理",
-        "link": "/user/usermanagement.html"
+        "link": "user/usermanagement.html"
       }
     ]
   },
@@ -90,7 +90,7 @@ var navAllData = {
     "list": [
       {
         "menu": "数据统计",
-        "link": "/scene/reportlist.html"
+        "link": "scene/reportlist.html"
       }
     ]
   },
@@ -99,7 +99,7 @@ var navAllData = {
     "list": [
       {
         "menu": "管理员管理",
-        "link": "/administrator/administratormanagement.html"
+        "link": "administrator/administratormanagement.html"
       }
     ]
   }
@@ -162,7 +162,7 @@ $('iframe[name=mainframe]').attr('src', leftNavObj.find('a:eq(0)').attr('href'))
 $('#j-logout').click(function(){
   lvsCmd['cookie'].del('token');
   lvsCmd['cookie'].del('role');
-  parent.location.href = '/login.html';
+  parent.location.href = 'login.html';
   return false;
 });
 

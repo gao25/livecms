@@ -5,8 +5,8 @@
 	<title>现场管理 － 待签现场</title>
   <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
-  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/common.css">
+  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
   <script src="${{staticServer}}/js/juicer-min.js"></script>
@@ -15,7 +15,7 @@
 <body>
 <div class="lvs-creat fn-clear">
   <a class="creat-btn" href="sceneedit.html">
-    <img src="/static/img/creat_img.png"><span>创建现场</span>
+    <img src="../static/img/creat_img.png"><span>创建现场</span>
   </a>
   <div class="lvs-listhead fn-clear">
     <div id="j-search" class="search fn-clear"></div>
@@ -70,7 +70,7 @@
 </div>
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
-<script src="/static/js/common.js"></script>
-<script src="/static/js/scene/checkscene.js"></script>
+<script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{webServer}}/static/js/scene/checkscene.js"></script>
 </body>
 </html>

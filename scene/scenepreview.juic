@@ -4,7 +4,7 @@
   <meta charset="utf-8">
 	<title>现场管理 － 待签现场 － 预览</title>
 	<link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/preview.css">
+  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/preview.css">
 	<script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/juicer-min.js"></script>
   <script src="${{staticServer}}/js/sha512.js"></script>
@@ -20,7 +20,7 @@
 </div>
 <div class="lvs-preview fn-clear">
   <div class="ltitel">
-    <img src="/static/img/page.png">
+    <img src="${{webServer}}/static/img/page.png">
     <span>报道预览</span>
   </div>
   <div class="phone-preview">
@@ -49,7 +49,11 @@
     </script>
   </div>
 </div>
+<<<<<<< HEAD
 <script src="/static/js/common.js"></script>
 <script src="/static/js/scene/scencepreview.js"></script>
+=======
+<script src="${{webServer}}/static/js/common.js"></script>
+>>>>>>> 6b3be82cb8c84283bef5cbe946b94ef37fb16cfd
 </body>
 </html>

@@ -63,23 +63,6 @@ function bindReportList(){
   },function(){
     $(this).css('color','#808080');
   })
-  // 弹出框
-  $('.lreview').click(function(){
-    $('#j-reviewoverly').show();
-  })
-  $('#j-reviewoverly .close').click(function(){
-    $('#j-reviewoverly').hide();
-  })
-  $('#j-reviewoverly .review-back').click(function(){
-    $('#j-reviewoverly').hide();
-    $('#j-reasonoverly').show();
-  })
-  $('#j-reasonoverly .close').click(function(){
-    $('#j-reasonoverly').hide();
-  })
-  $('#j-reasonoverly .go-back').click(function(){
-    $('#j-reasonoverly').hide();
-  })
 }
 
 // 跳转

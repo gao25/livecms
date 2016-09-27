@@ -5,8 +5,8 @@
   <title>现场管理 － 待签报道 － 列表</title>
   <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" />
-  <link rel="stylesheet" href="../static/css/common.css">
-  <link rel="stylesheet" href="../static/css/list.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/common.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/list.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
   <script src="${{staticServer}}/js/juicer-min.js"></script>
@@ -21,8 +21,8 @@
   {@each data as item}
   <div class="detail">
     <div class="lvs-img"> 
-      <img class="img" src="../static/img/live.png">
-      <img class="play" src="../static/img/play.png">
+      <img class="img" src="${{webServer}}/static/img/live.png">
+      <img class="play" src="${{webServer}}/static/img/play.png">
       <span class="lvs-title">${item.topic}</span>
       <span class="lvs-id">${item.id}</span>
     </div>
@@ -36,11 +36,11 @@
     </div>
     <div class="detail-footer">
       <ul>
-        <li><a href="reportpreview.html?reportId=${item.id}"><img src="../static/img/eye.png"></a></li>
-        <li><a href="reportedit.html?reportId=${item.id}"><img src="../static/img/edit.png"></a></li>
-        <li><a class="lreview" href="#"><img src="../static/img/search.png"></a></li>
+        <li><a href="reportpreview.html?reportId=${item.id}"><img src="${{webServer}}/static/img/eye.png"></a></li>
+        <li><a href="reportedit.html?reportId=${item.id}"><img src="${{webServer}}/static/img/edit.png"></a></li>
+        <li><a href="#"><img src="${{webServer}}/static/img/search.png"></a></li>
         <li class="more">
-          <img src="../static/img/menu.png">
+          <img src="${{webServer}}/static/img/menu.png">
           <ul>
             <li><a class="lcolse" href="#">关闭</a></li>
             <li><a class="lconment" href="reportcomment.html?reportId=${item.id}">评论</a></li>
@@ -78,8 +78,7 @@
   </div>
 </div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
-<script src="${{staticServer}}/js/cake/overlay/overlay-1.0.0.js"></script>
-<script src="../static/js/common.js"></script>
-<script src="../static/js/scene/reportlist.js"></script>
+<script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{webServer}}/static/js/scene/reportlist.js"></script>
 </body>
 </html>

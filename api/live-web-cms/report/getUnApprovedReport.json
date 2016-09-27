@@ -1,7 +1,0 @@
-{"status":"0","errCode":"get_report_success","errMsg":"获取报道列表成功","data":[
-  {"id":131423,"topic":"12345","content":"ewfdsgd","type":1,"pictures":"live-img/201609/2016091221280036_7298.jpg,live-img/2016091310050015_9954.jpg","video":"","audio":"","state":1,"createtime":null,"commentnum":0,"likenum":0,"reporter":null,"userid":0,"commentator":null,"reportid":0
-  },{"id":14742555875432001,"topic":"回家","content":"啊啊啊啊啊啊啊","type":4,"pictures":"http://img3.duitang.com/uploads/item/201505/17/20150517133416_kaNYG.jpeg","video":"/report/xhs.mp4","audio":"","state":1,"createtime":null,"commentnum":0,"likenum":0,"reporter":null,"userid":0,"commentator":null,"reportid":0
-  },{"id":14742554757292000,"topic":"回家","content":"报道内容","type":4,"pictures":"http://img3.duitang.com/uploads/item/201505/17/20150517133416_kaNYG.jpeg","video":"rtmp://video-center.alivecdn.com/zbcb/1474132672678?vhost=xinhualive.zhongguowangshi.com","audio":"","state":1,"createtime":null,"commentnum":0,"likenum":0,"reporter":null,"userid":0,"commentator":null,"reportid":0
-  },{"id":111,"topic":"12345","content":"aaaaaa","type":4,"pictures":"www.xxs.com","video":"/report/xhs.mp4","audio":"www.sep.com","state":1,"createtime":null,"commentnum":11,"likenum":123123,"reporter":null,"userid":0,"commentator":null,"reportid":0
-  }
-]}

@@ -113,7 +113,7 @@ lvsCmd['ajax'] = function (url, data, callback) {
   var token = lvsCmd['cookie'].get('token');
   if (!token) {
     alert('尚未登录或登录过期，请重新登录！');
-    parent.location.href = '/login.html';
+    parent.location.href = '/live-web-cms/login.html';
     return false;
   }
   function roundFn(){
