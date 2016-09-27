@@ -38,7 +38,7 @@
       <ul>
         <li><a href="reportpreview.html?reportId=${item.id}"><img src="../static/img/eye.png"></a></li>
         <li><a href="reportedit.html?reportId=${item.id}"><img src="../static/img/edit.png"></a></li>
-        <li><a href="#"><img src="../static/img/search.png"></a></li>
+        <li><a class="lreview" href="#"><img src="../static/img/search.png"></a></li>
         <li class="more">
           <img src="../static/img/menu.png">
           <ul>
@@ -53,7 +53,32 @@
   </script>
 </div>
 <div id="j-page" class="lvs-page"></div>
+<div id="j-reviewoverly" class="fn-hide">
+  <div class="lvs-overlay lvs-reviewoverlay">
+    <div class="title">
+      <span>审核报道</span><em class="close">X</em>
+    </div>
+    <div class="review-report">审核该报道</div>
+    <div class="review-btn">
+      <input class="review-pass" type="button" name="pass" value="通过">
+      <input class="review-back" type="button" name="back" value="退回">
+    </div>
+  </div>
+</div>
+<div id="j-reasonoverly" class="fn-hide">
+  <div class="lvs-overlay lvs-reasonoverlay">
+    <div class="title">
+      <span>审核报道</span><em class="close">X</em>
+    </div>
+    <textarea placeholder="请检查相关内容。"></textarea>
+    <div class="reason-btn">
+      <input class="reason-submit" type="submit" name="pass" value="发送">
+      <input class="go-back" type="button" name="back" value="返回">
+    </div>
+  </div>
+</div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
+<script src="${{staticServer}}/js/cake/overlay/overlay-1.0.0.js"></script>
 <script src="../static/js/common.js"></script>
 <script src="../static/js/scene/reportlist.js"></script>
 </body>

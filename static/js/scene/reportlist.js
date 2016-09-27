@@ -3,7 +3,11 @@ var searchFromData = lvsCmd['urlParams'];
 if (!searchFromData['page']) {
   searchFromData['page'] = 1;
 }
-
+//弹出框
+var mainOverlay = new cake['overlay-1.0.0']({
+    mask: true,
+    maskClose: false
+  });
 // juicer函数
 juicer.register('formatDate', lvsCmd['formatDate']);
 juicer.register('formatState', function(state){
@@ -58,6 +62,23 @@ function bindReportList(){
     $(this).css('color','#12bb9a');
   },function(){
     $(this).css('color','#808080');
+  })
+  // 弹出框
+  $('.lreview').click(function(){
+    $('#j-reviewoverly').show();
+  })
+  $('#j-reviewoverly .close').click(function(){
+    $('#j-reviewoverly').hide();
+  })
+  $('#j-reviewoverly .review-back').click(function(){
+    $('#j-reviewoverly').hide();
+    $('#j-reasonoverly').show();
+  })
+  $('#j-reasonoverly .close').click(function(){
+    $('#j-reasonoverly').hide();
+  })
+  $('#j-reasonoverly .go-back').click(function(){
+    $('#j-reasonoverly').hide();
   })
 }
 
@@ -167,5 +188,3 @@ newSearchform.render(searchConfig, null, function (formInfo) {
 newSearchform.setval(searchFromData);
 if (searchFromData['beginDate']) $('.j-starttime input').val(lvsCmd.formatDate(+searchFromData['beginDate'], 'YY-MM-DD'));
 if (searchFromData['endDate']) $('.j-endtime input').val(lvsCmd.formatDate(+searchFromData['endDate'], 'YY-MM-DD'));
-
-

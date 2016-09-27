@@ -189,6 +189,7 @@ $('#j-useroverly .close').click(closeUseroverly);
 
 // 弹出框
 var mainOverlay = new cake['overlay-1.0.0']({
+  mask:true,
   maskClose: false
 });
 

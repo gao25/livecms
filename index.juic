@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>CMS内容管理平台</title>
   <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="../static/css/common.css">
   <link rel="stylesheet" href="static/css/edit.css">
   <link rel="stylesheet" type="text/css" href="static/css/index.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
