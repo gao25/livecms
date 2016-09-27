@@ -49,15 +49,9 @@
     </div>
     <div class="detail-footer">
       <ul>
-<<<<<<< HEAD
-        <li><a href="reportpreview.html?reportId=${item.id}"><img src="../static/img/eye.png"></a></li>
-        <li><a href="reportedit.html?reportId=${item.id}"><img src="../static/img/edit.png"></a></li>
-        <li><a href="#"><img src="../static/img/search.png"></a></li>
-=======
-        <li><a href="reportpreview.html"><img src="${{webServer}}/static/img/eye.png"></a></li>
-        <li><a href="reportedit.html?id=${item.id}"><img src="${{webServer}}/static/img/edit.png"></a></li>
+        <li><a href="reportpreview.html?reportId=${item.id}"><img src="${{webServer}}/static/img/eye.png"></a></li>
+        <li><a href="reportedit.html?reportId=${item.id}"><img src="${{webServer}}/static/img/edit.png"></a></li>
         <li><a href="#"><img src="${{webServer}}/static/img/search.png"></a></li>
->>>>>>> 6b3be82cb8c84283bef5cbe946b94ef37fb16cfd
         <li class="more">
           <img src="${{webServer}}/static/img/menu.png">
           <ul>

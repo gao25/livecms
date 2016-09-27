@@ -3,11 +3,6 @@ var searchFromData = lvsCmd['urlParams'];
 if (!searchFromData['page']) {
   searchFromData['page'] = 1;
 }
-//弹出框
-var mainOverlay = new cake['overlay-1.0.0']({
-    mask: true,
-    maskClose: false
-  });
 // juicer函数
 juicer.register('formatDate', lvsCmd['formatDate']);
 juicer.register('formatState', function(state){

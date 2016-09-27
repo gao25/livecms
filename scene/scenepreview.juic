@@ -49,11 +49,7 @@
     </script>
   </div>
 </div>
-<<<<<<< HEAD
-<script src="/static/js/common.js"></script>
-<script src="/static/js/scene/scencepreview.js"></script>
-=======
 <script src="${{webServer}}/static/js/common.js"></script>
->>>>>>> 6b3be82cb8c84283bef5cbe946b94ef37fb16cfd
+<script src="/static/js/scene/scencepreview.js"></script>
 </body>
 </html>
