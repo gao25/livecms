@@ -43,14 +43,14 @@
       <div>现场：<span>${item.topic}</span></div>
       <div>报道人：<span>${item.reporter}</span></div>
       <div>发布时间：<span>${item.createtime}</span></div>
-      <div>状态：<span>{@if item.state == 1}待审核{@else if item.state == 8}审核失败{@/if}</span></div>
+      <div>状态：<span>${item.state|formatState}</span></div>
       <div class="lvs-comment">评论：<span>${item.commentnum}</span></div>
       <div class="lvs-praise">点赞：<span>${item.likenum}</span></div>
     </div>
     <div class="detail-footer">
       <ul>
-        <li><a href="reportpreview.html"><img src="${{webServer}}/static/img/eye.png"></a></li>
-        <li><a href="reportedit.html?id=${item.id}"><img src="${{webServer}}/static/img/edit.png"></a></li>
+        <li><a href="reportpreview.html?reportId=${item.id}"><img src="${{webServer}}/static/img/eye.png"></a></li>
+        <li><a href="reportedit.html?reportId=${item.id}"><img src="${{webServer}}/static/img/edit.png"></a></li>
         <li><a href="#"><img src="${{webServer}}/static/img/search.png"></a></li>
         <li class="more">
           <img src="${{webServer}}/static/img/menu.png">

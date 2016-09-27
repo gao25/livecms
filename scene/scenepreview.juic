@@ -28,28 +28,28 @@
 
     </div>
   </div>
-  <div id="j-view" class="message-preview">
+  <div id="j-scencepreview" class="message-preview">
     <script type="text/template">
     <ul>
-      <li>现场标题: <span>里约奥运会</span></li>
-      <li>创建人: <span>王晓晓</span></li>
-      <li>发布时间: <span>2016/8/26 12::26</span></li>
-      <li>现场类型: <span>视频直播</span></li>
-      <li>直播流地址: <span>3</span></li>
-      <li>现场状态: <span>待审核</span></li>
-      <li>报道审核: <span>先审后发</span></li>
-      <li>评论审核: <span>先审后发</span></li>
-      <li>报道数:<span>3</span></li>
+      <li>现场标题: <span>${data.topic}</span></li>
+      <li>创建人: <span>${data.reporter}</span></li>
+      <li>发布时间: <span>${data.createTime|formatDate,'YY-MM-DD hh:mm'}</span></li>
+      <li>现场类型: <span>${data.type|formatType}</span></li>
+      <li>直播流地址: <span>${data.liveStreamUrl}</span></li>
+      <li>现场状态: <span>${data.state|formatState}</span></li>
+      <li>报道审核: <span>{@if data.reportApproveType == 1}先审后发{@else if data.reportApproveType == 2}先发后审{@/if}</span></li>
+      <li>评论审核: <span>{@if data.commentApproveType == 1}先审后发{@else if data.commentApproveType == 2}先发后审{@/if}</span></li>
+      <li>报道数:<span>${data.reportnum}</span></li>
       <li>短地址: 
-        <div>微信：http://dwz.cn/NcpRQ</div>
-        <div>短地址：http://dwz.cn/NcpRQ</div>
-        <div>短地址：http://dwz.cn/NcpRQ</div>
+        <div>微信：$data.{wxshorturl}</div>
+        <div>新浪：${data.xlshorturl}</div>
+        <div>APP：${data.appshorturl}</div>
       </li>
     </ul>
     </script>
   </div>
 </div>
-<script src="${{webServer}}/static/js/common.js"></script>
-<script src="${{staticServer}}/js/scenepreview.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="${{webServer}}/js/scenepreview.js"></script>
 </body>
 </html>

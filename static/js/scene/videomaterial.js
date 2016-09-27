@@ -69,7 +69,7 @@ function loadList(){
         // 绑定操作
         bindList();
         // 分页
-        lvsCmd.page('j-page', 437, page, 20);
+        lvsCmd.page('j-page', res['totalcount'], res['currentpage'], 10);
         $('#j-page a').click(function(){
           page = $(this).data('page');
           loadList();

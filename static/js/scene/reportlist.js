@@ -3,7 +3,11 @@ var searchFromData = lvsCmd['urlParams'];
 if (!searchFromData['page']) {
   searchFromData['page'] = 1;
 }
-
+//弹出框
+var mainOverlay = new cake['overlay-1.0.0']({
+    mask: true,
+    maskClose: false
+  });
 // juicer函数
 juicer.register('formatDate', lvsCmd['formatDate']);
 juicer.register('formatState', function(state){
@@ -183,5 +187,3 @@ newSearchform.render(searchConfig, null, function (formInfo) {
 newSearchform.setval(searchFromData);
 if (searchFromData['beginDate']) $('.j-starttime input').val(lvsCmd.formatDate(+searchFromData['beginDate'], 'YY-MM-DD'));
 if (searchFromData['endDate']) $('.j-endtime input').val(lvsCmd.formatDate(+searchFromData['endDate'], 'YY-MM-DD'));
-
-

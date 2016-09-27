@@ -41,7 +41,7 @@
       <td class="lhandle-btn">
         <ul>
           <li><a href="sceneedit.html?id=${item.id}">编辑</a></li>
-          <li><a href="scenepreview.html">预览</a></li>
+          <li><a href="scenepreview.html?id=${item.id}">预览</a></li>
           <li><a href="#">审核</a></li>
           <li class="more">
             <a href="#">更多</a>

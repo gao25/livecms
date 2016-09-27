@@ -6,6 +6,14 @@ if (!searchFromData['page']) {
 
 // juicer函数
 juicer.register('formatDate', lvsCmd['formatDate']);
+juicer.register('formatState', function(state){
+  var stateDict = {
+    "1": "未审核",
+    "2": "审核通过",
+    "8": "审核失败"
+  }
+  return stateDict[state];
+});
 
 // 渲染列表
 var reportlistTpl = juicer($('#j-reportlist script').html());
