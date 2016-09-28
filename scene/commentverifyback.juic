@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>报道审核</title>
+  <title>评论审核</title>
   <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{webServer}}/static/css/overlay.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
@@ -17,6 +17,6 @@
   <span id="j-false">取消</span>
 </div>
 <script src="${{webServer}}/static/js/common.js"></script>
-<script src="${{webServer}}/static/js/scene/sceneverifyback.js"></script>
+<script src="${{webServer}}/static/js/scene/commentverifyback.js"></script>
 </body>
 </html>

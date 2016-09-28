@@ -53,12 +53,12 @@ function closeCallback(){
 function bindReportList(){
   // 审核
   $('#j-reportlist .j-verify').click(function(){
-    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/reportverify.html?reportId='+$(this).data('id')+'&callback=verifyCallback"></iframe></div>');
+    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">报道审核<em class="j-overlay-close">X</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/reportverify.html?reportId='+$(this).data('id')+'&callback=verifyCallback"></iframe></div>');
     return false;
   });
   // 关闭
   $('#j-reportlist .j-close').click(function(){
-    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/reportclose.html?reportId='+$(this).data('id')+'&callback=closeCallback"></iframe></div>');
+    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">关闭报道<em class="j-overlay-close">X</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/reportclose.html?reportId='+$(this).data('id')+'&callback=closeCallback"></iframe></div>');
     return false;
   });
   // 列表

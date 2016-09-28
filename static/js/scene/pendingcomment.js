@@ -49,6 +49,9 @@ lvsCmd.ajax(url, ajaxData, function (state, res) {
     alert("接口请求失败，请检查网络连接！");
   }
 });
+function verifyCallback(){
+  location.reload();
+}
 function bindList(){
   // 选中操作
 var select_num=0;
@@ -97,6 +100,11 @@ $('.pending-btn').hover(function(){
 },function(){
   $(this).css('color','#323a4d');
 })
+// 审核
+  $('#j-list .j-verify').click(function(){
+    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">评论审核<em class="j-overlay-close">X</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/reportverify.html?reportId='+$(this).data('id')+'&callback=verifyCallback"></iframe></div>');
+    return false;
+  });
 }
 
 // 跳转

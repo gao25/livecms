@@ -11,7 +11,7 @@
 <body>
 <div class="lvs-selectbtn">
   <p>
-    <textarea id="j-notThroughReason" cols="30" rows="10"></textarea>
+    <textarea id="j-notThroughReason" cols="30" rows="10" placeholder="请检查相关内容。"></textarea>
   </p>
   <span id="j-true">确定</span>
   <span id="j-false">取消</span>

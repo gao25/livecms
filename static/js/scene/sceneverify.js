@@ -29,5 +29,5 @@ $('#j-pass').click(function(){
 });
 $('#j-back').click(function(){
   // 审核不通过
-  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">现场审核<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="400" src="scene/sceneverifyback.html?liveId='+urlData['liveId']+'&callback='+urlData['callback']+'"></iframe></div>');
+  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">现场审核<em class="j-overlay-close">X</em></div><iframe scrolling="auto" frameborder="0" width="640" height="400" src="scene/sceneverifyback.html?liveId='+urlData['liveId']+'&callback='+urlData['callback']+'"></iframe></div>');
 });
