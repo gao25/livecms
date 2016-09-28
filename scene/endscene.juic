@@ -52,11 +52,11 @@
         <ul>
           <li><a href="sceneedit.html?id=${item.id}">编辑</a></li>
           <li><a href="scenepreview.html?id=${item.id}">预览</a></li>
-          <li><a href="#">审核</a></li>
+          <li><a class="j-verify" href="javascript:void(0)" data-id="${item.id}">审核</a></li>
           <li class="more">
             <a href="#">更多</a>
             <ul>
-              <li><a class="lcolse" href="#">关闭</a></li>
+              <li><a class="j-close lcolse" href="javascript:void(0)" data-id="${item.id}">关闭</a></li>
               <li><a class="lreport" href="endreport.html">报道</a></li>
             </ul>
           </li>

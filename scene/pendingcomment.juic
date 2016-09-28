@@ -42,7 +42,7 @@
       <td><span class="select-btn"></span></td>
       <td>${item.id}</td>
       <td>
-        <span class="pending-btn">审核</span>
+        <a class="j-verify" href="javascript:void(0)" data-id="${item.id}"><span class="pending-btn">审核</span></a>
         <span class="delete-btn">删除</span>
       </td>
       <td>${item.reviewer}</td>

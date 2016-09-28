@@ -10,6 +10,7 @@ var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
   "type": "ajax",
   "method": "post",
+  "action": "",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",

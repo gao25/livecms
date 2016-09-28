@@ -30,5 +30,5 @@ $('#j-true').click(function(){
 });
 $('#j-false').click(function(){
   // 取消
-  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">现场审核<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/sceneverify.html?liveId='+urlData['liveId']+'&callback='+urlData['callback']+'"></iframe></div>');
+  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">现场审核<em class="j-overlay-close">X</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/sceneverify.html?liveId='+urlData['liveId']+'&callback='+urlData['callback']+'"></iframe></div>');
 });

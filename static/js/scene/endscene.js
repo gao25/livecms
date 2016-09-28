@@ -34,9 +34,9 @@ juicer.register('formatState', function(state){
 var listTpl = juicer($('#j-list script').html());
 $('#j-list script').remove();
 if (searchFromData['beginDate'] || searchFromData['endDate'] || searchFromData['reportType'] || searchFromData['key'] || searchFromData['keyType']) {
-  var url = '/live-web-cms/report/searchApproved.json';
+  var url = '/live-web-cms/live/search.json';
 } else {
-  var url = '/live-web-cms/report/getApproved.json';
+  var url = '/live-web-cms/live/getApproved.json';
 }
 var ajaxData = $.extend({}, searchFromData);
 if (ajaxData['endDate']) ajaxData['endDate'] = + ajaxData['endDate'] + 24 * 3600 * 1000;
@@ -60,8 +60,34 @@ lvsCmd.ajax(url, ajaxData, function (state, res) {
     alert("接口请求失败，请检查网络连接！");
   }
 });
+function verifyCallback(){
+  location.reload();
+}
+function closeCallback(){
+  location.reload();
+}
 function bindList(){
-  // nothing
+  // 审核
+  $('#j-list .j-verify').click(function(){
+    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">现场审核<em class="j-overlay-close">X</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/sceneverify.html?liveId='+$(this).data('id')+'&callback=verifyCallback"></iframe></div>');
+    return false;
+  });
+  // 关闭
+  $('#j-list .j-close').click(function(){
+    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">关闭现场<em class="j-overlay-close">X</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/sceneclose.html?liveId='+$(this).data('id')+'&callback=closeCallback"></iframe></div>');
+    return false;
+  });
+  // 列表
+  $('#j-list .more').hover(function(){
+    $(this).find('ul').show();
+  },function(){
+    $(this).find('ul').hide();
+  })
+  $('#j-list .more ul li a').hover(function(){
+    $(this).css('color','#12bb9a');
+  },function(){
+    $(this).css('color','#808080');
+  })
 }
 
 // 跳转
