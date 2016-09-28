@@ -192,4 +192,42 @@ function bindList(){
       $(this).removeClass('lselected');
     }
   })
+  // 启动
+  $('.j-open').click(function(){
+    var id = $(this).data('id');
+    changeState([id], 1);
+  });
+  // 删除
+  $('.j-delete').click(function(){
+    var id = $(this).data('id');
+    changeState([id], 0);
+  });
+  // 批量启动
+  $('#j-openselect').click(function(){
+    var idList = [];
+    $('#j-list .lselected').each(function(){
+      if ($(this).data('id')) {
+        idList.push($(this).data('id'));
+      }
+    });
+    changeState(idList, 1);
+  });
+  // 批量删除
+  $('#j-delectselect').click(function(){
+    var idList = [];
+    $('#j-list .lselected').each(function(){
+      if ($(this).data('id')) {
+        idList.push($(this).data('id'));
+      }
+    });
+    changeState(idList, 0);
+  });
+}
+
+// 修改用户状态
+function changeStateCallback(){
+  location.href = document.URL;
+}
+function changeState (idList, state) {
+  parent.executeCallback('/thirduserupdate/updateState.json', {idList: idList, state: state}, 'changeStateCallback');
 }

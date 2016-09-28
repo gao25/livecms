@@ -24,7 +24,7 @@ function verifyFn(){
 }
 $('#j-true').click(function(){
   // 确定审核不通过
-  formData['state'] = 8;
+  formData['state'] = 4;
   formData['notThroughReason'] = $('#j-notThroughReason').val();
   verifyFn();
 });

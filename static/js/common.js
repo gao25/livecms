@@ -288,7 +288,7 @@ lvsCmd['formatDate'] = function(date, typeStr) {
 
 // 返回
 $('.lvs-crumb .back').click(function(){
-  history.back();
+  location.href = document.referrer;
   return false;
 });
 

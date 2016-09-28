@@ -62,5 +62,5 @@ $('#j-editform .j-state label').click(function(){
 
 // 取消
 $('.j-cancel').click(function(){
-  history.back();
+  location.href = document.referrer;
 });

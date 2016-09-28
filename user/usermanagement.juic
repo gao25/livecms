@@ -13,10 +13,10 @@
 </head>
 <body>
 <div class="lvs-comment fn-clear">
-  <a class="user-open-btn" href="#">
+  <a id="j-openselect" class="user-open-btn" href="javascript:void(0)">
     <span>启用</span>
   </a>
-  <a class="user-close-btn" href="#">
+  <a id="j-delectselect" class="user-close-btn" href="javascript:void(0)">
     <span>禁用</span>
   </a>
   <div class="lvs-listhead fn-clear">
@@ -43,11 +43,11 @@
     <tr align="center">
       <td><span class="select-btn" data-id="${item.id}"></span></td>
       <td class="uhandle-btn">
-        <a href="#"><span class="preview-btn">预览</span></a>
+        <a href="userpreview.html?identityNo=${item.identityNo}"><span class="preview-btn">预览</span></a>
         {@if item.state == 0}
-        <a href="#"><span class="delete-btn" data-id="${item.id}">启用</span></a>
+        <a class="j-open" href="javascript:void(0)" data-id="${item.id}"><span class="delete-btn">启用</span></a>
         {@else}
-        <a href="#"><span class="delete-btn" data-id="${item.id}">禁用</span></a>
+        <a class="j-delete" href="javascript:void(0)" data-id="${item.id}"><span class="delete-btn">禁用</span></a>
         {@/if}
       </td>
       <td>{@if item.portrait}<img src="${item.portrait}">{@/if}</td>

@@ -5,6 +5,13 @@ var searchData = {},
   searchState = false,
   searchFields = ['beginDate', 'endDate', 'reportType', 'key', 'keyType'];
 
+if (urlParams['liveId'] > 0) {
+  $('.lvs-crumb, #j-create').show();
+  $('#j-create').click(function(){
+    location.href = 'reportadd.html?liveId=' + urlParams['liveId'];
+  });
+}
+
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
@@ -137,10 +144,18 @@ juicer.register('formatState', function(state){
 // 渲染列表
 var reportlistTpl = juicer($('#j-reportlist script').html());
 $('#j-reportlist script').remove();
-if (searchState) {
-  var url = '/live-web-cms/report/searchUnApproved.json';
+if (urlParams['liveId'] > 0) {
+  if (searchState) {
+    var url = '/live-web-cms/report/searchApproved.json';
+  } else {
+    var url = '/live-web-cms/report/getApproved.json';
+  }
 } else {
-  var url = '/live-web-cms/report/getUnApproved.json';
+  if (searchState) {
+    var url = '/live-web-cms/report/searchUnApproved.json';
+  } else {
+    var url = '/live-web-cms/report/getUnApproved.json';
+  }
 }
 searchData['page'] = urlParams['page'];
 if (searchData['endDate']) searchData['endDate'] = + searchData['endDate'] + 24 * 3600 * 1000;
@@ -196,6 +211,28 @@ function bindReportList(){
   },function(){
     $(this).css('color','#808080');
   })
+  // 图片
+  $('#j-reportlist .j-pictures').each(function(){
+    var pictures = $(this).data('pictures') + '';
+    if (pictures) {
+      var pic = pictures.split(',')[0];
+      if (pic.substr(0,1) != '/') pic = '/' + pic;
+      pic = zbcbServer + pic;
+      $(this).html('<img src="'+pic+'">');
+    }
+  });
+  // 音频
+
+  // 视频
+  $('#j-reportlist .j-video').each(function(){
+    var video = $(this).data('video');
+    if (video) {
+      if (video.substr(0,1) == '/') video = video.substr(1);
+      $(this).click(function(){
+        parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><video src="'+video+'"></video></div>');
+      });
+    }
+  });
 }
 
 

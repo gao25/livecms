@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户管理 － 预览</title>
+  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/preview.css">
+  <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
+  <script src="${{staticServer}}/js/juicer-min.js"></script>
+</head>
+<body>
+<div class="lvs-crumb">
+  <a href="javascript:void(0)" class="back">返回上一页</a>
+  <span>用户管理</span>
+  <span>&gt;</span>
+  <span>预览</span>
+</div>
+<div class="lvs-preview fn-clear">
+  <div class="ltitel">
+    <img src="${{webServer}}/static/img/page.png">
+    <span>用户预览</span>
+  </div>
+  <div id="j-preview" class="message-preview">
+    <script type="text/template">
+    <ul>
+      <li>头像: <span>${data.portrait}</span></li>
+      <li>用户名: <span>${data.identityName}</span></li>
+      <li>昵称: <span>${data.nick}</span></li>
+      <li>性别: <span>${data.sex}</span></li>
+      <li>手机号码: <span>${data.mobile}</span></li>
+      <li>邮箱地址: <span>${data.email}</span></li>
+      <li>所属渠道: <span>${data.identityType}</span></li>
+      <li>状态: <span>${data.state|formatState}</span></li>
+      <li>创建时间: <span>${data.gmtCreate|formatDate,'YY-MM-DD hh:mm'}</span></li>
+    </ul>
+    </script>
+  </div>
+</div>
+<script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{webServer}}/static/js/user/userpreview.js"></script>
+</body>
+</html>

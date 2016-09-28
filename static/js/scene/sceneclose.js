@@ -5,7 +5,7 @@ var urlData = lvsCmd['urlParams'],
 if (!iframe) iframe = 'mainframe';
 
 var formData = {
-  liveId: urlData['liveId']
+  id: urlData['liveId']
 };
 // 关闭报道
 function closeFn(){

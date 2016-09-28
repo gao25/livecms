@@ -88,7 +88,7 @@ formConfig = {
 newTplform.render(formConfig, function(){
   // 取消
   $('.j-cancel').click(function(){
-    history.back();
+    location.href = document.referrer;
   });
 }, function(formInfo){
   //获取表单数据
@@ -140,8 +140,7 @@ newTplform.render(formConfig, function(){
     if (state) {
       if (res['status'] == '0') {
         alert("数据保存成功！");
-        // location.reload();
-        history.back();
+        location.href = document.referrer;
       } else {
         alert(res['errMsg']);
       }

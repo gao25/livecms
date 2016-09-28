@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>现场管理 － 待签报道 － 列表</title>
+  <title>现场管理 － 报道列表</title>
   <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" />
   <link rel="stylesheet" href="${{webServer}}/static/css/common.css">
@@ -13,26 +13,46 @@
   <script src="${{staticServer}}/js/sha512.js"></script>
 </head>
 <body>
-<div class="lvs-listhead fn-clear">
-  <div id="j-search" class="search fn-clear"></div>
+<div class="lvs-crumb" style="display:none">
+  <a href="javascript:void(0)" class="back">返回上一页</a>
+  <span>现场管理</span>
+  <span>&gt;</span>
+  <a href="#">现场列表</a>
+  <span>&gt;</span>
+  <span>报道列表</span>
+</div>
+<div class="lvs-creat fn-clear">
+  <a id="j-create" class="creat-btn" href="javascript:void(0)" style="display:none;">
+    <img src="${{webServer}}/static/img/creat_img.png"><span>发布报道</span>
+  </a>
+  <div class="lvs-listhead fn-clear">
+    <div id="j-search" class="search fn-clear"></div>
+  </div>
 </div>
 <div id="j-reportlist" class="lvs-list fn-clear">
   <script type="text/template">
   {@each data as item}
   <div class="detail">
-    <div class="lvs-img"> 
-      <img class="img" src="${{webServer}}/static/img/live.png">
+    <div class="lvs-img">
+      {@if item.type == 1}
+      <p class="j-pictures" data-pictures="${item.pictures}"></p>
+      {@else if item.type == 2}
+      <p class="j-audio" data-audio="${item.audio}"></p>
       <img class="play" src="${{webServer}}/static/img/play.png">
+      {@else if item.type == 4}
+      <p class="j-video" data-video="${item.video}"></p>
+      <img class="play" src="${{webServer}}/static/img/play.png">
+      {@/if}
       <span class="lvs-title">${item.topic}</span>
       <span class="lvs-id">${item.id}</span>
     </div>
     <div class="lvs-message">
       <div>现场：<span>${item.topic}</span></div>
       <div>报道人：<span>${item.reporter}</span></div>
-      <div>发布时间：<span>${item.createTime}</span></div>
+      <div>发布时间：<span>${item.createTime|formatDate,'YY-MM-DD hh:mm'}</span></div>
       <div>状态：<span>${item.state|formatState}</span></div>
-      <div class="lvs-comment">评论：<span>${item.commentnum}</span></div>
-      <div class="lvs-praise">点赞：<span>${item.likenum}</span></div>
+      <div class="lvs-comment">评论：<span>${item.commentNum}</span></div>
+      <div class="lvs-praise">点赞：<span>${item.likeNum}</span></div>
     </div>
     <div class="detail-footer">
       <ul>

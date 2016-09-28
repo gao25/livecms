@@ -30,6 +30,10 @@ formConfig = {
     "type": "text",
     "readonly": true
   }, {
+    "title": "发布时间",
+    "name": "startTime",
+    "type": "datetime"
+  }, {
     "title": "现场类型",
     "name": "type",
     "type": "select",
@@ -77,7 +81,7 @@ formConfig = {
     "value": 1
   }, {
     "class": "j-state",
-    "title": "直播状态",
+    "title": "现场状态",
     "name": "state",
     "type": "radio",
     "option": [
@@ -86,6 +90,16 @@ formConfig = {
       {"text": "审核失败", "value": "4"},
       {"text": "已关闭", "value": "8"}
     ]
+  }, {
+    "class": "check-style",
+    "title": "直播状态",
+    "name": "streamState",
+    "type": "radio",
+    "option": [
+      {"text": "开启", "value": "1"},
+      {"text": "关闭", "value": "0"}
+    ],
+    "value": "0"
   }],
   "button": [
     {
@@ -110,7 +124,7 @@ newTplform.render(formConfig, function(){
     $('.j-liveLink').hide();
     $('.j-uploader-review').hide();
   }
-  // $('#j-editform input[name=startTime]').val(lvsCmd.formatDate(null,'YY-MM-DD hh:mm'));
+  $('#j-editform input[name=startTime]').val(lvsCmd.formatDate(null,'YY-MM-DD hh:mm'));
   // 创建上传组件
   coverUpfile = new lvsCmd['upfile']($('.j-uploader .filelist'));
   reviewUpfile = new lvsCmd['upfile']($('.j-uploader-review .filelist'));
@@ -129,15 +143,15 @@ newTplform.render(formConfig, function(){
   });
   // 取消
   $('.j-cancel').click(function(){
-    history.back();
+    location.href = document.referrer;
   });
 }, function (formInfo) {
-  var formData = {};
   var formData = {
     topic: formInfo['data']['topic'],
     type: formInfo['data']['type'],
     commentApproveType: formInfo['data']['commentApproveType'],
-    reportApproveType: formInfo['data']['reportApproveType']
+    reportApproveType: formInfo['data']['reportApproveType'],
+    streamState: formInfo['data']['streamState']
   }
   var cover = $('.j-uploader .filelist .file').eq(0).data('fileurl');
   if (cover) {
@@ -162,15 +176,14 @@ newTplform.render(formConfig, function(){
     formData['state'] = 2;
     var url = formInfo['url'];
   }  
-  // formData['startTime'] = new Date(formData['startTime']).getTime();
+  formData['startTime'] = new Date(formData['startTime']).getTime();
   // 提交表单
   lvsCmd.ajax(url, formData, function (state, res) {
     if (state) {
       if (res['status'] == '0') {
         alert("数据保存成功！");
         if (id > 0) {
-          // location.reload();
-          history.back();
+          location.href = document.referrer;
         } else {
           location.href = 'checkscene.html';
         }

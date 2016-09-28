@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-	<title>现场管理 － 待签现场</title>
+	<title>现场管理</title>
   <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
   <link rel="stylesheet" href="${{webServer}}/static/css/common.css">
@@ -14,8 +14,11 @@
 </head>
 <body>
 <div class="lvs-creat fn-clear">
-  <a class="creat-btn" href="sceneedit.html">
+  <a id="j-create" class="creat-btn" href="sceneedit.html" style="display:none;">
     <img src="../static/img/creat_img.png"><span>创建现场</span>
+  </a>
+  <a id="j-copy" class="creat-btn" href="creatscene.html" style="display:none;">
+    <span>复制列表地址</span>
   </a>
   <div class="lvs-listhead fn-clear">
     <div id="j-search" class="search fn-clear"></div>
@@ -25,6 +28,9 @@
   <script type="text/template">
   <table cellspacing="0">
     <tr align="center" class="listhead">
+      {@if turn == 'on'}
+      <td class="ssort">排序</td>
+      {@/if}
       <td class="cid">ID</td>
       <td class="chandle">操作</td>
       <td class="cstate">状态</td>
@@ -37,6 +43,15 @@
     </tr>
     {@each data as item}
     <tr align="center">
+      {@if turn == 'on'}
+      <td class="lsort-btn">
+        <ul>
+          <li><a class="lup j-orderup" href="javascript:void(0)" data-id="${item.id}">上排</a></li>
+          <li><a class="ldown j-orderdown" href="javascript:void(0)" data-id="${item.id}">下排</a></li>
+          <li><a class="ltop j-stick" href="javascript:void(0)" data-id="${item.id}">置顶</a></li>
+        </ul>
+      </td>
+      {@/if}
       <td>${item.id}</td>
       <td class="lhandle-btn">
         <ul>
@@ -47,7 +62,7 @@
             <a href="#">更多</a>
             <ul>
               <li><a class="j-close lcolse" href="javascript:void(0)" data-id="${item.id}">关闭</a></li>
-              <li><a class="lreport" href="endreport.html">报道</a></li>
+              <li><a class="lreport" href="reportlist.html?liveId=${item.id}">报道</a></li>
             </ul>
           </li>
         </ul>
@@ -56,13 +71,11 @@
       <td>${item.topic}</td>
       <td>${item.creater}</td>
       <td>${item.type|formatType}</td>
-      <td>${item.reportnum}</td>
+      <td>${item.reportNum}</td>
       <td>
-        <div>微信:http://dwz.cn/NcpRQ</div>
-        <div>短地址:</div>
-        <div>短地址:${item.shorturls}</div>
+        ${item.shorturls}
       </td>
-      <td>${item.createtime|formatDate,'YY-MM-DD hh:mm'}</td>
+      <td>${item.createTime|formatDate,'YY-MM-DD hh:mm'}</td>
     </tr>
     {@/each}
   </table>

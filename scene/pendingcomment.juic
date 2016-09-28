@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>现场管理 － 待审评论</title>
-  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
-  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/comment.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/common.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
   <script src="${{staticServer}}/js/juicer-min.js"></script>
@@ -14,10 +14,10 @@
 </head>
 <body>
 <div class="lvs-comment fn-clear">
-  <a class="comment-pending-btn" href="#">
+  <a id="j-verify" class="comment-pending-btn" href="javascript:void(0)">
     <span>审核</span>
   </a>
-  <a class="comment-delete-btn" href="#">
+  <a id="j-delete" class="comment-delete-btn" href="javascript:void(0)">
     <span>删除</span>
   </a>
   <div class="lvs-listhead fn-clear">
@@ -39,15 +39,15 @@
     </tr>
     {@each data as item}
     <tr align="center">
-      <td><span class="select-btn"></span></td>
+      <td><span class="select-btn" data-id="${item.id}"></span></td>
       <td>${item.id}</td>
       <td>
         <a class="j-verify" href="javascript:void(0)" data-id="${item.id}"><span class="pending-btn">审核</span></a>
-        <span class="delete-btn">删除</span>
+        <a class="j-delete" href="javascript:void(0)" data-id="${item.id}"><span class="delete-btn">删除</span></a>
       </td>
       <td>${item.reviewer}</td>
       <td>${item.content}</td>
-      <td>ID:${item.reportid}</td>
+      <td>${item.reportId}</td>
       <td>${item.state|formatState}</td>
       <td>${item.createtime|formatDate,'YY-MM-DD hh:mm'}</td>
     </tr>

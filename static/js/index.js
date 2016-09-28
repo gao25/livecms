@@ -70,7 +70,7 @@ var navAllData = {
       },
       {
         "menu": "成品现场",
-        "link": "scene/endscene.html"
+        "link": "scene/checkscene.html?turn=on"
       },
       {
         "menu": "待审评论",
