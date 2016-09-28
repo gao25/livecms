@@ -32,6 +32,7 @@ newTplform.render(formConfig, null, function(){
   if ($('#j-executeframe').length == 0) {
     $('body').append('<div class="fn-hide"><iframe id="j-executeframe" src="about:blank"></iframe></div>');
   }
+  lvsCmd['cookie'].del('token');
   loginFn();
 });
 function loginRandomCallback (state, res) {
