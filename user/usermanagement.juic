@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>用户管理 － 用户管理</title>
-  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
-  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/common.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
 </head>
@@ -37,6 +37,8 @@
       <td class="ustate">状态</td>
       <td class="utime">创建时间</td>
     </tr>
+    <script type="text/template">
+    {@each data as item}
     <tr align="center">
       <td><span class="select-btn"></span></td>
       <td class="uhandle-btn">
@@ -53,27 +55,13 @@
       <td>启用</td>
       <td>2016/8/24 14:32</td>
     </tr>
-    <tr align="center">
-      <td><span class="select-btn"></span></td>
-      <td class="uhandle-btn">
-        <a href="#"><span class="preview-btn">预览</span></a>
-        <a href="#"><span class="delete-btn">禁用</span></a>
-      </td>
-      <td><img src="/static/img/1.png"></td>
-      <td>whb</td>
-      <td>whb</td>
-      <td>男</td>
-      <td>13555555555</td>
-      <td>eee@163.com</td>
-      <td>微信</td>
-      <td>启用</td>
-      <td>2016/8/24 14:32</td>
-    </tr>
+    {@/each}
+    </script>
   </table>
 </div>
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
-<script src="/static/js/common.js"></script>
-<script src="/static/js/user/usermanagement.js"></script>
+<script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{webServer}}/static/js/user/usermanagement.js"></script>
 </body>
 </html>

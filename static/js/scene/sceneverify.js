@@ -5,11 +5,11 @@ var urlData = lvsCmd['urlParams'],
 if (!iframe) iframe = 'mainframe';
 
 var formData = {
-  reportId: urlData['reportId']
+  liveId: urlData['liveId']
 };
 // 提交审核
 function verifyFn(){
-  lvsCmd.ajax('/live-web-cms/report/approve.json', formData, function (state, res) {
+  lvsCmd.ajax('/live-web-cms/live/approve.json', formData, function (state, res) {
     if (state) {
       if (res['status'] == '0') {
         parent.window.frames[iframe][callback]();
@@ -29,5 +29,5 @@ $('#j-pass').click(function(){
 });
 $('#j-back').click(function(){
   // 审核不通过
-  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="400" src="scene/reportverifyback.html?reportId='+urlData['reportId']+'&callback='+urlData['callback']+'"></iframe></div>');
+  parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">现场审核<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="400" src="scene/sceneverifyback.html?liveId='+urlData['liveId']+'&callback='+urlData['callback']+'"></iframe></div>');
 });

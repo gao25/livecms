@@ -42,7 +42,7 @@
         <li class="more">
           <img src="${{webServer}}/static/img/menu.png">
           <ul>
-            <li><a class="lcolse" href="#">关闭</a></li>
+            <li><a class="j-close lcolse" href="javascript:void(0)" data-id="${item.id}">关闭</a></li>
             <li><a class="lconment" href="reportcomment.html?reportId=${item.id}">评论</a></li>
           </ul>
         </li>

@@ -41,7 +41,7 @@
       <li>评论审核: <span>{@if data.commentApproveType == 1}先审后发{@else if data.commentApproveType == 2}先发后审{@/if}</span></li>
       <li>报道数:<span>${data.reportnum}</span></li>
       <li>短地址: 
-        <div>微信：$data.{wxshorturl}</div>
+        <div>微信：${data.wxshorturl}</div>
         <div>新浪：${data.xlshorturl}</div>
         <div>APP：${data.appshorturl}</div>
       </li>
@@ -49,12 +49,7 @@
     </script>
   </div>
 </div>
-<<<<<<< HEAD
 <script src="${{webServer}}/static/js/common.js"></script>
-<script src="/static/js/scene/scencepreview.js"></script>
-=======
-<script src="/static/js/common.js"></script>
-<script src="${{webServer}}/js/scenepreview.js"></script>
->>>>>>> b3033081969509e300e2ee698f32506012c58375
+<script src="${{webServer}}/static/js/scene/scencepreview.js"></script>
 </body>
 </html>

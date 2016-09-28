@@ -43,9 +43,9 @@ searchConfig = {
     "type": "select",
     "option": [
       {"text": "报道类型", "value": "0"},
-      {"text": "图文", "value": "1"},
-      {"text": "音频", "value": "2"},
-      {"text": "视频", "value": "4"}
+      {"text": "微信", "value": "1"},
+      {"text": "微博", "value": "2"},
+      {"text": "APP端", "value": "4"}
     ]
   }, {
     "title": "用户状态",
@@ -98,6 +98,24 @@ newSearchform.render(searchConfig, null, function(config){
     console.log(res);
   });  
 });
+
+
+
+// 获取列表
+function getList (state, res) {
+  if (state) {
+    if (res['status'] == '0') {
+      //newTplform.setval(res['data']);
+      console.log(res);
+    } else {
+      alert(res['errMsg']);
+    }
+  } else {
+    alert("接口请求失败，请检查网络连接！");
+  }
+}
+parent.executeCallback('/thirduserquery/getList.json', {currentPage:1,pageCount:20}, 'getList');
+
 
 // 分页
 lvsCmd.page('j-page', 437, page, 20);

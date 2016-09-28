@@ -17,6 +17,6 @@
   <span id="j-false">取消</span>
 </div>
 <script src="${{webServer}}/static/js/common.js"></script>
-<script src="${{webServer}}/static/js/scene/reportverifyback.js"></script>
+<script src="${{webServer}}/static/js/scene/sceneverifyback.js"></script>
 </body>
 </html>

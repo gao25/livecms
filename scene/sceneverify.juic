@@ -10,13 +10,10 @@
 </head>
 <body>
 <div class="lvs-selectbtn">
-  <p>
-    <textarea id="j-notThroughReason" cols="30" rows="10"></textarea>
-  </p>
-  <span id="j-true">确定</span>
-  <span id="j-false">取消</span>
+  <span id="j-pass">审核通过</span>
+  <span id="j-back">退回</span>
 </div>
 <script src="${{webServer}}/static/js/common.js"></script>
-<script src="${{webServer}}/static/js/scene/reportverifyback.js"></script>
+<script src="${{webServer}}/static/js/scene/sceneverify.js"></script>
 </body>
 </html>

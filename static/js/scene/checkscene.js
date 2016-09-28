@@ -60,7 +60,23 @@ lvsCmd.ajax(url, ajaxData, function (state, res) {
     alert("接口请求失败，请检查网络连接！");
   }
 });
+function verifyCallback(){
+  location.reload();
+}
+function closeCallback(){
+  location.reload();
+}
 function bindList(){
+  // 审核
+  $('#j-list .j-verify').click(function(){
+    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/sceneverify.html?liveId='+$(this).data('id')+'&callback=verifyCallback"></iframe></div>');
+    return false;
+  });
+  // 关闭
+  $('#j-list .j-close').click(function(){
+    parent.window.mainOverlay.show('<div class="lvs-overlay"><div class="title">title<em class="j-overlay-close">close</em></div><iframe scrolling="auto" frameborder="0" width="640" height="200" src="scene/sceneclose.html?liveId='+$(this).data('id')+'&callback=closeCallback"></iframe></div>');
+    return false;
+  });
   // 列表
   $('#j-list .more').hover(function(){
    $(this).find('ul').show();
