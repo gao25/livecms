@@ -1,20 +1,16 @@
 // 获取参数
-var page = + lvsCmd['urlParams']['page'],
-  action = lvsCmd['urlParams']['action'],
-  callback = lvsCmd['urlParams']['callback'];
-if (isNaN(page) || page < 1) page = 1;
-var beginDate = '',
-  endDate = '',
-  mstate = 0,
-  key = '',
-  keyType = 0;
+var urlParams = lvsCmd['urlParams'];
+if (isNaN(urlParams['page']) || urlParams['page'] < 1) urlParams['page'] = 1;
+var searchData = {},
+  searchState = false,
+  searchFields = ['beginDate', 'endDate', 'state', 'key', 'keyType'];
 
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
 searchConfig = {
   "type": "ajax",
   "method": "post",
-  "action": "xxx",
+  "action": "",
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",
@@ -76,20 +72,54 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function (formInfo) {
-  
-
-  
-  page = 1;
-  beginDate = $('#j-searchform input[name=beginDate]').val(),
-  endDate = $('#j-searchform input[name=beginDate]').val(),
-  mstate = $('#j-searchform select[name=state]').val(),
-  key = $.trim($('#j-searchform input[name=key]').val()),
-  keyType = $('#j-searchform select[name=reportType]').val();
-  if (beginDate) beginDate = new Date(beginDate).getTime();
-  if (endDate) endDate = new Date(endDate).getTime();
-  loadList(); 
+newSearchform.render(searchConfig, function(){
+  $.each(searchFields, function(){
+    if (urlParams[this]) {
+      if (this == 'beginDate' || this == 'endDate') {
+        searchData[this] = lvsCmd.formatDate( + urlParams[this], 'YY-MM-DD');
+      } else {
+        searchData[this] = urlParams[this];
+      }
+      searchState = true;
+    }
+  });
+  newSearchform.setval(searchData);
+}, function (formInfo) {
+  var newUrlParams = {},
+    searchFieldsStr = ','+searchFields.join(',')+',';
+  $.each(urlParams, function (key, value) {
+    if (searchFieldsStr.indexOf(','+key+',') == -1) {
+      newUrlParams[key] = value;
+    }
+  });
+  urlParams['page'] = 1;
+  $.each(formInfo['data'], function (key, value) {
+    if (value) {
+      if (key == 'beginDate' || key == 'endDate') {
+        newUrlParams[key] = new Date(value).getTime();
+      } else if (key == 'state' || key == 'keyType') {
+        if (value > 0) newUrlParams[key] = value;
+      } else {
+        newUrlParams[key] = value;
+      }
+    }
+  });
+  urlParams = newUrlParams;
+  locationFn();
 });
+// 跳转
+function locationFn(){
+  var toUrl = '';
+  $.each(urlParams, function (key, val) {
+    if (toUrl == '') {
+      toUrl += '?';
+    } else {
+      toUrl += '&';
+    }
+    toUrl += key + '=' + val;
+  });
+  location.href = toUrl;
+}
 
 // juicer函数
 juicer.register('formatDate', lvsCmd['formatDate']);
@@ -99,6 +129,8 @@ juicer.register('formatState', function(state){
     stateStr = '未启用';
   } else if (state == 2) {
     stateStr = '启用';
+  } else if (state == 4) {
+    stateStr = 'N/A';
   }
   return stateStr;
 });
@@ -115,42 +147,29 @@ juicer.register('formatSize', function(size){
 // 渲染列表
 var listTpl = juicer($('#j-list script').html());
 $('#j-list script').remove();
-var url = '/live-web-cms/media/getList.json',
-  searchUrl = '/live-web-cms/media/search.json',
-  data = {page: page};
-if (beginDate) {
-  data['beginDate'] = beginDate;
-  url = searchUrl;
+if (searchState) {
+  var url = '/live-web-cms/media/search.json';
+} else {
+  var url = '/live-web-cms/media/getList.json';
 }
-if (endDate) {
-  data['endDate'] = endDate;
-  url = searchUrl;
-}
-if (mstate > 0) {
-  data['state'] = mstate;
-  url = searchUrl;
-}
-if (key) {
-  data['key'] = key;
-  url = searchUrl;
-}
-if (keyType > 0) {
-  data['keyType'] = keyType;
-  url = searchUrl;
-}
-lvsCmd.ajax(url, data, function (state, res) {
+searchData['page'] = urlParams['page'];
+if (searchData['endDate']) searchData['endDate'] = + searchData['endDate'] + 24 * 3600 * 1000;
+lvsCmd.ajax(url, searchData, function (state, res) {
   if (state) {
     if (res['status'] == '0') {
-      res['action'] = action;
-      var listHtml = listTpl.render(res);
-      $('#j-list').html(listHtml);
-      // 绑定操作
-      bindList();
+      res['action'] = urlParams['action'];
+      if (res['data'] && res['data'].length > 0) {
+        var listHtml = listTpl.render(res);
+        $('#j-list').html(listHtml);
+        // 绑定操作
+        bindList();
+      }
       // 分页
-      lvsCmd.page('j-page', res['totalcount'], res['currentpage'], 10);
+      lvsCmd.page('j-page', res['totalcount'], res['currentpage'], res['pagecount']);
       $('#j-page a').click(function(){
         page = $(this).data('page');
-        loadList();
+        urlParams['page'] = page;
+        locationFn();
       });
     } else {
       alert(res['errMsg']);
@@ -160,7 +179,7 @@ lvsCmd.ajax(url, data, function (state, res) {
   }
 });
 function bindList(){
-  if (action == 'select') {
+  if (urlParams['action'] == 'select') {
     $(".select-btn").click(function(){
       var mediaurl = $(this).data('mediaurl');
       parent.window.frames['mainframe'][callback](mediaurl);
@@ -168,6 +187,3 @@ function bindList(){
     });
   }
 }
-
-
-

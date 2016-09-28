@@ -3,26 +3,28 @@
 <head>
   <meta charset="utf-8">
   <title>管理员管理 － 管理员管理</title>
-  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
-  <link rel="stylesheet" type="text/css" href="/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/comment.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/common.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
+  <script src="${{staticServer}}/js/juicer-min.js"></script>
 </head>
 <body>
 <div class="lvs-comment fn-clear">
-  <a class="a-add-btn" href="#">
+  <a class="a-add-btn" href="adminedit.html">
     <span>添加管理员</span>
   </a>
-  <a class="comment-delete-btn" href="#">
+  <a id="j-delectselect" class="comment-delete-btn" href="javascript:void(0)">
     <span>删除</span>
   </a>
   <div class="lvs-listhead fn-clear">
     <div id="j-search" class="search fn-clear"></div>
   </div>
 </div>
-<div class="comment-list">
+<div id="j-list" class="comment-list">
+  <script type="text/template">
   <table cellspacing="0">
     <tr align="center" class="listhead">
       <td class="aselect"><span class="lselect-btn"></span></td>
@@ -36,26 +38,33 @@
       <td class="astate">状态</td>
       <td class="atime">创建时间</td>
     </tr>
+    {@each data as item}
     <tr align="center">
-      <td><span class="select-btn"></span></td>
+      <td><span class="select-btn" data-id="${item.id}"></span></td>
       <td class="ahandle-btn">
-        <a href="#"><span class="edit-btn">编辑</span></a>
-        <a href="#"><span class="delete-btn">删除</span></a>
+        <a href="adminedit.html?id=${item.id}"><span class="edit-btn">编辑</span></a>
+        {@if item.state == 0}
+        <a class="j-open" href="javascript:void(0)" data-id="${item.id}"><span class="delete-btn">启用</span></a>
+        {@else}
+        <a class="j-delete" href="javascript:void(0)" data-id="${item.id}"><span class="delete-btn">删除</span></a>
+        {@/if}
       </td>
-      <td>123</td>
-      <td>金主任</td>
-      <td>采编权限</td>
-      <td>中国证券报</td>
-      <td>金君飞</td>
-      <td>13555555555</td>
-      <td>启用</td>
-      <td>2016/8/24 14:32</td>
+      <td>${item.id}</td>
+      <td>${item.mobile}</td>
+      <td>${item.role|roleMap}</td>
+      <td>${item.orgId|orgMap}</td>
+      <td>${item.nick}</td>
+      <td>${item.mobile}</td>
+      <td>${item.state|formatState}</td>
+      <td>${item.gmtCreate|formatDate,'YY-MM-DD hh:mm'}</td>
     </tr>
+    {@/each}
   </table>
+  </script>
 </div>
 <div id="j-page" class="lvs-page"></div>
 <script src="${{staticServer}}/js/cake/tplform/tplform-1.0.1.js"></script>
-<script src="/static/js/common.js"></script>
-<script src="/static/js/administrator/administratormanagement.js"></script>
+<script src="${{webServer}}/static/js/common.js"></script>
+<script src="${{webServer}}/static/js/administrator/administratormanagement.js"></script>
 </body>
 </html>

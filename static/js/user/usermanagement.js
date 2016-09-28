@@ -1,6 +1,9 @@
 // 获取参数
-var page = + lvsCmd['urlParams']['page'];
-if (isNaN(page) || page < 1) page = 1;
+var urlParams = lvsCmd['urlParams'];
+if (isNaN(urlParams['currentPage']) || urlParams['currentPage'] < 1) urlParams['currentPage'] = 1;
+urlParams['pageCount'] = 20;
+var searchData = {},
+  searchFields = ['startDate', 'endDate', 'identityType', 'state', 'key', 'keyType'];
 
 // 渲染搜索栏
 var newSearchform = new cake["tplform-1.0.1"]('j-search'),
@@ -12,7 +15,7 @@ searchConfig = {
   "fields": [{
     "class": "j-starttime",
     "title": "开始时间",
-    "name": "beginDate",
+    "name": "startDate",
     "type": "date",
     "placeholder": "开始时间",
     "config": {
@@ -39,22 +42,23 @@ searchConfig = {
     }
   }, {
     "title": "所属渠道",
-    "name": "userchannel",
+    "name": "identityType",
     "type": "select",
     "option": [
-      {"text": "报道类型", "value": "0"},
-      {"text": "微信", "value": "1"},
-      {"text": "微博", "value": "2"},
-      {"text": "APP端", "value": "4"}
+      {"text": "所属渠道", "value": ""},
+      {"text": "微信", "value": "weixin"},
+      {"text": "微博", "value": "weibo"},
+      {"text": "APP端", "value": "app"},
+      {"text": "QQ", "value": "qq"}
     ]
   }, {
     "title": "用户状态",
-    "name": "userstate",
+    "name": "state",
     "type": "select",
     "option": [
-      {"text": "用户状态", "value": "0"},
+      {"text": "用户状态", "value": ""},
       {"text": "启用", "value": "1"},
-      {"text": "禁用", "value": "2"},
+      {"text": "禁用", "value": "0"},
     ]
   }, {
     "title": "关键字",
@@ -67,9 +71,9 @@ searchConfig = {
     "name": "keyType",
     "type": "select",
     "option": [
-      {"text": "关键字类型", "value": "0"},
-      {"text": "用户名", "value": "1"},
-      {"text": "昵称", "value": "2"},
+      {"text": "关键字类型", "value": ""},
+      {"text": "用户名", "value": "identityNo"},
+      {"text": "昵称", "value": "identityName"},
     ]
   }],
   "button": [
@@ -79,34 +83,80 @@ searchConfig = {
     }
   ]
 };
-newSearchform.render(searchConfig, null, function(config){
+newSearchform.render(searchConfig, function(){
+  $.each(searchFields, function(){
+    if (urlParams[this]) {
+      if (this == 'startDate' || this == 'endDate') {
+        searchData[this] = lvsCmd.formatDate( + urlParams[this], 'YY-MM-DD');
+      } else {
+        searchData[this] = urlParams[this];
+      }
+    }
+  });
+  newSearchform.setval(searchData);
+}, function (formInfo) {
+  var newUrlParams = {},
+    searchFieldsStr = ','+searchFields.join(',')+',';
+  $.each(urlParams, function (key, value) {
+    if (searchFieldsStr.indexOf(','+key+',') == -1) {
+      newUrlParams[key] = value;
+    }
+  });
+  urlParams['currentPage'] = 1;
+  $.each(formInfo['data'], function (key, value) {
+    if (value) {
+      if (key == 'beginDate' || key == 'endDate') {
+        newUrlParams[key] = new Date(value).getTime();
+      } else {
+        newUrlParams[key] = value;
+      }
+    }
+  });
+  urlParams = newUrlParams;
+  locationFn();
+});
+// 跳转
+function locationFn(){
+  var toUrl = '';
+  $.each(urlParams, function (key, val) {
+    if (toUrl == '') {
+      toUrl += '?';
+    } else {
+      toUrl += '&';
+    }
+    toUrl += key + '=' + val;
+  });
+  location.href = toUrl;
+}
 
-  var data = {page: 1},
-    beginDate = $('#j-searchform input[name=beginDate]').val(),
-    endDate = $('#j-searchform input[name=beginDate]').val(),
-    userchannel = $('#j-searchform select[name=userchannel]').val(),
-    userstate = $('#j-searchform select[name=userstate]').val(),
-    key = $('#j-searchform input[name=key]').val(),
-    keyType = $('#j-searchform select[name=reportType]').val();
-  if (beginDate) data['beginDate'] = new Date(beginDate).getTime();
-  if (endDate) data['endDate'] = new Date(endDate).getTime();
-  if (userchannel > 0) data['userchannel'] = userchannel;
-  if (userstate > 0) data['userstate'] = userstate;
-  if (key) data['key'] = key;
-  if (keyType > 0) data['keyType'] = keyType;
-  lvsCmd.ajax(config['url'], data, function (state, res) {
-    console.log(res);
-  });  
+// juicer函数
+juicer.register('formatDate', lvsCmd['formatDate']);
+juicer.register('formatState', function(state){
+  if (state == 0) {
+    return '禁用';
+  } else if (state == 1) {
+    return '启用';
+  }
 });
 
-
-
-// 获取列表
-function getList (state, res) {
+// 渲染列表
+var listTpl = juicer($('#j-list script').html());
+$('#j-list script').remove();
+function renderList (state, res) {
   if (state) {
     if (res['status'] == '0') {
-      //newTplform.setval(res['data']);
-      console.log(res);
+      if (res['data'] && res['data'].length > 0) {
+        var listHtml = listTpl.render(res);
+        $('#j-list').html(listHtml);
+        // 绑定操作
+        bindList();
+      }
+      // 分页
+      lvsCmd.page('j-page', res['totalCount'], res['currentPage'], res['pageCount']);
+      $('#j-page a').click(function(){
+        searchFromData['page'] = $(this).data('page');
+        locationFn();
+      });
     } else {
       alert(res['errMsg']);
     }
@@ -114,33 +164,32 @@ function getList (state, res) {
     alert("接口请求失败，请检查网络连接！");
   }
 }
-parent.executeCallback('/thirduserquery/getList.json', {currentPage:1,pageCount:20}, 'getList');
+searchData['currentPage'] = urlParams['currentPage'];
+searchData['pageCount'] = urlParams['pageCount'];
+if (searchData['endDate']) searchData['endDate'] = + searchData['endDate'] + 24 * 3600 * 1000;
+parent.executeCallback('/thirduserquery/getList.json', searchData, 'renderList');
 
-
-// 分页
-lvsCmd.page('j-page', 437, page, 20);
-$('#j-page a').click(function(){
-  alert($(this).data('page'));
-});
-// 选中操作
-var select_num=0;
-$('.lselect-btn').click(function(){
-  if(select_num==0){
-    $('.lselect-btn').addClass('lselected');
-    $('.select-btn').addClass('lselected');
-    select_num=1;
-  }else{
+function bindList(){
+  // 选中操作
+  var select_num=0;
+  $('.lselect-btn').click(function(){
+    if(select_num==0){
+      $('.lselect-btn').addClass('lselected');
+      $('.select-btn').addClass('lselected');
+      select_num=1;
+    }else{
+      $('.lselect-btn').removeClass('lselected');
+      $('.select-btn').removeClass('lselected');
+      select_num=0;
+    }
+  })
+  $(".select-btn").on("click",function(){
     $('.lselect-btn').removeClass('lselected');
-    $('.select-btn').removeClass('lselected');
     select_num=0;
-  }
-})
-$(".select-btn").on("click",function(){
-  $('.lselect-btn').removeClass('lselected');
-  select_num=0;
-  if(!$(this).hasClass("lselected")){
-    $(this).addClass('lselected');
-  }else{
-    $(this).removeClass('lselected');
-  }
-})
+    if(!$(this).hasClass("lselected")){
+      $(this).addClass('lselected');
+    }else{
+      $(this).removeClass('lselected');
+    }
+  })
+}

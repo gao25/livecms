@@ -29,7 +29,7 @@
     <div class="lvs-message">
       <div>现场：<span>${item.topic}</span></div>
       <div>报道人：<span>${item.reporter}</span></div>
-      <div>发布时间：<span>${item.createtime}</span></div>
+      <div>发布时间：<span>${item.createTime}</span></div>
       <div>状态：<span>${item.state|formatState}</span></div>
       <div class="lvs-comment">评论：<span>${item.commentnum}</span></div>
       <div class="lvs-praise">点赞：<span>${item.likenum}</span></div>

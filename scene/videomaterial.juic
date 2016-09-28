@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>现场管理 － 视频素材</title>
-  <link rel="stylesheet" type="text/css" href="${{staticServer}}/css/base.css">
+  <link rel="stylesheet" href="${{staticServer}}/css/base.css">
   <link rel="stylesheet" href="${{staticServer}}/css/datetimepicker.min.css" >
-  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/common.css">
-  <link rel="stylesheet" type="text/css" href="${{webServer}}/static/css/comment.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/common.css">
+  <link rel="stylesheet" href="${{webServer}}/static/css/comment.css">
   <script src="${{staticServer}}/js/jquery-1.11.0-min.js"></script>
   <script src="${{staticServer}}/js/datetimepicker.min.js"></script>
   <script src="${{staticServer}}/js/juicer-min.js"></script>
@@ -54,11 +54,11 @@
       {@/if}
       <td>${item.creater}</td>
       <td>${item.state|formatState}</td>
-      <td></td>
+      <td>${item.reportId}</td>
       <td>${item.duration}</td>
-      <td>${item.filesize|formatSize}</td>
+      <td>${item.fileSize|formatSize}</td>
       <td>${item.format}</td>
-      <td>${item.createtime|formatDate, 'YY-MM-DD hh:mm'}</td>
+      <td>${item.createTime|formatDate, 'YY-MM-DD hh:mm'}</td>
     </tr>
     {@/each}
   </table>
