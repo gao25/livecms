@@ -15,9 +15,7 @@
   <div id="j-nav" class="nav">
   </div>
   <div id="j-user" class="user">
-    <div class="headpic">
-      <img src="static/img/1.png" />
-    </div>
+    <div class="headpic"></div>
     <span class="uname"></span>
     <ul>
       <li class="lset"><a href="#">设置</a>
@@ -29,9 +27,7 @@
 </div>
 <div class="lvs-nav">
   <div id="j-admin" class="user">
-    <div class="headpic">
-      <img src="static/img/1.png" />
-    </div>
+    <div class="headpic"></div>
     <span class="point"></span>
     <span class="uname"></span>
   </div>

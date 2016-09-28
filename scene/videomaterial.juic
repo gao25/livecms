@@ -14,9 +14,6 @@
 </head>
 <body>
 <div class="lvs-creat fn-clear">
-  <a id="j-recode" class="creat-btn" href="javascript:void(0)" style="display:none;">
-    <span>视频转码</span>
-  </a>
   <div class="lvs-listhead fn-clear">
     <div id="j-search" class="search fn-clear"></div>
   </div>
@@ -27,16 +24,14 @@
     <tr align="center" class="listhead">
       {@if action == "select"}
       <td>选择</td>
-      {@else}
-      <td class="vselect"><span class="lselect-btn"></span></td>
       {@/if}
       <td>标题</td>
       {@if action != "select"}
       <td class="vhandle">操作</td>
       {@/if}
       <td>创建人</td>
-      <td>状态</td>
-      <td>所属报道</td>
+      <td>转码状态</td>
+      <td>所属</td>
       <td>总时长</td>
       <td>文件大小</td>
       <td>格式</td>
@@ -44,7 +39,9 @@
     </tr>
     {@each data as item}
     <tr align="center">
+      {@if action == "select"}
       <td><span class="select-btn" data-mediaurl="${item.mediaUrl}"></span></td>
+      {@/if}
       <td>${item.topic}</td>
       {@if action != "select"}
       <td class="lhandle-btn">

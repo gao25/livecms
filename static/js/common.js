@@ -74,13 +74,17 @@ lvsCmd['random'] = {
     } else if (lvsCmd['random']['state'] == 'wait') {
       return null;
     }
-    var random = lvsCmd['cookie'].get('random'),
-      randomExpires = lvsCmd['cookie'].get('randomExpires');
-    if (random && randomExpires) {
+    var random = lvsCmd['cookie'].get('random');
+    if (random) {
       var randomArray = random.split(','),
         useRandom = randomArray.pop();
       if (randomArray.length) {
-        var exp = new Date( + randomExpires );
+        var randomExpires = lvsCmd['cookie'].get('randomExpires');
+        if (randomExpires) {
+          var exp = new Date( + randomExpires );
+        } else {
+          var exp = new Date();
+        }
         document.cookie = "random="+ randomArray.join(',') + ";path=/;expires=" + exp.toGMTString();
       } else {
         lvsCmd['cookie'].del('random');
@@ -220,6 +224,7 @@ lvsCmd['upfile'].prototype = {
       LIVE_COVER(5,"xinhua-zbcb","live-img","现场封面"),
       LIVE_VIDEO(6,"xinhua-zbcb","live-video","现场回看视频");
     */
+    if (fileurl.substr(0,1) != '/') fileurl = '/' + fileurl;
     if (filetype == 1) {
       newFileObj.find('span').append('<img src="' + usercenterServer + fileurl + '">');
       this.fileBtn.hide();

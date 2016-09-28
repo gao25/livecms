@@ -39,7 +39,13 @@ function executeUser (state, res) {
       $('#j-user .uname').html(userData['nick']);
       $('#j-admin .uname').html(userData['accountName']);
       if (userData['portrait']) {
-        $('#j-user .headpic img, #j-admin .headpic img').attr('src', usercenterServer + userData['portrait']);
+        var portrait = userData['portrait'];
+        if (portrait.substr(0,1) == '/') {
+          var portrait = usercenterServer + portrait;
+        } else {
+          var portrait = usercenterServer + '/' + portrait;
+        }
+        $('#j-user .headpic, #j-admin .headpic').html('<img src="'+portrait+'">');
       }
       lvsCmd['cookie'].set('userId', userData['id'], (7*24-1) + 'h'); // 实际过期时间是7天
     } else {

@@ -24,7 +24,7 @@ if (filetype == 1 || filetype == 2 || filetype == 5) {
   ];
 } else if (filetype == 4 || filetype == 6) {
   filters['mime_types'] = [
-    {title: "Video files", extensions: "3gp,mp4,m3u8,wmv,webm"}
+    {title: "Video files", extensions: "3gp,mp4,m3u8,wmv,webm,mov"}
   ];
 }
 filters['max_file_size'] = '1048576kb'; // 最大只能上传 1024 * 1024kb = 1G 的文件

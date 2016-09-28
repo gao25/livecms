@@ -13,7 +13,8 @@ formConfig = {
     "title": "昵称",
     "name": "nick",
     "type": "text",
-    "required": true
+    "required": true,
+    "maxlength": 8
   }, {
     "class": "check-style",
     "title": "性别",
@@ -56,7 +57,6 @@ newTplform.render(formConfig, function(){
 }, function (formInfo) {
   var formData = {
     nick: formInfo['data']['nick'],
-    portrait: 'live-img/201609/20160924_112753_4327.jpg',
     age: formInfo['data']['age'],
     sex: formInfo['data']['sex']
   };
@@ -74,7 +74,9 @@ function setupUser (state, res) {
   if (state) {
     if (res['status'] == '0') {
       alert("数据保存成功！");
-      location.reload();
+      //location.reload();
+      parent.closeUseroverly();
+      parent.executeFn('/userquery/getUser.json', {}, 'executeUser');
     } else {
       alert(res['errMsg']);
     }
