@@ -187,7 +187,7 @@ lvsCmd.ajax(url, searchData, function (state, res) {
       // 分页
       lvsCmd.page('j-page', res['totalcount'], res['currentpage'], res['pagecount']);
       $('#j-page a').click(function(){
-        searchFromData['page'] = $(this).data('page');
+        urlParams['page'] = $(this).data('page');
         locationFn();
       });
     } else {

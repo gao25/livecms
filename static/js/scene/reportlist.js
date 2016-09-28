@@ -171,7 +171,7 @@ lvsCmd.ajax(url, searchData, function (state, res) {
       // 分页
       lvsCmd.page('j-page', res['totalcount'], res['currentpage'], res['pagecount']);
       $('#j-page a').click(function(){
-        searchFromData['page'] = $(this).data('page');
+        urlParams['page'] = $(this).data('page');
         locationFn();
       });
     } else {
@@ -200,10 +200,10 @@ function bindReportList(){
   });
   // 列表
   $('#j-reportlist .more').hover(function(){
-    $(this).find('img').attr('src','/static/img/green_menu.png');
+    $(this).find('img').attr('src','../static/img/green_menu.png');
     $(this).find('ul').show();
   },function(){
-    $(this).find('img').attr('src','/static/img/menu.png');
+    $(this).find('img').attr('src','../static/img/menu.png');
     $(this).find('ul').hide();
   })
   $('#j-reportlist .more ul li a').hover(function(){

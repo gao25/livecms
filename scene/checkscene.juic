@@ -46,8 +46,8 @@
       {@if turn == 'on'}
       <td class="lsort-btn">
         <ul>
-          <li><a class="lup j-orderup" href="javascript:void(0)" data-id="${item.id}">上排</a></li>
-          <li><a class="ldown j-orderdown" href="javascript:void(0)" data-id="${item.id}">下排</a></li>
+          <li><a class="lup j-orderup" href="javascript:void(0)" data-sort="${item.sort}">上排</a></li>
+          <li><a class="ldown j-orderdown" href="javascript:void(0)" data-sort="${item.sort}">下排</a></li>
           <li><a class="ltop j-stick" href="javascript:void(0)" data-id="${item.id}">置顶</a></li>
         </ul>
       </td>
