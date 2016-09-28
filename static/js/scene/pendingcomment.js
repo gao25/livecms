@@ -224,7 +224,7 @@ function bindList(){
       if (commentIds) commentIds += ',';
       commentIds += id;
     });
-    lvsCmd.ajax('/live-web-cms/comment/approve.json', {'commentIds': commentIds}, function (state, res) {
+    lvsCmd.ajax('/live-web-cms/comment/del.json', {'commentIds': commentIds}, function (state, res) {
       location.reload();
     });
     return false;
