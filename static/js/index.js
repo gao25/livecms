@@ -52,6 +52,7 @@ function executeUser (state, res) {
       alert(res['errMsg']);
     }
   }
+  checkin();
 }
 executeFn('/userquery/getUser.json', {}, 'executeUser');
 
@@ -159,10 +160,12 @@ $.each(navConfig, function(index){
 });
 
 // 默认展示菜单第一项
-navObj.find('a:eq(0)').addClass('current');
-leftNavObj.find('ul:eq(0)').removeClass('fn-hide');
-leftNavObj.find('a:eq(0)').addClass('current');
-$('iframe[name=mainframe]').attr('src', leftNavObj.find('a:eq(0)').attr('href'));
+function checkin(){
+  navObj.find('a:eq(0)').addClass('current');
+  leftNavObj.find('ul:eq(0)').removeClass('fn-hide');
+  leftNavObj.find('a:eq(0)').addClass('current');
+  $('iframe[name=mainframe]').attr('src', leftNavObj.find('a:eq(0)').attr('href'));
+}
 
 // 退出
 $('#j-logout').click(function(){
