@@ -1,0 +1,9 @@
+{"status":"0","errCode":"get_reporter_success","errMsg":"获取成功","data":[
+  {"userId":101,"reporter":"eeeeeee"},
+  {"userId":102,"reporter":"xx"},
+  {"userId":100,"reporter":"新移"},
+  {"userId":104,"reporter":"wzh"},
+  {"userId":105,"reporter":"zjh"},
+  {"userId":106,"reporter":"zjh"},
+  {"userId":107,"reporter":"xx2"}
+],"totalcount":null,"totalpage":null,"currentpage":null,"pagecount":null}
